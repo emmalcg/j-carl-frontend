@@ -7,7 +7,7 @@ module.exports = {
 
   env: {
     API_URL: process.env.API_URL,
-    IMG_URL: process.env.IMG_URL
+    MEDIA_URL: process.env.MEDIA_URL
   },
   reactStrictMode: true,
 }

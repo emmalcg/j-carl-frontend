@@ -3,6 +3,8 @@ import ReactMarkdown from 'react-markdown'
 
 export default function Person({person}) {
 
+const { MEDIA_URL } = process.env
+const cvURL = MEDIA_URL + person.CV.data.attributes.url
 
 //  const { API_URL } = process.env
 //artwork.media.data.map(image => {console.log(image.attributes.url)})
@@ -17,7 +19,7 @@ export default function Person({person}) {
           artwork.media.data.map(image => <MyImage src={image.attributes.url} alt={image.attributes.caption}/>)
         }
       </div>*/}
-      <a href="{CV.data.attributes.url}">CV</a>
+      <a href={cvURL}>CV</a>
 
     </li>
   )
