@@ -8,6 +8,7 @@ export default function MyImage ({src, alt}) {
     <Image 
       src={imageUrl}
       alt="{alt}"
+      layout="fill"
     />
   )
 }
