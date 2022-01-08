@@ -1,9 +1,13 @@
 require('dotenv').config()
 
 module.exports = {
+   images: {
+    domains: ['localhost'],
+  },
 
   env: {
-    API_URL: process.env.API_URL
+    API_URL: process.env.API_URL,
+    IMG_URL: process.env.IMG_URL
   },
   reactStrictMode: true,
 }

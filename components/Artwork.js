@@ -1,32 +1,66 @@
-import Image from 'next/image'
+import MyImage from "./MyImage"
 
-export default function Artwork ({ artwork }) {
-  console.log('Artwork')
+export default function Artwork({artwork}) {
+  const artist = artwork.people.data[0].attributes.lastName
+  const date = artwork.yearEnded ? `${artwork.yearStarted}-${artwork.yearEnded}` : artwork.yearStarted
+
+  const { API_URL } = process.env
+artwork.media.data.map(image => {console.log(image.attributes.url)})
+
+  console.log(artist)
   console.log(artwork)
   return (
-    <div>
+    <li>
       <div>
         <div>
-          <h3>
-            <span>{artwork.people.data[0].attributes.lastName}</span>
+          <h2>
+            <span>{artist}</span>
             <span>{artwork.title}</span>
-            <span>{artwork.yearStarted}</span>
-            {artwork.attributes.yearEnded && 
-            <span> - {artwork.attributes.yearEnded} </span>
-            }
-          </h3>
-          <p>{artwork.attributes.description}</p>
+            <span>{date}</span>
+          </h2>
+          <p>{artwork.description}</p>
         </div>
         <div>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
+          {
+            artwork.materials && 
+            <p>
+              <span>Materials:</span>
+              <span>{artwork.materials}</span>
+            </p>
+          }
+          {
+            artwork.dimensions && 
+            <p>
+              <span>Dimensions:</span>
+              <span>{artwork.dimensions}</span>
+            </p>
+          }
+          <p>
+            <span>Date:</span>
+            <span>{date}</span>
+          </p>
+          {
+            artwork.client && 
+            <p>
+              <span>Client:</span>
+              <span>{artwork.client}</span>
+            </p>
+          }
+          {
+            artwork.location && 
+            <p>
+              <span>Location:</span>
+              <span>{artwork.location}</span>
+            </p>
+          }
         </div>
       </div>
-      {/*<Image>
-      </Image>*/}
-    </div>
+      <div>
+        {
+          artwork.media.data.map(image => <MyImage src={image.attributes.url} alt={image.attributes.caption}/>)
+        }
+      </div>
+
+    </li>
   )
 }

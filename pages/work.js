@@ -1,27 +1,90 @@
-import Artwork from "../components/artwork"
+import Artwork from "../components/Artwork"
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { useState, useEffect } from 'react';
+
+console.log(Artwork)
 
 export default function Work({ artworks }) {
-  console.log(artworks)
+
+  const [rfqArtworks, setRfqArtworks ] = useState([])
+
+  useEffect(() => {
+    const filtered = artworks.data.filter(artwork => artwork.attributes.RFQ)
+    setRfqArtworks(filtered)
+  }, [artworks])
+
+  console.log(rfqArtworks)
   return (
-    <>
-    <p>hi</p>
+    <div>
       {
-        artworks.data.map(artwork => {
-          console.log(artwork)
-          //<Artwork key={artwork.id} artwork={artwork.attributes} />
-        })
+        rfqArtworks.map(artwork => 
+          <Artwork key={artwork.id} artwork={artwork.attributes}/>    
+          )
       }
-    </>
+    </div>
   )
 }
 
+//export async function getStaticProps() {
+//  const { API_URL } = process.env
+//  const res = fetch(`${API_URL}/artworks?populate=*`)
+//  const data = await (await res).json()
+//  return {
+//    props: {
+//      artworks: data
+//    }
+//  }
+//}
+
 export async function getStaticProps() {
   const { API_URL } = process.env
-  const res = fetch(`${API_URL}/artworks?populate=*`)
-  const data = await (await res).json()
+  const client = new ApolloClient({
+    uri: `${API_URL}`,
+    cache: new InMemoryCache()
+  })
+
+  const { data } = await client.query({
+    query: gql`
+    query getArtworks {
+      artworks {
+        data {
+          id
+          attributes {
+            RFQ,
+            people {
+              data {
+                attributes {
+                  lastName
+                }
+              }
+            }
+            title,
+            yearStarted,
+            yearEnded,
+            description,
+            materials,
+            dimensions,
+            location,
+            client,
+            media {
+              data {
+                attributes {
+                  url,
+                  caption,
+                  width
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    `
+  });
+  console.log('data', data)
   return {
     props: {
-      artworks: data
+      artworks: data.artworks,
     }
   }
 }
