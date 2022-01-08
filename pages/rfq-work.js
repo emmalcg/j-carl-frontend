@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 
 console.log(Artwork)
 
-export default function Work({ artworks }) {
+export default function RfqWork({ artworks }) {
 
-  const [rfqArtworks, setRfqArtworks ] = useState([])
+  const [ rfqArtworks, setRfqArtworks ] = useState([])
 
   useEffect(() => {
     const filtered = artworks.data.filter(artwork => artwork.attributes.RFQ)
@@ -24,17 +24,6 @@ export default function Work({ artworks }) {
     </div>
   )
 }
-
-//export async function getStaticProps() {
-//  const { API_URL } = process.env
-//  const res = fetch(`${API_URL}/artworks?populate=*`)
-//  const data = await (await res).json()
-//  return {
-//    props: {
-//      artworks: data
-//    }
-//  }
-//}
 
 export async function getStaticProps() {
   const { API_URL } = process.env
