@@ -1,8 +1,8 @@
 require('dotenv').config()
 
 module.exports = {
-   images: {
-    domains: ['localhost'],
+  images: {
+    domains: ['res.cloudinary.com'],
   },
 
   env: {

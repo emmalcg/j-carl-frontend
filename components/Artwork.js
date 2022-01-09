@@ -4,8 +4,7 @@ export default function Artwork({artwork}) {
   const artist = artwork.people.data[0].attributes.lastName
   const date = artwork.yearEnded ? `${artwork.yearStarted}-${artwork.yearEnded}` : artwork.yearStarted
 
-  const { API_URL } = process.env
-artwork.media.data.map(image => {console.log(image.attributes.url)})
+  artwork.media.data.map(image => {console.log(image.attributes.url)})
 
   console.log(artist)
   console.log(artwork)
@@ -57,7 +56,7 @@ artwork.media.data.map(image => {console.log(image.attributes.url)})
       </div>
       <div>
         {
-          artwork.media.data.map(image => <MyImage src={image.attributes.url} alt={image.attributes.caption}/>)
+          artwork.media.data.map(image => <MyImage key={image.attributes.url} src={image.attributes.url} alt={image.attributes.caption}/>)
         }
       </div>
 
