@@ -8,9 +8,12 @@ export default function Person({person}) {
 
   console.log(person.bio)
   return (
-    <li>
+    <li class="list-none flex">
       <h3 className="sr-only">{person.firstName} {person.lastName}</h3>
       <ReactMarkdown>{person.bio}</ReactMarkdown>
+      <div>
+          PHOTO
+      </div>
       {/*<div>
         {
           artwork.media.data.map(image => <MyImage src={image.attributes.url} alt={image.attributes.caption}/>)

@@ -8,7 +8,7 @@ export default function AppHeader() {
   ]
 
   return (
-    <header>
+    <header className="flex justify-between mx-8 max-w-screen-xl mt-4 mb-8">
       <h1 className="text-1xl font-bold underline">
         <Link href="/">
           <a>James Carl Studio</a>
@@ -19,11 +19,11 @@ export default function AppHeader() {
         </Link>
       </h1>
       <nav>
-        <ul class="flex">
+        <ul className="hidden sm:ml-6 sm:flex sm:space-x-8">
           {
             rfqNav.map(item => {
               return (
-              <li>
+              <li key={item.title}>
                 <Link href={item.link}>
                   <a>{item.title}</a>
                 </Link>

@@ -12,7 +12,7 @@ export default function RfqTeam({ people }) {
 
 
   return (
-    <div>
+    <div className="mx-8 max-w-screen-xl">
       <h2>The Team</h2>
       {
         rfqPeople.map(person => 
