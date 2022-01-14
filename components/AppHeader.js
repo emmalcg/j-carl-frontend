@@ -8,7 +8,7 @@ export default function AppHeader() {
   ]
 
   return (
-    <header className="flex justify-between mx-8 max-w-screen-xl mt-4 mb-8 border border-black">
+    <header className="flex justify-between mt-4 mb-8 border border-black">
       <h1 className="text-1xl font-bold no-underline flex">
         <div className="flex justify-items-center">
           <Link href="/">
@@ -21,8 +21,8 @@ export default function AppHeader() {
           </Link>
         </div>
       </h1>
-      <nav>
-        <ul className="hidden sm:flex">
+      <nav className="hidden sm:block">
+        <ul className="sm:flex">
           {
             rfqNav.map(item => {
               return (
