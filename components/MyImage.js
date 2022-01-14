@@ -8,8 +8,7 @@ export default function MyImage (image) {
       alt={image.image.caption}
       width={image.image.width}
       height={image.image.height}
-      layout="fill"
-      objectFit="cover"
+      layout="responsive"
     />
   )
 }

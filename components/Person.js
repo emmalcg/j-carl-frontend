@@ -1,11 +1,9 @@
-import MyImage from "./MyImage"
 import ReactMarkdown from 'react-markdown'
+import Image from 'next/image'
 
 export default function Person({person}) {
 
-//  const { API_URL } = process.env
-//artwork.media.data.map(image => {console.log(image.attributes.url)})
-
+  const img = person.image.data.attributes
   console.log(person)
   return (
     <li className="list-none flex flex-col md:flex-row my-7">
@@ -15,14 +13,13 @@ export default function Person({person}) {
         <a href={person.CV.data.attributes.url}>CV</a>
       </div>
       <div className="relative order-first min-w-[320px] max-w-[320px] min-h-[260px] max-h-[260px] m-auto mb-2 md:mr-5 md:mt-2">
-          <MyImage key={person.image.data.attributes.url} image={person.image.data.attributes} />
+           <Image 
+            src={img.url}
+            alt={img.caption}
+            layout="fill"
+            objectFit="cover"
+          />
       </div>
-
-      {/*<div>
-        {
-          artwork.media.data.map(image => <MyImage src={image.attributes.url} alt={image.attributes.caption}/>)
-        }
-      </div>*/}
 
     </li>
   )
