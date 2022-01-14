@@ -28,7 +28,7 @@ export default function Artwork({artwork}) {
           {
             artwork.dimensions && 
             <div className="border-b border-black p-1 flex justify-between">
-              <span>Dimensions:</span>
+              <span className="pr-4">Dimensions:</span>
               <ReactMarkdown>{artwork.dimensions}</ReactMarkdown>
             </div>
           }
