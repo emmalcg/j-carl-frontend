@@ -14,7 +14,7 @@ export default function Person({person}) {
         <ReactMarkdown>{person.bio}</ReactMarkdown>
         <a href={person.CV.data.attributes.url}>CV</a>
       </div>
-      <div className="relative order-first min-w-[320px] max-w-[320px] min-h-[260px] max-h-[260px] m-auto border mb-2 md:m-auto md:mr-5">
+      <div className="relative order-first min-w-[320px] max-w-[320px] min-h-[260px] max-h-[260px] m-auto mb-2 md:mr-5 md:mt-2">
           <MyImage key={person.image.data.attributes.url} image={person.image.data.attributes} />
       </div>
 
