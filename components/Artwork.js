@@ -1,9 +1,12 @@
 import MyImage from "./MyImage"
 import ReactMarkdown from 'react-markdown'
+import useEmblaCarousel from "embla-carousel-react"
 
 export default function Artwork({artwork}) {
   const artist = artwork.people.data[0].attributes.lastName
   const date = artwork.yearEnded ? `${artwork.yearStarted}-${artwork.yearEnded}` : artwork.yearStarted
+
+  const [emblaRef] = useEmblaCarousel()
 
   return (
     <li className="list-none flex flex-col pb-6">
@@ -49,10 +52,18 @@ export default function Artwork({artwork}) {
           </p>
         </div>
       </div>
-      <div className="relative order-first">
-        {
-          artwork.media.data.map(image => <MyImage key={image.attributes.url} image={image.attributes}/>)
-        }
+      <div className="order-first overflow-hidden" ref={emblaRef}>
+          <div className="flex">
+            {
+              artwork.media.data.map(image =>
+                <div key={image.attributes.url} className="relative flex-[0_0_100%]">
+                  <MyImage image={image.attributes}/>
+                </div>
+              
+              )
+            }
+
+          </div>
       </div>
 
     </li>
