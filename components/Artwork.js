@@ -5,8 +5,6 @@ export default function Artwork({artwork}) {
   const artist = artwork.people.data[0].attributes.lastName
   const date = artwork.yearEnded ? `${artwork.yearStarted}-${artwork.yearEnded}` : artwork.yearStarted
 
-  artwork.media.data.map(image => {console.log(image.attributes.url)})
-
   return (
     <li className="list-none flex flex-col pb-6">
       <h2 className="py-2">
