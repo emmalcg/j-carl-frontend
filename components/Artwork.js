@@ -7,14 +7,13 @@ export default function Artwork({artwork}) {
 
   artwork.media.data.map(image => {console.log(image.attributes.url)})
 
-  console.log('artwork', artwork)
   return (
     <li className="list-none flex flex-col pb-6">
-          <h2 className="py-2">
-            <span className="pr-1.5 italic font-bold">{artwork.title}</span>
-            <span className="pr-1.5">{artist}</span>
-            <span className="pr-1">{date}</span>
-          </h2>
+      <h2 className="py-2">
+        <span className="pr-1.5 italic font-bold">{artwork.title}</span>
+        <span className="pr-1.5">{artist}</span>
+        <span className="pr-1">{date}</span>
+      </h2>
       <div className="flex flex-col md:flex-row">
           <p className="pb-2 pr-4 md:pb-0">{artwork.description}</p>
         <div className="border border-black min-w-[300px] m-auto text-sm h-min text-right max-w-[500px]">

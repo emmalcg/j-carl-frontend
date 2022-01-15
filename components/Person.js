@@ -4,7 +4,6 @@ import Image from 'next/image'
 export default function Person({person}) {
 
   const img = person.image.data.attributes
-  console.log(person)
   return (
     <li className="list-none flex flex-col md:flex-row my-7">
       <h3 className="sr-only">{person.firstName} {person.lastName}</h3>

@@ -2,12 +2,16 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import MyImage from "../components/MyImage"
 
 export default function Rfq({ homepage }) {
-  console.log(homepage)
+  console.log(homepage.rfq.data.attributes.homepage.data.attributes)
+  const image = homepage.rfq.data.attributes.homepage.data.attributes
+  const password = homepage.rfq.data.attributes.password
   return (
     <section>
-      {/*<MyImage 
-      
-      />*/}
+      <MyImage 
+        id={image.url}
+        image={image}
+      />
+      <p className="text-right text-xs mt-1">{image.caption}</p>
 
     </section>
   )

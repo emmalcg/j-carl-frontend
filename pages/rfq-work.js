@@ -2,8 +2,6 @@ import Artwork from "../components/Artwork"
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useState, useEffect } from 'react';
 
-console.log(Artwork)
-
 export default function RfqWork({ artworks }) {
 
   const [ rfqArtworks, setRfqArtworks ] = useState([])
@@ -13,7 +11,6 @@ export default function RfqWork({ artworks }) {
     setRfqArtworks(filtered)
   }, [artworks])
 
-  console.log(rfqArtworks)
   return (
     <div>
       {
