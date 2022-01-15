@@ -3,7 +3,6 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useState, useEffect } from 'react';
 
 export default function RfqWork({ artworks }) {
-  console.log(artworks)
   const [ rfqArtworks, setRfqArtworks ] = useState([])
 
   useEffect(() => {
