@@ -23,17 +23,6 @@ export default function Artwork({artwork}) {
       </div>
 
       <Carousel artwork={artwork} />
-      {/*<div className="order-first overflow-hidden" ref={emblaRef}>
-          <div className="flex">
-            {
-              artwork.media.data.map(image =>
-                <div key={image.attributes.url} className="relative flex-[0_0_100%]">
-                  <MyImage image={image.attributes}/>
-                </div>
-              )
-            }
-          </div>
-      </div>*/}
 
     </li>
   )

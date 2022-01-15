@@ -7,9 +7,10 @@ import { Menu, Transition } from '@headlessui/react'
 function MyLink(props) {
   const router = useRouter()
   let { href, children, ...rest } = props
+
   return (
     <Link href={href}>
-      <a {...rest} className={`block border-b border-black hover:bg-gray-200 py-4 px-6 text-center ${router.pathname == href && "bg-gray-200"}`}>{children}</a>
+      <a {...rest} className={`block border-b border-black hover:bg-gray-200 py-4 px-6 text-center z-100 ${router.pathname == href && "bg-gray-200"}`}>{children}</a>
     </Link>
   )
 }
@@ -19,8 +20,8 @@ function MyLink(props) {
 export default function AppHeader() {
   const rfqNav = [
     {title: 'Statement', link: '/rfq-statement'},
-    {title: 'Work', link: '/rfq-work'},
-    {title: 'Team', link: '/rfq-team'}
+    {title: 'Team', link: '/rfq-team'},
+    {title: 'Work', link: '/rfq-work'}
   ]
 
   const router = useRouter()

@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import MyImage from "../components/MyImage"
+import ReactMarkdown from 'react-markdown'
 
 export default function Rfq({ homepage }) {
 
@@ -11,7 +12,11 @@ export default function Rfq({ homepage }) {
         id={image.url}
         image={image}
       />
-      <p className="text-right text-xs mt-1">{image.caption}</p>
+      <div className="text-right text-xs mt-1">
+        <ReactMarkdown>
+          {homepage.rfq.data.attributes.homepageImageCaption}
+        </ReactMarkdown>
+      </div>
 
     </section>
   )
@@ -41,7 +46,8 @@ export async function getStaticProps() {
                 }
               }
             }
-            password
+            password,
+            homepageImageCaption
           }
         }
       }

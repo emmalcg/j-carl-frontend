@@ -3,7 +3,6 @@ import ReactMarkdown from 'react-markdown'
 import Image from 'next/image'
 
 function Statement({ statement }) {
-  console.log(statement.data.attributes.statementImageCaption)
   const img = statement.data.attributes.statementImage.data.attributes
   const mobileImg = statement.data.attributes.statementImageMobile.data.attributes
   return (
