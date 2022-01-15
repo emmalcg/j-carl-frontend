@@ -12,13 +12,13 @@ export default function RfqWork({ artworks }) {
   }, [artworks])
 
   return (
-    <div>
+    <ul>
       {
         rfqArtworks.map(artwork => 
           <Artwork key={artwork.id} artwork={artwork.attributes}/>    
           )
       }
-    </div>
+    </ul>
   )
 }
 
