@@ -5,6 +5,8 @@ import { useState, useEffect, useCallback } from "react";
 import MyImage from './MyImage';
 
 export default function Carousel({artwork}) {
+  const [fullScreen, setFullScreen] = useState(false)
+
   const length = artwork.media.data.length 
   const [emblaRef, embla] = useEmblaCarousel({
     align: "start",
@@ -36,7 +38,7 @@ export default function Carousel({artwork}) {
   }, [embla, setScrollSnaps, onSelect]);
 
   return (
-    <div className="order-first overflow-hidden relative" ref={emblaRef}>
+    <div className={`order-first overflow-hidden relative ${fullScreen && "absolute top-0 left-0 right-0 bottom-0"} `} ref={emblaRef}>
       <div className="flex">
         {
           artwork.media.data.map(image =>
@@ -58,12 +60,15 @@ export default function Carousel({artwork}) {
           />
         ))}
       </div>
-      <div className="flex align-center justify-end">
-        <PrevArrow onClick={scrollPrev} enabled={true} />
-        <span className="p-1">
-          <p className="">{selectedIndex + 1} / {length}</p>
-        </span>
-        <NextArrow onClick={scrollNext} enabled={true} />
+      <div className="flex align-center justify-between">
+        <button onClick={() => {setFullScreen(!fullScreen)}}>Fullscreen</button>
+        <div className="flex">
+          <PrevArrow onClick={scrollPrev} enabled={true} />
+          <span className="p-1">
+            <p className="">{selectedIndex + 1} / {length}</p>
+          </span>
+          <NextArrow onClick={scrollNext} enabled={true} />
+        </div>
       </div>
     </div>
   )

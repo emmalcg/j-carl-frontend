@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from "next/router";
-import { Fragment } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 
 
@@ -15,8 +15,6 @@ function MyLink(props) {
   )
 }
 
-
-
 export default function AppHeader() {
   const rfqNav = [
     {title: 'Statement', link: '/rfq-statement'},
@@ -24,7 +22,16 @@ export default function AppHeader() {
     {title: 'Work', link: '/rfq-work'}
   ]
 
+  const [isRFQ, setIsRFQ] = useState()
+  
   const router = useRouter()
+  
+  
+  useEffect(() => {
+    router.pathname.includes('/rfq') ? setIsRFQ(true) : setIsRFQ(false)
+    console.log(isRFQ)
+      
+    },[router.pathname])
 
   return (
     <header className="flex justify-between mt-4 mb-8 border border-black relative">
@@ -40,53 +47,56 @@ export default function AppHeader() {
           </Link>
         </div>
       </h1>
-      <nav className="">
-        <ul className="hidden sm:flex">
-          {
-            rfqNav.map(item => {
-              return (
-              <li className={`border-l border-black py-2 hover:bg-gray-200 ${router.pathname == item.link && "bg-gray-200"}`} key={item.title}>
-                <Link href={item.link}>
-                  <a className={`hover:bg-gray-200 px-6 py-2 ${router.pathname == item.link && "bg-gray-200"}`}>{item.title}</a>
-                </Link>
-              </li>
-              )
-            })
-          }
-        </ul>
-        <Menu>
-          <Menu.Button className="py-2 px-6 sm:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </Menu.Button>
-          <Transition
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-            >
-            <Menu.Items className="block sm:hidden absolute right-[-1px] top-[40px] z-10 bg-white border border-black">
-              {
+      { isRFQ && (
+
+        <nav>
+          <ul className="hidden sm:flex">
+            {
               rfqNav.map(item => {
                 return (
-                <Menu.Item key={item.title}>
-                  <MyLink href={item.link}>
-                    {item.title}
-                  </MyLink>
-                </Menu.Item>
+                <li className={`border-l border-black py-2 hover:bg-gray-200 ${router.pathname == item.link && "bg-gray-200"}`} key={item.title}>
+                  <Link href={item.link}>
+                    <a className={`hover:bg-gray-200 px-6 py-2 ${router.pathname == item.link && "bg-gray-200"}`}>{item.title}</a>
+                  </Link>
+                </li>
                 )
               })
             }
-            </Menu.Items>
+          </ul>
+          <Menu>
+            <Menu.Button className="py-2 px-6 sm:hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </Menu.Button>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+              >
+              <Menu.Items className="block sm:hidden absolute right-[-1px] top-[40px] z-10 bg-white border border-black">
+                {
+                rfqNav.map(item => {
+                  return (
+                  <Menu.Item key={item.title}>
+                    <MyLink href={item.link}>
+                      {item.title}
+                    </MyLink>
+                  </Menu.Item>
+                  )
+                })
+              }
+              </Menu.Items>
 
-          </Transition>
+            </Transition>
 
-        </Menu>
-      </nav>
+          </Menu>
+        </nav>
+      )}
     </header>
   )
 }
