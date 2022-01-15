@@ -1,8 +1,11 @@
-import { useEmblaCarousel } from 'embla-carousel-react'
+import useEmblaCarousel from "embla-carousel-react"
+import { DotButton, PrevButton, NextButton, NextArrow, PrevArrow } from "./CarouselButtons";
 import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
 
-export default function Carousel(props) {
+import MyImage from './MyImage';
+
+export default function Carousel({artwork}) {
+  const length = artwork.media.data.length 
   const [emblaRef, embla] = useEmblaCarousel({
     align: "start",
     loop: true,
@@ -13,6 +16,8 @@ export default function Carousel(props) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
 
+  const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
+  const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
   const scrollTo = useCallback(
     (index) => embla && embla.scrollTo(index),
     [embla]
@@ -31,17 +36,34 @@ export default function Carousel(props) {
   }, [embla, setScrollSnaps, onSelect]);
 
   return (
-    // Carousel viewport
-    <div className="overflow-hidden" ref={emblaRef}>
+    <div className="order-first overflow-hidden relative" ref={emblaRef}>
       <div className="flex">
-        {props.image.map((image) => (
-          <div key={image.url} className="relative flex flex-none flex-wrap lg:flex-nowrap w-full">
-            <div className="overflow-hiden cursor-pointer">
-              
+        {
+          artwork.media.data.map(image =>
+            <div key={image.attributes.url} className="relative flex-[0_0_100%]">
+              <MyImage image={image.attributes}/>
             </div>
-
-          </div>
+          )
+        }
+        
+      </div>
+      <PrevButton onClick={scrollPrev} enabled={true} />
+      <NextButton onClick={scrollNext} enabled={true} />
+      <div className="flex justify-center list-none">
+        {scrollSnaps.map((_, index) => (
+          <DotButton
+            key={index}
+            selected={index === selectedIndex}
+            onClick={() => scrollTo(index)}
+          />
         ))}
+      </div>
+      <div className="flex align-center justify-end">
+        <PrevArrow onClick={scrollPrev} enabled={true} />
+        <span className="p-1">
+          <p className="">{selectedIndex + 1} / {length}</p>
+        </span>
+        <NextArrow onClick={scrollNext} enabled={true} />
       </div>
     </div>
   )

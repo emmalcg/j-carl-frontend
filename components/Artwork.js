@@ -1,6 +1,8 @@
 import MyImage from "./MyImage"
 import ArtworkInfo from "./ArtworkInfo"
 import useEmblaCarousel from "embla-carousel-react"
+import Carousel from "./Carousel"
+
 
 export default function Artwork({artwork}) {
   const artist = artwork.people.data[0].attributes.lastName
@@ -19,19 +21,19 @@ export default function Artwork({artwork}) {
           <p className="pb-2 pr-4 md:pb-0">{artwork.description}</p>
           <ArtworkInfo artwork={artwork} />
       </div>
-      <div className="order-first overflow-hidden" ref={emblaRef}>
+
+      <Carousel artwork={artwork} />
+      {/*<div className="order-first overflow-hidden" ref={emblaRef}>
           <div className="flex">
             {
               artwork.media.data.map(image =>
                 <div key={image.attributes.url} className="relative flex-[0_0_100%]">
                   <MyImage image={image.attributes}/>
                 </div>
-              
               )
             }
-
           </div>
-      </div>
+      </div>*/}
 
     </li>
   )
