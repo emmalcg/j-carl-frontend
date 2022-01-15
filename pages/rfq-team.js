@@ -4,7 +4,6 @@ import Person from '../components/Person';
 
 export default function RfqTeam({ people }) {
   
-  console.log({ people } )
   const [ rfqPeople, setRfqPeople ] = useState([])
 
   useEffect(() => {

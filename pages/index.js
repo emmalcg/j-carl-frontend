@@ -2,8 +2,8 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <div className="">
-      this is the homepage
+    <div className="text-center">
+      this will be homepage of archive 
     </div>
   )
 }

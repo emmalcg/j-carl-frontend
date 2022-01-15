@@ -3,7 +3,6 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useState, useEffect } from 'react';
 
 export default function RfqWork({ artworks }) {
-
   const [ rfqArtworks, setRfqArtworks ] = useState([])
 
   useEffect(() => {
@@ -12,13 +11,13 @@ export default function RfqWork({ artworks }) {
   }, [artworks])
 
   return (
-    <div>
+    <ul>
       {
         rfqArtworks.map(artwork => 
           <Artwork key={artwork.id} artwork={artwork.attributes}/>    
           )
       }
-    </div>
+    </ul>
   )
 }
 
