@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import Person from '../components/Person';
 
 export default function RfqTeam({ people }) {
-
+  
+  console.log({ people } )
   const [ rfqPeople, setRfqPeople ] = useState([])
 
   useEffect(() => {
@@ -12,14 +13,14 @@ export default function RfqTeam({ people }) {
 
 
   return (
-    <div>
-      <h2>The Team</h2>
+    <section>
+      <h2 className="text-lg font-semibold">The Team</h2>
       {
         rfqPeople.map(person => 
           <Person key={person.id} person={person.attributes}/>
           )
       }
-    </div>
+    </section>
   )
 }
 
@@ -33,7 +34,7 @@ export async function getStaticProps() {
   const { data } = await client.query({
     query: gql`
     query getPeople {
-      people {
+      people(sort: "lastName") {
         data {
           id
           attributes {
@@ -43,7 +44,10 @@ export async function getStaticProps() {
             image {
               data {
                 attributes {
-                  url
+                  url,
+                  width,
+                  height,
+                  caption
                 }
               }
             },
@@ -61,7 +65,6 @@ export async function getStaticProps() {
 
     `
   });
-  console.log('data', data)
   return {
     props: {
       people: data.people,

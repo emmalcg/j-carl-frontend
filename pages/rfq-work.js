@@ -2,8 +2,6 @@ import Artwork from "../components/Artwork"
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useState, useEffect } from 'react';
 
-console.log(Artwork)
-
 export default function RfqWork({ artworks }) {
 
   const [ rfqArtworks, setRfqArtworks ] = useState([])
@@ -13,7 +11,6 @@ export default function RfqWork({ artworks }) {
     setRfqArtworks(filtered)
   }, [artworks])
 
-  console.log(rfqArtworks)
   return (
     <div>
       {
@@ -35,7 +32,7 @@ export async function getStaticProps() {
   const { data } = await client.query({
     query: gql`
     query getArtworks {
-      artworks {
+      artworks(sort: ["people.lastName", "yearStarted:desc"]) {
         data {
           id
           attributes {
@@ -60,7 +57,8 @@ export async function getStaticProps() {
                 attributes {
                   url,
                   caption,
-                  width
+                  width,
+                  height
                 }
               }
             }
@@ -70,7 +68,7 @@ export async function getStaticProps() {
     }
     `
   });
-  console.log('data', data)
+
   return {
     props: {
       artworks: data.artworks,
