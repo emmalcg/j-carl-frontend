@@ -7,14 +7,14 @@ function Statement({ statement }) {
   const img = statement.data.attributes.statementImage.data.attributes
   const mobileImg = statement.data.attributes.statementImageMobile.data.attributes
   return (
-    <section className="flex flex-col md:flex-row">
-      <article className="pr-6">
-        <h2 className="text-lg font-semibold">Statement</h2>
+    <section className="flex flex-col lg:flex-row mb-2">
+      <article className="pr-6 prose">
+        <h2>Statement</h2>
         <ReactMarkdown>
           {statement.data.attributes.statement}
         </ReactMarkdown>
       </article>
-      <div className="hidden md:block order-last">
+      <div className="hidden lg:block order-last">
         <div className="relative min-w-[320px] max-w-[320px] max-h-[1000px] min-h-[1000px]">
           <Image 
               src={img.url}
@@ -27,7 +27,7 @@ function Statement({ statement }) {
           <ReactMarkdown>{statement.data.attributes.statementImageCaption}</ReactMarkdown>
         </div>
       </div>
-      <div className="order-first md:hidden">
+      <div className="order-first lg:hidden">
         <div className="relative h-[170px]">
           <Image 
               src={mobileImg.url}

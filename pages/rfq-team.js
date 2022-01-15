@@ -65,7 +65,6 @@ export async function getStaticProps() {
 
     `
   });
-  console.log('data', data)
   return {
     props: {
       people: data.people,

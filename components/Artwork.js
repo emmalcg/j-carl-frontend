@@ -32,10 +32,6 @@ export default function Artwork({artwork}) {
               <ReactMarkdown>{artwork.dimensions}</ReactMarkdown>
             </div>
           }
-          <p className="border-b border-black p-1 flex justify-between">
-            <span>Date:</span>
-            <span>{date}</span>
-          </p>
           {
             artwork.client && 
             <p className="border-b border-black p-1 flex justify-between">
@@ -45,11 +41,15 @@ export default function Artwork({artwork}) {
           }
           {
             artwork.location && 
-            <p className="p-1 flex justify-between">
+            <p className="border-b border-black p-1 flex justify-between">
               <span className="pr-4">Location:</span>
               <span>{artwork.location}</span>
             </p>
           }
+          <p className="p-1 flex justify-between">
+            <span>Date:</span>
+            <span>{date}</span>
+          </p>
         </div>
       </div>
       <div className="relative order-first">
