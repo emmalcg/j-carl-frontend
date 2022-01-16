@@ -20,7 +20,7 @@ function Statement({ statement }) {
               alt={img.caption}
               layout="fill"
               objectFit="cover"
-              priority={true}
+              priority
             />
         </div>
         <div className="text-right text-xs">
@@ -34,7 +34,7 @@ function Statement({ statement }) {
               alt={mobileImg.caption}
               layout="fill"
               objectFit="cover"
-              priority={true}
+              priority
             />
         </div>
         <div className="text-right text-xs">

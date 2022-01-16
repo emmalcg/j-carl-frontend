@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import MyImage from './MyImage';
 
 export default function Carousel({artwork}) {
+
   const length = artwork.media.data.length 
   const [emblaRef, embla] = useEmblaCarousel({
     align: "start",
@@ -39,9 +40,9 @@ export default function Carousel({artwork}) {
     <div className="order-first overflow-hidden relative" ref={emblaRef}>
       <div className="flex">
         {
-          artwork.media.data.map(image =>
+          artwork.media.data.map((image, index) =>
             <div key={image.attributes.url} className="relative flex-[0_0_100%]">
-              <MyImage image={image.attributes}/>
+              <MyImage image={image.attributes} index={index}/>
             </div>
           )
         }
@@ -69,3 +70,4 @@ export default function Carousel({artwork}) {
   )
 
 }
+

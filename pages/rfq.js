@@ -15,7 +15,7 @@ export default function Rfq({ homepage }) {
         width={image.width}
         height={image.height}
         layout="responsive"
-        priority={true}
+        priority
       />
       <div className="text-right text-xs mt-1">
         <ReactMarkdown>

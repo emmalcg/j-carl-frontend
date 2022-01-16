@@ -1,4 +1,3 @@
-import MyImage from "./MyImage"
 import ArtworkInfo from "./ArtworkInfo"
 import useEmblaCarousel from "embla-carousel-react"
 import Carousel from "./Carousel"
@@ -23,7 +22,6 @@ export default function Artwork({artwork}) {
       </div>
 
       <Carousel artwork={artwork} />
-
     </li>
   )
 }

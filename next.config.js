@@ -6,7 +6,6 @@ module.exports = {
     defaultLocale: "en",
   },
   images: {
-    loader: 'cloudinary',
     domains: ['res.cloudinary.com'],
   },
 
