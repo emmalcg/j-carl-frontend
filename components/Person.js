@@ -17,6 +17,7 @@ export default function Person({person}) {
             alt={img.caption}
             layout="fill"
             objectFit="cover"
+            priority={true}
           />
       </div>
 
