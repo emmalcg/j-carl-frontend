@@ -59,11 +59,11 @@ export default function Carousel({artwork}) {
         ))}
       </div>
       <div className="flex align-center justify-end">
-        <PrevArrow onClick={scrollPrev} enabled={true} />
+        { length > 1 && <PrevArrow onClick={scrollPrev} enabled={true} /> }
         <span className="p-1">
           <p className="">{selectedIndex + 1} / {length}</p>
         </span>
-        <NextArrow onClick={scrollNext} enabled={true} />
+        { length > 1 && <NextArrow onClick={scrollNext} enabled={true} /> }
       </div>
     </div>
   )

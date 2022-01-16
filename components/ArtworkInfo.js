@@ -5,7 +5,7 @@ export default function ArtworkInfo({artwork}) {
   const date = artwork.yearEnded ? `${artwork.yearStarted}-${artwork.yearEnded}` : artwork.yearStarted
 
   return(
-    <div className="border border-black min-w-[300px] md:min-w-[300px] m-auto text-sm h-min text-right max-w-[400px]">
+    <div className="border border-black min-w-full md:min-w-[300px] m-auto text-sm h-min text-right max-w-[400px]">
       {
         artwork.materials && 
         <p className="border-b border-black p-1 flex justify-between">
