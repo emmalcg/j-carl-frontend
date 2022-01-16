@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
-import MyImage from "../components/MyImage"
+import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 
 export default function Rfq({ homepage }) {
@@ -9,9 +9,13 @@ export default function Rfq({ homepage }) {
 
   return (
     <section>
-      <MyImage 
-        id={image.url}
-        image={image}
+      <Image 
+        src={image.url}
+        alt={image.caption}
+        width={image.width}
+        height={image.height}
+        layout="responsive"
+        priority={true}
       />
       <div className="text-right text-xs mt-1">
         <ReactMarkdown>
