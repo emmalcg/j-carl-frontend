@@ -29,8 +29,7 @@ export default function AppHeader() {
   
   useEffect(() => {
     router.pathname.includes('/rfq') ? setIsRFQ(true) : setIsRFQ(false)
-    console.log(isRFQ)
-      
+     
     },[router.pathname])
 
   return (

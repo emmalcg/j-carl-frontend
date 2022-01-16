@@ -1,19 +1,14 @@
 import '../styles/globals.css'
 import AppHeader from '../components/AppHeader'
-import { useState } from 'react'
-import { useEffect } from 'react/cjs/react.development'
-
+import { useState, useEffect } from 'react'
 
 export default function MyApp({ Component, pageProps }) {
 
-
   const [loggedIn, setLoggedIn] = useState(false)
-
 
   useEffect(() => {
     const saved = localStorage.getItem('loggedIn')
     saved && setLoggedIn(true)
-    console.log('loggedIn', loggedIn)
   },[])
 
   const [message, setMessage] = useState('')
