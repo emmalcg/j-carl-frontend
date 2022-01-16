@@ -1,10 +1,22 @@
 import '../styles/globals.css'
 import AppHeader from '../components/AppHeader'
 import { useState } from 'react'
+import { useEffect } from 'react/cjs/react.development'
+
 
 export default function MyApp({ Component, pageProps }) {
 
+
   const [loggedIn, setLoggedIn] = useState(false)
+
+
+  useEffect(() => {
+    const saved = localStorage.getItem('loggedIn')
+    saved && setLoggedIn(true)
+    console.log('loggedIn', loggedIn)
+  },[])
+
+  const [message, setMessage] = useState('')
   const pw = 'bands'
   
   const handleFormSubmit = (e) => {
@@ -12,6 +24,9 @@ export default function MyApp({ Component, pageProps }) {
     let password = e.target.elements.password?.value;
     if (password == pw) {
       setLoggedIn(true)
+      localStorage.setItem('loggedIn', true)
+    } else {
+      setMessage('Wrong Password')
     }
   }
 
@@ -31,6 +46,9 @@ export default function MyApp({ Component, pageProps }) {
               </div>
               <button className="text-center w-full py-2 hover:bg-gray-200">Submit</button>
             </form>
+            { message && (
+              <p className="border-t border-black py-2 text-center text-red-800 font-bold">{message}</p>
+            )}
           </div>
         )
         
