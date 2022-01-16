@@ -48,7 +48,7 @@ export default function AppHeader() {
       </h1>
       { isRFQ && (
 
-        <nav className="grow">
+        <nav className="grow sm:grow-0">
           <ul className="hidden sm:flex">
             {
               rfqNav.map(item => {

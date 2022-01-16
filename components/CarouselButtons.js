@@ -8,7 +8,7 @@ export const DotButton = ({ selected, onClick }) => (
 
 export const PrevButton = ({ enabled, onClick }) => (
   <button
-    className="absolute touch-manipulation outline-none border-none w-[100px] h-[80%] p-0 cursor-pointer bg-transparent z-10 bottom-[40px] left-0"
+    className="absolute touch-manipulation outline-none border-none w-[100px] sm:w-[200px] h-[30%] sm:h-[80%] p-0 cursor-pointer bg-transparent z-10 bottom-[35px] sm:bottom-[40px] left-0"
     onClick={onClick}
     disabled={!enabled}
     name="previous"
@@ -19,7 +19,7 @@ export const PrevButton = ({ enabled, onClick }) => (
 
 export const NextButton = ({ enabled, onClick }) => (
   <button
-    className="absolute touch-manipulation outline-none border-none w-[100px] h-[70%] p-0 cursor-pointer bg-transparent z-10 bottom-[40px] right-0"
+    className="absolute touch-manipulation outline-none border-none w-[100px] sm:w-[200px] h-[30%] sm:h-[70%] p-0 cursor-pointer bg-transparent z-10 bottom-[35px] sm:bottom-[40px] right-0"
     onClick={onClick}
     disabled={!enabled}
     name="next"
