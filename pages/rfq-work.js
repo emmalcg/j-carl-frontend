@@ -31,7 +31,7 @@ export async function getStaticProps() {
   const { data } = await client.query({
     query: gql`
     query getArtworks {
-      artworks(sort: ["people.lastName", "yearStarted:desc"]) {
+      artworks( sort: ["people.lastName", "yearStarted:desc"]) {
         data {
           id
           attributes {
