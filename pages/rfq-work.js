@@ -3,13 +3,9 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useState, useEffect } from 'react';
 
 export default function RfqWork({ artworks }) {
-  const [ rfqArtworks, setRfqArtworks ] = useState([])
-
-  useEffect(() => {
-    const filtered = artworks.data.filter(artwork => artwork.attributes.RFQ)
-    setRfqArtworks(filtered)
-  }, [artworks])
-
+  
+  const rfqArtworks = artworks.data 
+  console.log(rfqArtworks)
   return (
     <ul>
       {
@@ -31,7 +27,7 @@ export async function getStaticProps() {
   const { data } = await client.query({
     query: gql`
     query getArtworks {
-      artworks(sort: ["people.lastName", "yearStarted:desc"]) {
+      artworks(filters: { RFQ: { eq: true }}, sort: ["people.lastName", "yearStarted:desc"]) {
         data {
           id
           attributes {
