@@ -34,18 +34,18 @@ export default function AppHeader() {
 
   return (
     <header className="flex justify-between mt-4 mb-8 border border-black relative">
-      <h1 className="text-1xl font-bold no-underline flex">
-        <div className="flex justify-items-center">
+      <div className="text-1xl font-bold no-underline flex w-full">
+        <h1 className="flex justify-items-center">
           <Link href="/">
             <a className="border-r border-black py-2 px-6">James Carl Studio</a>
           </Link>
-        </div>
-        <div className="flex justify-items-center">
+        </h1>
+        <div className={`flex justify-items-center ${!isRFQ && "ml-auto"}`}>
           <Link href='/rfq'>
-            <a className={`border-r border-black py-2 px-6 ${router.pathname == "/rfq" && "bg-gray-200"}`}>RFQ</a>
+            <a className={`border-black py-2 px-6 ${router.pathname == "/rfq" && "bg-gray-200"} ${isRFQ ? 'border-r' : 'border-l'}`}>RFQ</a>
           </Link>
         </div>
-      </h1>
+      </div>
       { isRFQ && (
 
         <nav className="grow sm:grow-0">
