@@ -1,15 +1,24 @@
 import '../styles/globals.css'
 import AppHeader from '../components/AppHeader'
 import { useState, useEffect } from 'react'
+import { useRouter } from "next/router";
 
 export default function MyApp({ Component, pageProps }) {
 
+  const router = useRouter()
+
+  const [isRFQ, setIsRFQ] = useState()
   const [loggedIn, setLoggedIn] = useState(false)
 
   useEffect(() => {
     const saved = localStorage.getItem('loggedIn')
     saved && setLoggedIn(true)
   },[])
+
+  useEffect(() => {
+  router.pathname.includes('/rfq') ? setIsRFQ(true) : setIsRFQ(false)
+    
+  },[router.pathname])
 
   const [message, setMessage] = useState('')
   const pw = 'bands'
@@ -30,9 +39,14 @@ export default function MyApp({ Component, pageProps }) {
       <div className="m-auto px-4 md:px-16 max-w-screen-lg w-full flex flex-col">
         <AppHeader />
         {
-          loggedIn 
-          ? <Component {...pageProps} />
-          :  (
+          !isRFQ && <Component {...pageProps} />
+        }
+        {
+          isRFQ && loggedIn && <Component {...pageProps} />
+        }
+        {
+          isRFQ && !loggedIn && 
+          (
           <div className="border border-black max-w-[300px] m-auto">
             <form onSubmit={handleFormSubmit}>
               <div className="flex flex-col text-center">
@@ -45,8 +59,7 @@ export default function MyApp({ Component, pageProps }) {
               <p className="border-t border-black py-2 text-center text-red-800 font-bold">{message}</p>
             )}
           </div>
-        )
-        
+          )
         }
       </div>
     </div>

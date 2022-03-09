@@ -5,7 +5,6 @@ import ReactMarkdown from 'react-markdown'
 export default function Rfq({ homepage }) {
 
   const image = homepage.rfq.data.attributes.homepage.data.attributes
-  const password = homepage.rfq.data.attributes.password
 
   return (
     <section>
