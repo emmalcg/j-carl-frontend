@@ -43,6 +43,7 @@ export async function getStaticProps() {
             image {
               data {
                 attributes {
+                  formats,
                   url,
                   width,
                   height,

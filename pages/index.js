@@ -49,6 +49,7 @@ export async function getStaticProps() {
                   media {
                     data {
                       attributes {
+                        formats,
                         url,
                         caption,
                         width,

@@ -10,6 +10,7 @@
   "dependencies": {
     "@apollo/client": "^3.5.6",
     "@headlessui/react": "^1.4.3",
+    "cloudinary-build-url": "^0.2.4",
     "dotenv": "^10.0.0",
     "embla-carousel-react": "^6.0.2",
     "graphql": "^16.2.0",
