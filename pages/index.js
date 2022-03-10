@@ -13,8 +13,8 @@ export default function Home({ homepage }) {
     <section>
       <Carousel artwork={artworkMedia} />
       <div className="text-right text-xs mt-1">
-        <span className="italic">{artwork.title}</span>
-        <span>, {artwork.location}</span>
+        <span className="italic">{artwork.title},</span>
+        <span> {artwork.location}</span>
         <span> , {artwork.yearStarted}</span>
       </div>
     </section>
