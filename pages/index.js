@@ -1,27 +1,22 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
-import Image from 'next/image'
-import ReactMarkdown from 'react-markdown'
+import useEmblaCarousel from "embla-carousel-react"
+import Carousel from "../components/Carousel"
 
-//TO DO: REPLACE RFW IMAGE WITH CAROUSEL 
 export default function Home({ homepage }) {
-  const image = homepage.rfq.data.attributes.homepage.data.attributes
 
+  const artwork = homepage.personal.data.attributes.homepage_carousel.data.attributes
+  const artworkMedia = artwork
+
+  const [emblaRef] = useEmblaCarousel()
+  //thing’s end (Wuhan), #1 pk. entrance plaza, Wuhan, China, 2018
   return (
     <section>
-      <Image 
-        src={image.url}
-        alt={image.caption}
-        width={image.width}
-        height={image.height}
-        layout="responsive"
-        priority
-      />
+      <Carousel artwork={artworkMedia} />
       <div className="text-right text-xs mt-1">
-        <ReactMarkdown>
-          {homepage.rfq.data.attributes.homepageImageCaption}
-        </ReactMarkdown>
+        <span className="italic">{artwork.title}</span>
+        <span>, {artwork.location}</span>
+        <span> , {artwork.yearStarted}</span>
       </div>
-
     </section>
   )
 }
@@ -36,22 +31,40 @@ export async function getStaticProps() {
   const { data } = await client.query({
     query: gql`
     query getHomepage {
-      rfq {
+      personal {
         data {
           id,
           attributes {
-            homepage {
+            person {
               data {
                 attributes {
-                  url,
-                  width,
-                  height,
-                  caption
+                  firstName,
+                  lastName
                 }
               }
             }
-            password,
-            homepageImageCaption
+            homepage_carousel {
+              data {
+                attributes {
+                  media {
+                    data {
+                      attributes {
+                        url,
+                        caption,
+                        width,
+                        height
+                      }
+                    }
+                  }
+                  dimensions,
+                  location,
+                  title,
+                  yearStarted,
+                  yearEnded,
+                  materials
+                }
+              }
+            }
           }
         }
       }
