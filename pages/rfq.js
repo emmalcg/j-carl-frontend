@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import Image from 'next/image'
+import MyImage from '../components/MyImage'
 import ReactMarkdown from 'react-markdown'
 
 export default function Rfq({ homepage }) {
@@ -8,13 +9,10 @@ export default function Rfq({ homepage }) {
 
   return (
     <section>
-      <Image 
-        src={image.url}
-        alt={image.caption}
-        width={image.width}
-        height={image.height}
-        layout="responsive"
-        priority
+      <MyImage
+        image={image}
+        size="large"
+        index={1}
       />
       <div className="text-right text-xs mt-1">
         <ReactMarkdown>
@@ -43,6 +41,7 @@ export async function getStaticProps() {
             homepage {
               data {
                 attributes {
+                  formats,
                   url,
                   width,
                   height,
