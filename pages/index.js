@@ -1,23 +1,26 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import useEmblaCarousel from "embla-carousel-react"
 import Carousel from "../components/Carousel"
+import AppHeader from '../components/AppHeader'
 
 export default function Home({ homepage }) {
-
+  const categories = homepage.categories.data
   const artwork = homepage.personal.data.attributes.homepage_carousel.data.attributes
   const artworkMedia = artwork
-
   const [emblaRef] = useEmblaCarousel()
   //thing’s end (Wuhan), #1 pk. entrance plaza, Wuhan, China, 2018
   return (
-    <section>
-      <Carousel artwork={artworkMedia} />
-      <div className="text-right text-xs mt-1">
-        <span className="italic">{artwork.title},</span>
-        <span> {artwork.location}</span>
-        <span> , {artwork.yearStarted}</span>
-      </div>
-    </section>
+    <>
+      <AppHeader categories={categories}/>
+      <main>
+        <Carousel artwork={artworkMedia} />
+        <div className="text-right text-xs mt-1">
+          <span className="italic">{artwork.title},</span>
+          <span> {artwork.location}</span>
+          <span> , {artwork.yearStarted}</span>
+        </div>
+      </main>
+    </>
   )
 }
 
@@ -31,6 +34,15 @@ export async function getStaticProps() {
   const { data } = await client.query({
     query: gql`
     query getHomepage {
+      categories (sort: ["title"]){
+        data {
+          attributes {
+            title,
+            type,
+            slug
+          }
+        }
+      },
       personal {
         data {
           id,

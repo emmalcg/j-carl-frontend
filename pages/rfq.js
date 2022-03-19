@@ -2,25 +2,30 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import Image from 'next/image'
 import MyImage from '../components/MyImage'
 import ReactMarkdown from 'react-markdown'
+import AppHeader from '../components/AppHeader'
+
 
 export default function Rfq({ homepage }) {
 
   const image = homepage.rfq.data.attributes.homepage.data.attributes
 
   return (
-    <section>
-      <MyImage
-        image={image}
-        size="large"
-        index={1}
-      />
-      <div className="text-right text-xs mt-1">
-        <ReactMarkdown>
-          {homepage.rfq.data.attributes.homepageImageCaption}
-        </ReactMarkdown>
-      </div>
+    <>
+      <AppHeader />
+      <main>
+        <MyImage
+          image={image}
+          size="large"
+          index={1}
+        />
+        <div className="text-right text-xs mt-1">
+          <ReactMarkdown>
+            {homepage.rfq.data.attributes.homepageImageCaption}
+          </ReactMarkdown>
+        </div>
 
-    </section>
+      </main>
+    </>
   )
 }
 

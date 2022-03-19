@@ -1,28 +1,12 @@
-import Artwork from "../components/Artwork"
-import AppHeader from '../components/AppHeader'
+import { useState } from "react";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
-import { useState, useEffect } from 'react';
 
-export default function RfqWork({ artworks }) {
-  const [ rfqArtworks, setRfqArtworks ] = useState([])
-  useEffect(() => {
-    const filtered = artworks.data.filter(artwork => artwork.attributes.RFQ)
-    setRfqArtworks(filtered)
-  }, [artworks])
-
+export default function NavSub({ item, artworks}) {
+  console.log(artworks)
   return (
-    <>
-    <AppHeader />
-    <main>
-      <ul>
-        {
-          rfqArtworks.map(artwork => 
-            <Artwork key={artwork.id} artwork={artwork.attributes}/>    
-            )
-        }
-      </ul>
-    </main>
-    </>
+    <li className=" py-2 px-4 underline">
+     {item}
+    </li>
   )
 }
 
@@ -76,7 +60,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      artworks: data.artworks,
+      artworks: 'hello'
     }
   }
 }

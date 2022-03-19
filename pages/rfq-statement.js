@@ -1,12 +1,15 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import ReactMarkdown from 'react-markdown'
 import Image from 'next/image'
+import AppHeader from '../components/AppHeader'
 
 function Statement({ statement }) {
   const img = statement.data.attributes.statementImage.data.attributes
   const mobileImg = statement.data.attributes.statementImageMobile.data.attributes
   return (
-    <section className="flex flex-col lg:flex-row mb-2">
+    <>
+    <AppHeader />
+    <main className="flex flex-col lg:flex-row mb-2">
       <article className="pr-6 prose">
         <h2>Statement</h2>
         <ReactMarkdown>
@@ -41,7 +44,8 @@ function Statement({ statement }) {
           <ReactMarkdown>{statement.data.attributes.statementImageCaption}</ReactMarkdown>
         </div>
       </div>
-    </section>
+    </main>
+    </>
   )
 }
 export default Statement

@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useState, useEffect } from 'react';
 import Person from '../components/Person';
+import AppHeader from '../components/AppHeader'
 
 export default function RfqTeam({ people }) {
   
@@ -12,14 +13,17 @@ export default function RfqTeam({ people }) {
 
 
   return (
-    <section>
-      <h2 className="text-lg font-semibold">The Team</h2>
-      {
-        rfqPeople.map(person => 
-          <Person key={person.id} person={person.attributes}/>
-          )
-      }
-    </section>
+    <>
+      <AppHeader />
+      <main>
+        <h2 className="text-lg font-semibold">The Team</h2>
+        {
+          rfqPeople.map(person => 
+            <Person key={person.id} person={person.attributes}/>
+            )
+        }
+      </main>
+    </>
   )
 }
 
