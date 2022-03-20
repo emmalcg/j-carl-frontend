@@ -2,6 +2,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import AppHeader from '../components/AppHeader'
 import Artwork from '../components/Artwork'
 import Article from '../components/Article'
+import ArtworkThumbnail from '../components/ArtworkThumbnail'
 
 export default function categoryPage({ category, categories }) {
   const text = category.attributes.texts.data
@@ -14,21 +15,25 @@ export default function categoryPage({ category, categories }) {
       <main>
         <h2 className="text-lg font-semibold mb-3.5">{category.attributes.title}</h2>
         <section>
-          <ul>
             {
               !!artworks.length && 
-                artworks.map((artwork, i) => 
-                  <Artwork key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/>    
+                <ul className="grid grid-cols-3 gap-4">
+                {artworks.map((artwork, i) => 
+                  //<Artwork key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/>    
+                  <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
                   )
+                }
+              </ul>
             }
 
             {
-              !!articles.length &&   
-                articles.map((article, i) => 
+              !!articles.length &&  
+                <ul> 
+                {articles.map((article, i) => 
                   <Article key={`${article.attributes.title}${i}`} article={article.attributes}/>
-                )
+                )}
+                </ul>
             }
-          </ul>
         </section>
       </main>
     </>
@@ -82,6 +87,7 @@ export async function getStaticProps({ params }) {
                 data {
                   attributes {
                     title,
+                    slug,
                     yearStarted,
                     yearEnded,
                     description,

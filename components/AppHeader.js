@@ -30,7 +30,9 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
   const workNav = categories?.filter(cat => cat.attributes.type === 'Work')
   const aboutNav = categories?.filter(cat => cat.attributes.type === 'About')
 
+  
   const router = useRouter()
+
   const rfqNav = [
     {title: 'Statement', link: '/rfq-statement'},
     {title: 'Team', link: '/rfq-team'},
@@ -46,7 +48,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
   },[router.pathname])
 
   return (
-    <header className="text-sm sm:text-base mt-2 sm:mt-4 mb-8">
+    <header className="text-sm sm:text-base mt-2 sm:mt-4 mb-4 sm:mb-8">
       <div className="flex justify-between border border-black relative">
         <div className="no-underline flex w-full">
           <h1 className="flex justify-items-center">
@@ -68,8 +70,8 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                       <ul className="hidden lg:flex"> 
                         {
                           workNav.map(item => 
-                              <li>
-                                <Link href={`/${item.attributes.slug}`} key={item.attributes.title}>
+                              <li key={`${item.attributes.slug}-large`}>
+                                <Link href={`/${item.attributes.slug}`}>
                                   <a className={`block py-2 px-4 hover:underline ${currentPath.includes(item.attributes.slug) && `italic underline`}`}>{item.attributes.title}</a>
                                 </Link>
                               </li>
@@ -89,8 +91,8 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                       <ul className="hidden lg:flex"> 
                         {
                           aboutNav.map(item => 
-                              <li>
-                                <Link href={`/${item.attributes.slug}`} key={item.attributes.title}>
+                              <li key={`${item.attributes.slug}-large`}>
+                                <Link href={`/${item.attributes.slug}`}>
                                   <a className={`block py-2 px-4 hover:underline ${currentPath.includes(item.attributes.slug) && `italic underline`}`}>{item.attributes.title}</a>
                                 </Link>
                               </li>
@@ -170,8 +172,8 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
             <ul className="flex"> 
               {
                 workNav.map(item => 
-                    <li className="border-r border-black">
-                      <Link href={`/${item.attributes.slug}`} key={item.attributes.title}>
+                    <li className="border-r border-black" key={item.attributes.slug}>
+                      <Link href={`/${item.attributes.slug}`}>
                         <a className={`block py-2 px-4 hover:underline ${currentPath.includes(item.attributes.slug) && `italic underline`}`}>{item.attributes.title}</a>
                       </Link>
                     </li>
@@ -187,8 +189,8 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
             <ul className="flex"> 
               {
                 aboutNav.map(item => 
-                    <li className="border-r border-black">
-                      <Link href={`/${item.attributes.slug}`} key={item.attributes.title}>
+                    <li className="border-r border-black" key={item.attributes.slug}>
+                      <Link href={`/${item.attributes.slug}`}>
                         <a className={`block py-2 px-4 hover:underline ${currentPath.includes(item.attributes.slug) && `italic underline`}`}>{item.attributes.title}</a>
                       </Link>
                     </li>
