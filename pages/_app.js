@@ -4,6 +4,17 @@ import { useState, useEffect } from 'react'
 import { useRouter } from "next/router";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 
+function setWithExpiry(key, value, ttl) {
+  const now = new Date()
+
+  const item = {
+    value: value,
+    expiry: now.getTime() + ttl
+  }
+
+  localStorage.setItem(key, JSON.stringify(item))
+}
+
 export default function MyApp({ Component, pageProps, categories }) {
   const router = useRouter()
 
@@ -12,7 +23,17 @@ export default function MyApp({ Component, pageProps, categories }) {
 
   useEffect(() => {
     const saved = localStorage.getItem('loggedIn')
-    saved && setLoggedIn(true)
+    if (!saved) {
+      setLoggedIn(false)
+      return
+    }
+    const loggedIn = JSON.parse(saved)
+    const now = new Date()
+    if (now.getTime() > loggedIn.expiry) {
+      localStorage.removeItem('loggedIn')
+      setLoggedIn(false)
+    }
+    setLoggedIn(true)
   },[])
 
   useEffect(() => {
@@ -28,7 +49,8 @@ export default function MyApp({ Component, pageProps, categories }) {
     let password = e.target.elements.password?.value;
     if (password == pw) {
       setLoggedIn(true)
-      localStorage.setItem('loggedIn', true)
+      setWithExpiry('loggedIn', true, 5000)
+      //localStorage.setItem('loggedIn', true, 5000)
     } else {
       setMessage('Wrong Password')
     }
