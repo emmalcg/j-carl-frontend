@@ -4,10 +4,14 @@ import Carousel from "../components/Carousel"
 import AppHeader from '../components/AppHeader'
 
 export default function Home({ homepage }) {
+  console.log(homepage)
   const categories = homepage.categories.data
   const artwork = homepage.personal.data.attributes.homepage_carousel.data.attributes
   const artworkMedia = artwork
   const [emblaRef] = useEmblaCarousel()
+
+  const mugshots = homepage.mugshots.data[0].attributes.Images.data
+  console.log('mug', mugshots)
   //thing’s end (Wuhan), #1 pk. entrance plaza, Wuhan, China, 2018
   return (
     <>
@@ -43,6 +47,22 @@ export async function getStaticProps() {
           }
         }
       },
+      mugshots {
+        data {
+          id,
+          attributes {
+            Images {
+              data {
+                attributes {
+                  url,
+                  width,
+                  height
+                }
+              }
+            }
+          }
+        }
+      }
       personal {
         data {
           id,
