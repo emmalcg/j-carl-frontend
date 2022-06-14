@@ -24,6 +24,7 @@ export default function Carousel({artwork}) {
     [embla]
   );
 
+  console.log(image.attributes)
   const onSelect = useCallback(() => {
     if (!embla) return;
     setSelectedIndex(embla.selectedScrollSnap());
