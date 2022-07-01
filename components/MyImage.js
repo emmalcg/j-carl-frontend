@@ -2,7 +2,9 @@ import Image from 'next/image'
 import { buildUrl } from 'cloudinary-build-url'
 
 export default function MyImage ({image, index, size}) {
-  const imgSlug = image.formats[size].provider_metadata.public_id
+
+  const  imgSlug = image.formats[size].provider_metadata.public_id
+  
     
   const url = buildUrl(`${imgSlug}`, {
     cloud: {

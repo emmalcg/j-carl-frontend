@@ -53,10 +53,10 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
         <div className="no-underline flex w-full">
           <h1 className="flex justify-items-center">
             <Link href="/">
-              <a onClick={() => {setWorkOpen(false); setAboutOpen(false)}} className={`text-1xl font-bold border-r border-black py-2 px-4 sm:px-6 hover:bg-gray-200`}>James Carl Studio</a>
+              <a onClick={() => {setWorkOpen(false); setAboutOpen(false)}} className={`text-1xl font-bold border-r border-black py-2 px-4 sm:px-6 hover:bg-gray-200`}>James Carl</a>
             </Link>
           </h1>
-          {
+          {/*{
             !isRFQ && (
               <nav className="lg:grow">
                 <ul className="flex w-full">
@@ -104,18 +104,19 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                 </ul>
               </nav>
             )
-          }
+          }*/}
 
           {/*rfq link */}
-          <div className={`text-1xl font-bold flex justify-items-center ${!isRFQ && "ml-auto"}`}>
+          {/*<div className={`text-1xl font-bold flex justify-items-center ${!isRFQ && "ml-auto"}`}>
             <Link href='/rfq'>
               <a className={`border-black py-2 px-3 sm:px-6 ${router.pathname == "/rfq" && "bg-gray-200"} ${isRFQ ? 'border-r' : 'border-l'}`}>RFQ</a>
             </Link>
-          </div>
-        </div>
+          </div>*/}
+        </div> 
+        
 
 
-        { isRFQ && (
+        {/*{ isRFQ && (
 
           <nav className="grow sm:grow-0">
             <ul className="hidden sm:flex">
@@ -164,9 +165,9 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
 
             </Menu>
           </nav>
-        )}
+        )}*/}
       </div>
-      {
+      {/*{
         workOpen && (
           <div className="border border-black border-t-0 lg:hidden">
             <ul className="flex"> 
@@ -199,7 +200,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
             </ul>
           </div>
         )
-      }
+      }*/}
     </header>
   )
 }

@@ -8,7 +8,7 @@ import AppHeader from '../components/AppHeader'
 export default function Rfq({ homepage }) {
 
   const image = homepage.rfq.data.attributes.homepage.data.attributes
-
+console.log(image)
   return (
     <>
       <AppHeader />
