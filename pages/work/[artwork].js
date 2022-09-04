@@ -28,7 +28,6 @@ export default function ArtworkPage({ artwork, categories }) {
           <article className="my-5">
             <ArtworkInfo artwork={art}/>
           </article>
-
         </section>
       </main>
     </>
