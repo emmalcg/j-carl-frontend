@@ -1,6 +1,7 @@
 //<Artwork key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
 
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { Fragment, useState, useEffect } from 'react'
 import AppHeader from '../../components/AppHeader'
 import MyImage from '../../components/MyImage'
 import ArtworkInfo from '../../components/ArtworkInfo'
@@ -10,24 +11,55 @@ export default function ArtworkPage({ artwork, categories }) {
   const art = artwork.attributes
   const images = art.media.data 
 
+  const [showImages, setShowImages] = useState(true)
+
+  const [buttonText, setButtonText] = useState('information')
+
+  useEffect(() => {
+    showImages ? setButtonText('information') : setButtonText('images')
+  },[showImages])
+
   return (
     <>
       <AppHeader categories={categories} />
       <main>
-        <h2 className="text-lg font-semibold mb-3.5">{art.title}</h2>
+        <div className="flex mb-3.5 space-x-2">
+          <h2 className="text-lg">{art.title}</h2>
+          <span>|</span>
+          <button onClick={() => {setShowImages(!showImages) }} className="underline hover:font-medium">{buttonText}</button>
+          {/*<ul className="flex space-x-2">
+            <li>|</li>
+            <li className="flex"><button>images</button></li>
+            <li>|</li>
+            <li className="flex"><button>information</button></li>
+          </ul>*/}
+
+        </div>
         <section>
-          <ul className="grid gap-y-5">
-            {
-              images.map((image, index) => 
-                <li key={image.attributes.caption}>
-                  <MyImage image={image.attributes} size="large" index={index}/>
-                </li>
-              )
-            }
-          </ul>
-          <article className="my-5">
-            <ArtworkInfo artwork={art}/>
-          </article>
+          {
+            showImages ? (
+              <ul className="grid gap-y-5">
+                {
+                  images.map((image, index) => 
+                    <li key={image.attributes.caption}>
+                      <MyImage image={image.attributes} size="large" index={index}/>
+                    </li>
+                  )
+                }
+              </ul>
+            )
+            : (
+              <>
+              <div className="w-1/2">
+                <MyImage image={images[0].attributes} index={1} size="small" />
+              </div>
+                <article className="my-3.5">
+                  <ArtworkInfo artwork={art}/>
+                </article>
+              </>
+            )
+          }
+
         </section>
       </main>
     </>

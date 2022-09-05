@@ -46,7 +46,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
 
 
   return (
-    <header className="text-sm sm:text-base mt-2 sm:mt-4 mb-4 sm:mb-8">
+    <header className="text-sm sm:text-base mt-2 sm:mt-4 mb-4">
       {
         !isRFQ && (
         <span>
