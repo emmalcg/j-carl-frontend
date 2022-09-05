@@ -37,12 +37,13 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
   const router = useRouter()
 
   const [isRFQ, setIsRFQ] = useState(router.pathname.includes('/rfq') ? true : false)
-  const [workOpen, setWorkOpen] = useState(currentType === 'Work')
+  const [workOpen, setWorkOpen] = useState(currentType === 'Work' || router.pathname.includes('/work'))
   const [aboutOpen, setAboutOpen] = useState(currentType === 'About')
   
   useEffect(() => {
     router.pathname.includes('/rfq') ? setIsRFQ(true) : setIsRFQ(false)
   },[router.pathname])
+
 
   return (
     <header className="text-sm sm:text-base mt-2 sm:mt-4 mb-4 sm:mb-8">
