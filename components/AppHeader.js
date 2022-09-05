@@ -11,7 +11,7 @@ function MainLink(props) {
 
   return (
     <Link href={href}>
-      <a {...rest} className={`block border-b border-black hover:bg-gray-200 py-4 px-6 text-center z-100 ${router.pathname == href && "bg-gray-200"}`}>{children}</a>
+      <a {...rest} className={`block border-b border-black py-4 px-6 text-center z-100 ${router.pathname == href && "underline"}`}>{children}</a>
     </Link>
   )
 }
@@ -31,9 +31,6 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
   const workNav = categories?.filter(cat => cat.attributes.type === 'Work')
   const aboutNav = categories?.filter(cat => cat.attributes.type === 'About')
 
-  console.log('categories', categories)
-  console.log('currentPath', currentPath)
-  console.log('currentType', currentType)
   const router = useRouter()
 
   const [isRFQ, setIsRFQ] = useState(router.pathname.includes('/rfq') ? true : false)
@@ -58,15 +55,15 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                   <a onClick={() => {setWorkOpen(false); setAboutOpen(false)}} className={`text-1xl font-bold border-r border-black py-2 px-4 sm:px-6 hover:underline`}>James Carl</a>
                 </Link>
               </h1>
-                  <nav className="lg:grow">
+                  <nav className="sm:grow">
                     <ul className="flex w-full">
-                      <li className={`border-r border-black py-2 px-3 sm:px-4 hover:bg-gray-200 ${workOpen && "bg-gray-200 underline"}`}>
+                      <li className={`border-r border-black py-2 px-3 sm:px-4 ${workOpen &&  "underline"}`}>
                         <Link href="/work">
                           <a className="font-medium hover:underline">Work</a></Link>
                       </li>
                       {
                         workOpen && (
-                          <ul className="hidden lg:flex"> 
+                          <ul className="hidden sm:flex"> 
                             {
                               workNav.map(item => 
                                   <li key={`${item.attributes.slug}-large`}>
@@ -80,13 +77,13 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                         )
                       }
 
-                      <li className={`border-r border-black py-2 px-3 sm:px-4 hover:bg-gray-200 hover:underline ${aboutOpen && "bg-gray-200 underline"} ${workOpen && "lg:border-l lg:border-r-0 ml-auto"}`}>
+                      <li className={`border-r border-black py-2 px-3 sm:px-4 hover:underline ${aboutOpen && "underline"} ${workOpen && "sm:border-l sm:border-r-0 ml-auto"}`}>
                         <Link href="/about">
                           <a className="font-medium hover:underline">About</a></Link>
                       </li>
                       {
                         aboutOpen && (
-                          <ul className="hidden lg:flex"> 
+                          <ul className="hidden sm:flex"> 
                             {
                               aboutNav.map(item => 
                                   <li key={`${item.attributes.slug}-large`}>
@@ -105,7 +102,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
           </div>
           {
             workOpen && (
-              <div className="border border-black border-t-0 lg:hidden">
+              <div className="border border-black border-t-0 sm:hidden">
                 <ul className="flex"> 
                   {
                     workNav.map(item => 
@@ -122,7 +119,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
           }
           {
             aboutOpen && (
-              <div className="border border-black border-t-0 lg:hidden">
+              <div className="border border-black border-t-0 sm:hidden">
                 <ul className="flex"> 
                   {
                     aboutNav.map(item => 
