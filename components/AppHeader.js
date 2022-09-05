@@ -31,7 +31,9 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
   const workNav = categories?.filter(cat => cat.attributes.type === 'Work')
   const aboutNav = categories?.filter(cat => cat.attributes.type === 'About')
 
-  
+  console.log('categories', categories)
+  console.log('currentPath', currentPath)
+  console.log('currentType', currentType)
   const router = useRouter()
 
   const [isRFQ, setIsRFQ] = useState(router.pathname.includes('/rfq') ? true : false)
@@ -52,12 +54,12 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
             <div className="no-underline flex w-full">
               <h1 className="flex justify-items-center">
                 <Link href="/">
-                  <a onClick={() => {setWorkOpen(false); setAboutOpen(false)}} className={`text-1xl font-bold border-r border-black py-2 px-4 sm:px-6 hover:bg-gray-200`}>James Carl</a>
+                  <a onClick={() => {setWorkOpen(false); setAboutOpen(false)}} className={`text-1xl font-bold border-r border-black py-2 px-4 sm:px-6 hover:underline`}>James Carl</a>
                 </Link>
               </h1>
                   <nav className="lg:grow">
                     <ul className="flex w-full">
-                      <li className={`border-r border-black py-2 px-3 sm:px-4 hover:bg-gray-200 ${workOpen && "bg-gray-200"}`}>
+                      <li className={`border-r border-black py-2 px-3 sm:px-4 hover:bg-gray-200 hover:underline ${workOpen && "bg-gray-200 underline"}`}>
                         <button className="font-medium" onClick={() => {setWorkOpen(!workOpen); setAboutOpen(false)}}>
                           Work
                         </button>
@@ -78,7 +80,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                         )
                       }
 
-                      <li className={`border-r border-black py-2 px-3 sm:px-4 hover:bg-gray-200 ${aboutOpen && "bg-gray-200"} ${workOpen && "lg:border-l lg:border-r-0 ml-auto"}`}>
+                      <li className={`border-r border-black py-2 px-3 sm:px-4 hover:bg-gray-200 hover:underline ${aboutOpen && "bg-gray-200 underline"} ${workOpen && "lg:border-l lg:border-r-0 ml-auto"}`}>
                         <button className="font-medium" onClick={() => {setAboutOpen(!aboutOpen); setWorkOpen(false)}}>
                           About
                         </button>

@@ -11,8 +11,8 @@ export default function ArtworkThumbnail({artwork}) {
   //</Link>
 
   const slug = artwork.slug
-  console.log(artwork.media.data[0].attributes)
-  console.log(slug)
+  //console.log(artwork.media.data[0].attributes)
+  //console.log(slug)
   return (
     <li className="list-none">
       <Link href={`/work/${slug}`} key={`${slug}`}>

@@ -9,6 +9,10 @@ export default function categoryPage({ category, categories }) {
   const articles = category.attributes.article.data
   const artworks = category.attributes.artworks.data
 
+  console.log('text', text)
+  console.log('articles', articles)
+  console.log('artworks', artworks)
+  console.log('CATEGORY', category)
   return (
     <>
       <AppHeader categories={categories} currentPath={category.attributes.slug} currentType={category.attributes.type}/>
@@ -42,6 +46,8 @@ export default function categoryPage({ category, categories }) {
 
 export async function getStaticProps({ params }) {
   const { category } = params;
+  console.log("category", { category })
+  console.log('params', params)
 
   const { API_URL } = process.env
   const client = new ApolloClient({
@@ -87,6 +93,7 @@ export async function getStaticProps({ params }) {
                 data {
                   attributes {
                     title,
+                    archive,
                     slug,
                     yearStarted,
                     yearEnded,

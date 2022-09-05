@@ -36,7 +36,7 @@ export default function ArtworkPage({ artwork, categories }) {
 
 export async function getStaticProps({ params }) {
   const { artwork } = params;
-  console.log(artwork)
+  //console.log(artwork)
 
   const { API_URL } = process.env
   const client = new ApolloClient({
