@@ -19,6 +19,8 @@ export default function ArtworkPage({ artwork, categories }) {
     showImages ? setButtonText('information') : setButtonText('images')
   },[showImages])
 
+  console.log('categories', categories)
+
   return (
     <>
       <AppHeader categories={categories} />
@@ -27,12 +29,6 @@ export default function ArtworkPage({ artwork, categories }) {
           <h2 className="text-lg">{art.title}</h2>
           <span>|</span>
           <button onClick={() => {setShowImages(!showImages) }} className="underline hover:font-medium">{buttonText}</button>
-          {/*<ul className="flex space-x-2">
-            <li>|</li>
-            <li className="flex"><button>images</button></li>
-            <li>|</li>
-            <li className="flex"><button>information</button></li>
-          </ul>*/}
 
         </div>
         <section>

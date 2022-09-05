@@ -11,13 +11,19 @@ export default function ArtworkThumbnail({artwork}) {
   //</Link>
 
   const slug = artwork.slug
+  console.log('artwork', artwork)
+  console.log('attributes', artwork.media.data)
   //console.log(artwork.media.data[0].attributes)
   //console.log(slug)
   return (
     <li className="list-none">
       <Link href={`/work/${slug}`} key={`${slug}`}>
         <a>
-          <MyImage image={artwork.media.data[0].attributes} index={1} size="small" />
+          {
+            artwork.media.data[0].attributes && (
+              <MyImage image={artwork.media.data[0].attributes} index={1} size="small" />
+            )
+          }
         </a>
       </Link>
     </li>

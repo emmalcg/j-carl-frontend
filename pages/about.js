@@ -16,8 +16,6 @@ export default function about({ person, categories }) {
         <h2 className="text-lg font-semibold mb-3.5">About</h2>
         <section>
           <Person key={james.id} person={james.attributes}/>
-         
-
         </section>
       </main>
     </>
