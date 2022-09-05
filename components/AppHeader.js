@@ -59,10 +59,9 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
               </h1>
                   <nav className="lg:grow">
                     <ul className="flex w-full">
-                      <li className={`border-r border-black py-2 px-3 sm:px-4 hover:bg-gray-200 hover:underline ${workOpen && "bg-gray-200 underline"}`}>
-                        <button className="font-medium" onClick={() => {setWorkOpen(!workOpen); setAboutOpen(false)}}>
-                          Work
-                        </button>
+                      <li className={`border-r border-black py-2 px-3 sm:px-4 hover:bg-gray-200 ${workOpen && "bg-gray-200 underline"}`}>
+                        <Link href="/work">
+                          <a className="font-medium hover:underline">Work</a></Link>
                       </li>
                       {
                         workOpen && (
@@ -81,9 +80,8 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                       }
 
                       <li className={`border-r border-black py-2 px-3 sm:px-4 hover:bg-gray-200 hover:underline ${aboutOpen && "bg-gray-200 underline"} ${workOpen && "lg:border-l lg:border-r-0 ml-auto"}`}>
-                        <button className="font-medium" onClick={() => {setAboutOpen(!aboutOpen); setWorkOpen(false)}}>
-                          About
-                        </button>
+                        <Link href="/about">
+                          <a className="font-medium hover:underline">About</a></Link>
                       </li>
                       {
                         aboutOpen && (

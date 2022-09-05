@@ -5,7 +5,7 @@ import AppHeader from '../components/AppHeader'
 //import Article from '../components/Article'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 
-export default function work({ artworks }) {
+export default function work({ artworks, categories }) {
   console.log(artworks)
   const [ archiveArtworks, setArchiveArtworks ] = useState([])
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function work({ artworks }) {
   //console.log('artworks', artworks)
   return (
     <>
-      <AppHeader categories={categories} currentPath={category.attributes.slug} currentType={category.attributes.type}/>
+      <AppHeader categories={categories} currentPath='work' currentType="Work"/>
       <main>
         {/*<h2 className="text-lg font-semibold mb-3.5">{category.attributes.title}</h2>*/}
         <section>
@@ -88,9 +88,28 @@ export async function getStaticProps() {
     `
   });
 
+  const {data: allCategoryData } = await client.query({
+    query: gql `
+      query getCategories {
+        categories (sort: ["title"]) {
+          data {
+            attributes {
+              title,
+              type,
+              slug
+            }
+          }
+        }
+      }
+    `
+  })
+
+  const allCategories = allCategoryData.categories.data
+
   return {
     props: {
       artworks: data.artworks,
+      categories: allCategories
     }
   }
 }

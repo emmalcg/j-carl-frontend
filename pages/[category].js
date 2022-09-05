@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import AppHeader from '../components/AppHeader'
-import Artwork from '../components/Artwork'
+//import Artwork from '../components/Artwork'
 import Article from '../components/Article'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 
