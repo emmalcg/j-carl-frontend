@@ -9,10 +9,6 @@ export default function categoryPage({ category, categories }) {
   const articles = category.attributes.article.data
   const artworks = category.attributes.artworks.data
 
-  console.log('text', text)
-  console.log('articles', articles)
-  console.log('artworks', artworks)
-  console.log('CATEGORY', category)
   return (
     <>
       <AppHeader categories={categories} currentPath={category.attributes.slug} currentType={category.attributes.type}/>
@@ -21,7 +17,7 @@ export default function categoryPage({ category, categories }) {
         <section>
             {
               !!artworks.length && 
-                <ul className="grid grid-cols-3 gap-4">
+                <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {artworks.map((artwork, i) => 
                   //<Artwork key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/>    
                   <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 

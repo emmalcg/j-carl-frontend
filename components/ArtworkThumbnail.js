@@ -1,5 +1,6 @@
 import MyImage from './MyImage'
 import Link from 'next/link'
+import { useState, useEffect } from 'react';
 import { useRouter } from "next/router";
 
 export default function ArtworkThumbnail({artwork}) {
@@ -11,8 +12,16 @@ export default function ArtworkThumbnail({artwork}) {
   //</Link>
 
   const slug = artwork.slug
-  console.log('artwork', artwork)
-  console.log('attributes', artwork.media.data)
+  //console.log('artwork', artwork)
+  //console.log('attributes', artwork.media.data)
+
+  const thumbnail = artwork.media.data.filter(art => art.attributes.caption == 'thumbnail')
+  const [thumbnailImage, setThumbnailImage] = useState(thumbnail[0] || artwork.media.data[0].attributes)
+
+
+
+  console.log('thumbnail', thumbnail)
+  console.log('thumbnailImage', thumbnailImage)
   //console.log(artwork.media.data[0].attributes)
   //console.log(slug)
   return (
