@@ -19,7 +19,7 @@ export default function ArtworkPage({ artwork, categories }) {
     showImages ? setButtonText('information') : setButtonText('images')
   },[showImages])
 
-  console.log('categories', categories)
+  //console.log('categories', categories)
 
   return (
     <>
@@ -37,7 +37,7 @@ export default function ArtworkPage({ artwork, categories }) {
               <ul className="grid gap-y-5">
                 {
                   images.map((image, index) => 
-                    <li key={image.attributes.caption}>
+                    <li className="max-h-screen" key={image.attributes.caption}>
                       <MyImage image={image.attributes} size="large" index={index}/>
                     </li>
                   )

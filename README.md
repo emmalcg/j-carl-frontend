@@ -24,3 +24,14 @@ Styled using Tailwind
 ## Deployed automatically on Vercel
 
 Deployed automatically from `main` branch with Vercel
+
+## TODO
+-make thumbnails all the same size
+-add years to top bar
+-make image max height page height
+-add expanding feature 
+-clicking in a year leads to categories? 
+-make sure all image links are working: http://localhost:3000/work/fountain
+-only grab the things needed for the work page Warning: data for page "/work" is 200 kB, this amount of data can reduce performance.
+See more info here: https://nextjs.org/docs/messages/large-page-data
+

@@ -12,6 +12,8 @@ export default function ArtworkThumbnail({artwork}) {
   //</Link>
 
   const slug = artwork.slug
+  console.log({slug})
+  console.log({artwork})
   //console.log('artwork', artwork)
   //console.log('attributes', artwork.media.data)
 
@@ -20,8 +22,8 @@ export default function ArtworkThumbnail({artwork}) {
 
 
 
-  console.log('thumbnail', thumbnail)
-  console.log('thumbnailImage', thumbnailImage)
+  //console.log('thumbnail', thumbnail)
+  //console.log('thumbnailImage', thumbnailImage)
   //console.log(artwork.media.data[0].attributes)
   //console.log(slug)
   return (

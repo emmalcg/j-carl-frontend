@@ -6,7 +6,7 @@ export default function MyImage ({image, index, size }) {
 
   const thumbnail = image.caption
 
-  console.log(thumbnail)
+  //console.log(thumbnail)
     
   const url = buildUrl(`${imgSlug}`, {
     cloud: {

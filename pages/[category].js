@@ -42,8 +42,8 @@ export default function categoryPage({ category, categories }) {
 
 export async function getStaticProps({ params }) {
   const { category } = params;
-  console.log("category", { category })
-  console.log('params', params)
+  //console.log("category", { category })
+  //console.log('params', params)
 
   const { API_URL } = process.env
   const client = new ApolloClient({

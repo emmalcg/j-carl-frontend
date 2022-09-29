@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 
 export default function NavSub({ item, artworks}) {
-  console.log(item, 'item')
+  //console.log(item, 'item')
   return (
     <li className=" py-2 px-4 underline">
      {item}
