@@ -8,6 +8,17 @@ import ArtworkThumbnail from '../components/ArtworkThumbnail'
 
 const ToggleItem = ({ name, artworks }) => {
   const [open, setOpen] = useState(false)
+  //const windowWidth = window.innerWidth
+
+  const [imageAmount, setImageAmount] = useState(3)
+
+  useEffect(() => {
+    if(window.innerWidth < 768) {
+      setImageAmount(2)
+    } else if(window.innerWidth > 768) {
+      setImageAmount(3)
+    }
+  }, [])
 
 
   return (
@@ -41,7 +52,7 @@ const ToggleItem = ({ name, artworks }) => {
           !open 
           ?
           artworks.map((artwork, i) => 
-            i < 3 &&
+            i < imageAmount &&
             <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
             )
 
