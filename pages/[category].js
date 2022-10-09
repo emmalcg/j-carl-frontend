@@ -1,31 +1,62 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import AppHeader from '../components/AppHeader'
-//import Artwork from '../components/Artwork'
+import { useState, useEffect } from 'react'
 import Article from '../components/Article'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
+import ListLink from '../components/ListLink'
 
 export default function categoryPage({ category, categories }) {
   const text = category.attributes.texts.data
   const articles = category.attributes.article.data
   const artworks = category.attributes.artworks.data
+  const [showImages, setShowImages] = useState(true)
+
+  const arrayForSort = [...artworks]
+  console.log('artworks', artworks)
+  const sortedWork = arrayForSort.sort((a,b) => 
+    (a.attributes.yearStarted > b.attributes.yearStarted) ? 1 : (a.attributes.yearStarted < b.attributes.yearStarted) ? -1 : 0)
+    //a.attributes.yearStarted - b.attributes.yearStarted
+
+  console.log('sorted', sortedWork)
+  const [buttonText, setButtonText] = useState('titles')
+
+  useEffect(() => {
+    showImages ? setButtonText('titles') : setButtonText('images')
+  },[showImages])
 
   return (
     <>
       <AppHeader categories={categories} currentPath={category.attributes.slug} currentType={category.attributes.type}/>
       <main>
-        <h2 className="text-lg font-semibold mb-3.5">{category.attributes.title}</h2>
+        <div className="flex mb-3.5 space-x-2">
+          <h2 className="text-lg font-semibold">{category.attributes.title}</h2>
+          <span>|</span>
+          <button onClick={() => {setShowImages(!showImages) }} className="underline hover:font-medium">{buttonText}</button>
+
+        </div>
+        {/*<h2 className="text-lg font-semibold mb-3.5">{category.attributes.title}</h2>*/}
         <section>
             {
-              !!artworks.length && 
+              !!artworks.length && showImages &&
                 <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {artworks.map((artwork, i) => 
-                  //<Artwork key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/>    
+                
+                { 
+                  sortedWork.map((artwork, i) => 
                   <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
                   )
                 }
-              </ul>
+                </ul>
             }
-
+            {
+              !!artworks.length && !showImages &&
+                <ul>
+                  {
+                  sortedWork.map((artwork, i) => 
+                    <ListLink key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes} />
+                    )
+                  }
+                </ul>
+            }
             {
               !!articles.length &&  
                 <ul> 
@@ -56,7 +87,7 @@ export async function getStaticProps({ params }) {
       query getCategory ($slug: String!){
         categories (filters: { 
           slug: { eq: $slug }
-        }){
+        } ){
           data {
             attributes {
               type,
