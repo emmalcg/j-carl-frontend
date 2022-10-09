@@ -1,19 +1,133 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useState, useEffect } from 'react';
+import Link from 'next/link'
 import AppHeader from '../components/AppHeader'
 //import Artwork from '../components/Artwork'
 //import Article from '../components/Article'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 
+const ToggleItem = ({ name, artworks }) => {
+  const [open, setOpen] = useState(false)
+
+
+  return (
+    <div>
+      <div className="w-full flex justify-between mb-1">
+        <Link href={`/${name}`} key={`${name}`}>
+          <a>{name}</a>
+        </Link>
+        <button 
+          className="no-underline text-[14px]"
+          onClick={() => setOpen((prev) => !prev)}
+        >
+            {!open ? 
+            'Show all'
+            //(<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            //  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            //</svg>) 
+            : 
+            'Show less'
+            //(
+            //  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            //    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+            //  </svg>
+
+            //)
+            }
+          </button>
+      </div>
+        <ul className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {
+          !open 
+          ?
+          artworks.map((artwork, i) => 
+            i < 3 &&
+            <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
+            )
+
+          : artworks.map((artwork, i) => 
+            <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
+            )
+          }
+        </ul>
+    </div>
+  )
+}
+
 export default function work({ artworks, categories }) {
-  console.log(artworks)
+
+  
+  const yearNav = categories?.filter(cat => cat.attributes.type === 'Year')
+
+
+  console.log({ yearNav })
+  const [years, setYears] = useState([])
+  //const years = [
+  //  {
+  //    title: '2020s',
+  //    artworks: []
+  //  },
+  //  {
+  //    title: '2010s',
+  //    artworks: []
+  //  },
+  //  {
+  //    title: '2000s',
+  //    artworks: []
+  //  },
+  //  {
+  //    title: '1990s',
+  //    artworks: []
+  //  },
+  //  {
+  //    title: '1980s',
+  //    artworks: []
+  //  }
+  //]
+
+
+  console.log({years})
+
   const [ twentyTwenty, setTwentyTwenty ] = useState([])
   const [ twentyTen, setTwentyTen ] = useState([])
   const [ twoThousand, setTwoThousand ] = useState([])
   const [ ninties, setNinties ] = useState([])
   const [ eighties, setEighties ] = useState([])
   useEffect(() => {
-    const filtered = artworks.data.filter(artwork => artwork.attributes.archive)
+
+    const data = [
+      {
+        title: '2020s',
+        artworks: artworks.data.filter((artwork) => {
+          return artwork.attributes.yearStarted >= 2020
+        })
+      },
+      {
+        title: '2010s',
+        artworks: artworks.data.filter((artwork) => {
+          return artwork.attributes.yearStarted >= 2010 && artwork.attributes.yearStarted < 2020
+        })
+      },
+      {
+        title: '2000s',
+        artworks: artworks.data.filter((artwork) => {
+          return artwork.attributes.yearStarted >= 2000 && artwork.attributes.yearStarted < 2010
+        })
+      },
+      {
+        title: '1990s',
+        artworks: artworks.data.filter((artwork) => {
+          return artwork.attributes.yearStarted >= 1990 && artwork.attributes.yearStarted < 2000
+        })
+      },
+      {
+        title: '1980s',
+        artworks: artworks.data.filter((artwork) => {
+          return artwork.attributes.yearStarted >= 1980 && artwork.attributes.yearStarted < 1990
+        })
+      }
+    ]
+
     const twenty = artworks.data.filter((artwork) => {
       return artwork.attributes.yearStarted >= 2020
     })
@@ -35,6 +149,7 @@ export default function work({ artworks, categories }) {
     setNinties(ninty)
     setEighties(eighty)
 
+    setYears(data)
     //artworks.data.filter.forEach(artwork => {
     //  if(artwork.attributes.yearStarted >= 2020) {
 
@@ -43,53 +158,23 @@ export default function work({ artworks, categories }) {
   }, [artworks])
   
 
-  console.log({ twentyTwenty })
-  console.log({ twoThousand })
-  console.log({ ninties })
-  console.log({ eighties })
+  //console.log({ twentyTwenty })
+  //console.log({ twoThousand })
+  //console.log({ ninties })
+  //console.log({ eighties })
   return (
     <>
       <AppHeader categories={categories} currentPath='work' currentType="Work"/>
       <main>
         {/*<h2 className="text-lg font-semibold mb-3.5">{category.attributes.title}</h2>*/}
         <section>
-          <div className="underline flex flex-col space-y-3">
-            <div className="w-full flex justify-between"><a href="">2020s</a><button>Expand</button></div>
-              <ul className="grid grid-cols-3 gap-4">
-                {twentyTwenty.map((artwork, i) => 
-                  i < 3 &&
-                  //<Artwork key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/>    
-                  <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
-                  )
-                }
-              </ul>
-            <div className="w-full flex justify-between"><a href="">2010s</a><button>Expand</button></div>
-              <ul className="grid grid-cols-3 gap-4">
-                {twentyTen.map((artwork, i) => 
-                  i < 3 &&
-                  //<Artwork key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/>    
-                  <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
-                  )
-                }
-              </ul>
-            <div className="w-full flex justify-between"><a href="">2000s</a><button>Expand</button></div>
-              <ul className="grid grid-cols-3 gap-4">
-                {twoThousand.map((artwork, i) => 
-                   i < 3 &&
-                  //<Artwork key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/>    
-                  <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
-                  )
-                }
-              </ul>
-            <div className="w-full flex justify-between"><a href="">1990s</a><button>Expand</button></div>
-              <ul className="grid grid-cols-3 gap-4">
-                {ninties.map((artwork, i) => 
-                   i < 3 &&
-                  //<Artwork key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/>    
-                  <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
-                  )
-                }
-              </ul>
+          <div className="underline flex flex-col space-y-6">
+         
+            <ToggleItem name="2020" artworks={twentyTwenty} />
+            <ToggleItem name="2010" artworks={twentyTen} />
+            <ToggleItem name="2000" artworks={twoThousand} />
+            <ToggleItem name="1990" artworks={ninties} />
+            {/*<ToggleItem name="2020s" artworks={twentyTwenty} />*/}
           </div>
 
                 {/*<ul className="grid grid-cols-3 gap-4">
@@ -181,5 +266,4 @@ export async function getStaticProps() {
     }
   }
 }
-
 
