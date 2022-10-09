@@ -5,16 +5,40 @@ import Article from '../components/Article'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 
 export default function categoryPage({ category, categories }) {
+
   const text = category.attributes.texts.data
   const articles = category.attributes.article.data
   const artworks = category.attributes.artworks.data
+
+  console.log('cat', categories)
+  console.log({category})
 
   return (
     <>
       <AppHeader categories={categories} currentPath={category.attributes.slug} currentType={category.attributes.type}/>
       <main>
-        <h2 className="text-lg font-semibold mb-3.5">{category.attributes.title}</h2>
+        <div className="flex mb-3.5 space-x-2">
+          <h2 className="text-lg">{category.attributes.title}</h2>
+          <span>|</span>
+          <button 
+        className="underline hover:font-medium">by title</button>
+
+        </div>
+        {/*<div className="flex">
+          <h2 className="text-lg font-semibold mb-3.5">{category.attributes.title}</h2>
+          <p>by title</p>
+        </div>*/}
         <section>
+            {/*{
+              !!artworks.length && 
+                <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {artworks.map((artwork, i) => 
+                  //<Artwork key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/>    
+                  <li>{artwork.}</li>
+                  )
+                }
+              </ul>
+            }*/}
             {
               !!artworks.length && 
                 <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4">
