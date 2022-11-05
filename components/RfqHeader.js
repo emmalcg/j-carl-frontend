@@ -45,7 +45,9 @@ export default function RfqHeader({categories, currentPath = '/', currentType = 
         <div className="no-underline flex w-full">
           <h1 className="flex justify-items-center">
             <Link href="/">
-              <a onClick={() => {setWorkOpen(false); setAboutOpen(false)}} className={`text-1xl font-bold border-r border-black py-2 px-4 sm:px-6 hover:bg-gray-200`}>James Carl</a>
+              <a className={`text-1xl font-bold border-r border-black py-2 px-4 sm:px-6 hover:bg-gray-200`}>
+                James Carl
+              </a>
             </Link>
           </h1>
           
