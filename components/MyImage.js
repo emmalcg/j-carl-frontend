@@ -3,7 +3,7 @@ import { buildUrl } from 'cloudinary-build-url'
 
 export default function MyImage ({image, index, size }) {
   console.log(image)
-  const imgSlug = image.formats[size].provider_metadata.public_id || image.url
+  const imgSlug = image?.formats[size]?.provider_metadata?.public_id || image.url
 
   const thumbnail = image.caption
 
