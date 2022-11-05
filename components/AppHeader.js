@@ -51,88 +51,114 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
 
   return (
     <header className="text-sm sm:text-base mt-2 sm:mt-4 mb-4">
-      {
-        !isRFQ && (
+      {!isRFQ && (
         <span>
-
           <div className="flex justify-between border border-black relative">
             <div className="no-underline flex w-full">
               <h1 className="flex justify-items-center">
                 <Link href="/">
-                  <a onClick={() => {setWorkOpen(false); setAboutOpen(false)}} className={`text-1xl font-bold border-r border-black py-2 px-4 sm:px-6 hover:underline`}>James Carl</a>
+                  <a
+                    onClick={() => {
+                      setWorkOpen(false);
+                      setAboutOpen(false);
+                    }}
+                    className={`text-1xl font-bold border-r border-black py-2 px-4 sm:px-6 hover:underline hover:bg-gray-200`}
+                  >
+                    James Carl
+                  </a>
                 </Link>
               </h1>
-                  <nav className="grow">
-                    <ul className="flex w-full">
-                      <li className={`border-r border-black py-2 px-3 sm:px-4 ${workOpen &&  "underline"}`}>
-                        <Link href="/work">
-                          <a className="font-medium hover:underline">Work</a></Link>
-                      </li>
-                      {
-                        workOpen && (
-                          <ul className="hidden sm:flex"> 
-                            {
-                              workNav.map(year => 
-                                  <li key={`${year.attributes.title}-large`}>
-                                    <Link href={`/${year.attributes.slug}`}>
-                                      <a className={`block py-2 px-4 hover:underline text-[14px] ${currentPath.includes(year.attributes.slug) && `italic underline`}`}>{year.attributes.title}</a>
-                                    </Link>
-                                  </li>
-                                )
-                            }
-                          </ul>
-                        )
-                      }
-                      <li className={`border-r border-black py-2 px-3 sm:px-4 hover:underline ${aboutOpen && "underline"} ${workOpen && "border-l border-r-0 ml-auto"}`}>
-                        <Link href="/about">
-                          <a className="font-medium hover:underline">About</a></Link>
-                      </li>
-                      {
-                        aboutOpen && (
-                          <ul className="hidden sm:flex"> 
-                            {
-                              aboutNav.map(item => 
-                                  <li key={`${item.attributes.slug}-large`}>
-                                    <Link href={`/${item.attributes.slug}`}>
-                                      <a className={`block py-2 px-4 hover:underline text-[14px] ${currentPath.includes(item.attributes.slug) && `italic underline`}`}>{item.attributes.title}</a>
-                                    </Link>
-                                  </li>
-                                )
-                            }
-                          </ul>
-                        )
-                      }
-                    </ul>
-                  </nav>
-            </div>
-          </div>
-       
-          {
-            aboutOpen && (
-              <div className="border border-black border-t-0 sm:hidden">
-                <ul className="flex"> 
-                  {
-                    aboutNav.map(item => 
-                        <li className="border-r border-black" key={item.attributes.slug}>
-                          <Link href={`/${item.attributes.slug}`}>
-                            <a className={`block py-2 px-4 hover:underline ${currentPath.includes(item.attributes.slug) && `italic underline`}`}>{item.attributes.title}</a>
+              <nav className="grow">
+                <ul className="flex w-full">
+                  <li
+                    className={`flex border-r border-black hover:bg-gray-200 ${
+                      workOpen && "bg-gray-200"
+                    }`}
+                  >
+                    <Link href="/work">
+                      <a className="py-2 px-3 sm:px-4 font-medium hover:underline  hover:bg-gray-200">
+                        Work
+                      </a>
+                    </Link>
+                  </li>
+                  {workOpen && (
+                    <ul className="hidden sm:flex">
+                      {workNav.map((year) => (
+                        <li key={`${year.attributes.title}-large`}>
+                          <Link href={`/${year.attributes.slug}`}>
+                            <a
+                              className={`block py-2 px-4 hover:underline text-[14px] ${
+                                currentPath.includes(year.attributes.slug) &&
+                                `italic underline`
+                              }`}
+                            >
+                              {year.attributes.title}
+                            </a>
                           </Link>
                         </li>
-                      )
-                  }
+                      ))}
+                    </ul>
+                  )}
+                  <li
+                    className={`flex border-r border-black hover:underline hover:bg-gray-200 ${
+                      aboutOpen && "bg-gray-200"
+                    } ${workOpen && "border-l border-r-0 ml-auto"}`}
+                  >
+                    <Link href="/about">
+                      <a className="font-medium hover:underline  hover:bg-gray-200 py-2 px-3 sm:px-4">
+                        About
+                      </a>
+                    </Link>
+                  </li>
+                  {aboutOpen && (
+                    <ul className="hidden sm:flex">
+                      {aboutNav.map((item) => (
+                        <li key={`${item.attributes.slug}-large`}>
+                          <Link href={`/${item.attributes.slug}`}>
+                            <a
+                              className={`block py-2 px-4 hover:underline text-[14px] ${
+                                currentPath.includes(item.attributes.slug) &&
+                                `italic underline`
+                              }`}
+                            >
+                              {item.attributes.title}
+                            </a>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </ul>
-              </div>
-            )
-          }
-        </span>
+              </nav>
+            </div>
+          </div>
 
-        )
-      }
-      {
-        isRFQ && (
-          <RfqHeader />
-        )
-      }
+          {aboutOpen && (
+            <div className="border border-black border-t-0 sm:hidden">
+              <ul className="flex">
+                {aboutNav.map((item) => (
+                  <li
+                    className="border-r border-black"
+                    key={item.attributes.slug}
+                  >
+                    <Link href={`/${item.attributes.slug}`}>
+                      <a
+                        className={`block py-2 px-4 hover:underline ${
+                          currentPath.includes(item.attributes.slug) &&
+                          `italic underline`
+                        }`}
+                      >
+                        {item.attributes.title}
+                      </a>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </span>
+      )}
+      {isRFQ && <RfqHeader />}
     </header>
-  )
+  );
 }
