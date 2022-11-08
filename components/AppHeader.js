@@ -29,7 +29,8 @@ function SubLink(props) {
 
 export default function AppHeader({categories, currentPath = '/', currentType = ''}) {
   const workNav = categories?.filter(cat => cat.attributes.type === 'Work')
-  const aboutNav = categories?.filter(cat => cat.attributes.type === 'About')
+  const aboutNav = categories?.filter(cat => cat.attributes.type === 'About').reverse()
+  console.log({ aboutNav })
 
 
   console.log({currentType})
@@ -99,18 +100,24 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                       ))}
                     </ul>
                   )}
-                  <li
-                    className={`flex border-r border-black hover:underline hover:bg-gray-200 ${
-                      aboutOpen && "bg-gray-200"
-                    } ${workOpen && "border-l border-r-0 ml-auto"}`}
-                  >
-                    <Link href="/about">
-                      <a className="font-medium hover:underline  hover:bg-gray-200 py-2 px-3 sm:px-4">
-                        About
-                      </a>
-                    </Link>
-                  </li>
-                  {aboutOpen && (
+                  {aboutNav.map((item, i) => (
+                    <li
+                      key={item.attributes.slug}
+                      className={`flex border-r border-black hover:underline hover:bg-gray-200 ${
+                        currentPath.includes(item.attributes.slug) &&
+                        "bg-gray-200"
+                      } ${workOpen && "border-l border-r-0"} 
+                      ${workOpen && i == 0 && "ml-auto"} 
+                      `}
+                    >
+                      <Link href={`/${item.attributes.slug}`}>
+                        <a className="font-medium hover:underline  hover:bg-gray-200 py-2 px-3 sm:px-4">
+                          {item.attributes.title}
+                        </a>
+                      </Link>
+                    </li>
+                  ))}
+                  {/*{aboutOpen && (
                     <ul className="hidden sm:flex">
                       {aboutNav.map((item) => (
                         <li key={`${item.attributes.slug}-large`}>
@@ -127,7 +134,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                         </li>
                       ))}
                     </ul>
-                  )}
+                  )}*/}
                 </ul>
               </nav>
             </div>

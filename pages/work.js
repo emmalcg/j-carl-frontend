@@ -27,42 +27,37 @@ const ToggleItem = ({ name, artworks }) => {
         <Link href={`/${name}`} key={`${name}`}>
           <a>{name}</a>
         </Link>
-        <button 
+        <button
           className="no-underline text-[14px]"
           onClick={() => setOpen((prev) => !prev)}
         >
-            {!open ? 
-            'Show all'
-            //(<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            //  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            //</svg>) 
-            : 
-            'Show less'
-            //(
-            //  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            //    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-            //  </svg>
-
-            //)
-            }
-          </button>
-      </div>
-        <ul className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {
-          !open 
-          ?
-          artworks.map((artwork, i) => 
-            i < imageAmount &&
-            <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
-            )
-
-          : artworks.map((artwork, i) => 
-            <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
-            )
+            !open && artworks.length > 3 
+            ? "Show all"
+            : "Show less"
           }
-        </ul>
+        </button>
+      </div>
+      <ul className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {!open
+          ? artworks.map(
+              (artwork, i) =>
+                i < imageAmount && (
+                  <ArtworkThumbnail
+                    key={`${artwork.attributes.title}${i}`}
+                    artwork={artwork.attributes}
+                  />
+                )
+            )
+          : artworks.map((artwork, i) => (
+              <ArtworkThumbnail
+                key={`${artwork.attributes.title}${i}`}
+                artwork={artwork.attributes}
+              />
+            ))}
+      </ul>
     </div>
-  )
+  );
 }
 
 export default function work({ artworks, categories }) {

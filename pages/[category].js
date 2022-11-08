@@ -6,13 +6,14 @@ import ArtworkThumbnail from '../components/ArtworkThumbnail'
 import ListLink from '../components/ListLink'
 
 export default function categoryPage({ category, categories }) {
+  console.log({category})
   const text = category.attributes.texts.data
   const articles = category.attributes.article.data
   const artworks = category.attributes.artworks.data
   const [showImages, setShowImages] = useState(true)
 
   const arrayForSort = [...artworks]
-  console.log('artworks', artworks)
+  //console.log('artworks', artworks)
   const sortedWork = arrayForSort.sort((a,b) => 
     (a.attributes.yearStarted > b.attributes.yearStarted) ? 1 : (a.attributes.yearStarted < b.attributes.yearStarted) ? -1 : 0)
     //a.attributes.yearStarted - b.attributes.yearStarted
@@ -30,8 +31,12 @@ export default function categoryPage({ category, categories }) {
       <main>
         <div className="flex mb-3.5 space-x-2">
           <h2 className="text-lg font-semibold">{category.attributes.title}</h2>
-          <span>|</span>
-          <button onClick={() => {setShowImages(!showImages) }} className="underline hover:font-medium">{buttonText}</button>
+          { category.attributes.type === 'Work' && (
+            <>
+              <span>|</span>
+              <button onClick={() => {setShowImages(!showImages) }} className="underline hover:font-medium">{buttonText}</button>
+            </>
+          )}
 
         </div>
         {/*<h2 className="text-lg font-semibold mb-3.5">{category.attributes.title}</h2>*/}
