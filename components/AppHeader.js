@@ -46,6 +46,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
   
   useEffect(() => {
     router.pathname.includes('/rfq') ? setIsRFQ(true) : setIsRFQ(false)
+    router.pathname.includes('/cv') || router.pathname.includes('/writing') && setWorkOpen(false)
   },[router.pathname])
 
 
