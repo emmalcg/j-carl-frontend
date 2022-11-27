@@ -3,6 +3,7 @@ import Image from 'next/image'
 import MyImage from '../components/MyImage'
 import ReactMarkdown from 'react-markdown'
 import AppHeader from '../components/AppHeader'
+import Footer from '../components/Footer'
 
 
 export default function Rfq({ homepage }) {
@@ -25,6 +26,7 @@ export default function Rfq({ homepage }) {
         </div>
 
       </main>
+      <Footer/>
     </>
   )
 }

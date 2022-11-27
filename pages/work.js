@@ -5,6 +5,7 @@ import AppHeader from '../components/AppHeader'
 //import Artwork from '../components/Artwork'
 //import Article from '../components/Article'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
+import Footer from '../components/Footer';
 
 const ToggleItem = ({ name, artworks }) => {
   const [open, setOpen] = useState(false)
@@ -22,41 +23,40 @@ const ToggleItem = ({ name, artworks }) => {
 
 
   return (
-    <div>
-      <div className="w-full flex justify-between mb-1">
-        <Link href={`/${name}`} key={`${name}`}>
-          <a>{name}</a>
-        </Link>
-        <button
-          className="no-underline text-[14px]"
-          onClick={() => setOpen((prev) => !prev)}
-        >
-          {
-            !open && artworks.length > 3 
-            ? "Show all"
-            : "Show less"
-          }
-        </button>
+    <>
+      <div>
+        <div className="w-full flex justify-between mb-1">
+          <Link href={`/${name}`} key={`${name}`}>
+            <a>{name}</a>
+          </Link>
+          <button
+            className="no-underline text-[14px]"
+            onClick={() => setOpen((prev) => !prev)}
+          >
+            {!open && artworks.length > 3 ? "Show all" : "Show less"}
+          </button>
+        </div>
+        <ul className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {!open
+            ? artworks.map(
+                (artwork, i) =>
+                  i < imageAmount && (
+                    <ArtworkThumbnail
+                      key={`${artwork.attributes.title}${i}`}
+                      artwork={artwork.attributes}
+                    />
+                  )
+              )
+            : artworks.map((artwork, i) => (
+                <ArtworkThumbnail
+                  key={`${artwork.attributes.title}${i}`}
+                  artwork={artwork.attributes}
+                />
+              ))}
+        </ul>
       </div>
-      <ul className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {!open
-          ? artworks.map(
-              (artwork, i) =>
-                i < imageAmount && (
-                  <ArtworkThumbnail
-                    key={`${artwork.attributes.title}${i}`}
-                    artwork={artwork.attributes}
-                  />
-                )
-            )
-          : artworks.map((artwork, i) => (
-              <ArtworkThumbnail
-                key={`${artwork.attributes.title}${i}`}
-                artwork={artwork.attributes}
-              />
-            ))}
-      </ul>
-    </div>
+      <Footer />
+    </>
   );
 }
 

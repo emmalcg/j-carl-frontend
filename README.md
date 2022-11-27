@@ -35,11 +35,14 @@ Deployed automatically from `main` branch with Vercel
 -only grab the things needed for the work page Warning: data for page "/work" is 200 kB, this amount of data can reduce performance.
 See more info here: https://nextjs.org/docs/messages/large-page-data
 
+SEO
+
 -work opens up to year as well
 -need to change data based for categories. categories will be: work: years, about, cv, writing: years
 
 -have some sort of indiciation of clicking
 -database 
+-About will just led to wikipedia 
 
 website anna tasks
 -photo sizing
@@ -51,5 +54,6 @@ website anna tasks
 -can have grey on hover
 -have the gmail
 -create login for strapi
+
 
 -look into google sheet at src of truth

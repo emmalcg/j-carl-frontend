@@ -4,6 +4,7 @@ import AppHeader from '../components/AppHeader'
 //import Artwork from '../components/Artwork'
 //import Article from '../components/Article'
 import Person from '../components/Person'
+import Footer from '../components/Footer';
 
 export default function about({ person, categories }) {
  
@@ -11,15 +12,20 @@ export default function about({ person, categories }) {
 
   return (
     <>
-      <AppHeader categories={categories} currentPath='about' currentType="About"/>
+      <AppHeader
+        categories={categories}
+        currentPath="about"
+        currentType="About"
+      />
       <main>
         <h2 className="text-lg font-semibold mb-3.5">About</h2>
         <section>
-          <Person key={james.id} person={james.attributes}/>
+          <Person key={james.id} person={james.attributes} />
         </section>
       </main>
+      <Footer />
     </>
-  )
+  );
 }
 
 

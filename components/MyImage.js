@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { buildUrl } from 'cloudinary-build-url'
 
-export default function MyImage ({image, index, size }) {
+export default function MyImage ({image, index, size, showLoading= false }) {
   console.log(image)
   const imgSlug = image?.formats[size]?.provider_metadata?.public_id || image.url
 
@@ -24,30 +24,38 @@ export default function MyImage ({image, index, size }) {
       quality: 1
     }
   });
-  return (
-    <>
-          <div 
-            style={{
-              position: 'relative',
-              height: 0,
-              paddingTop: `${( image.height / image.width ) * 100}%`,
-              backgroundImage: `url(${urlBlurred})`,
-              backgroundPosition: 'center center',
-              backgroundSize: '100%',
-            }}
-            >
-              <div className="absolute inset-0">
-                <Image 
+
+  const imageComponent = <Image 
                   src={url}
                   alt={image.caption}
-                  width={image.width}
-                  height={image.height}
+                  width="100%"
+                  height="100%"
                   layout="responsive"
+                  objectFit='contain'
                   priority={index == 0 ? true : false}
                 />
-              </div>
-          </div>
-          
+  return (
+    <>
+      {showLoading ? (
+        <div
+          style={{
+            position: "relative",
+            height: 0,
+            paddingTop: `${(image.height / image.width) * 100}%`,
+            backgroundImage: `url(${urlBlurred})`,
+            backgroundPosition: "center center",
+            backgroundSize: "100%",
+          }}
+        >
+          <div className="absolute inset-0">{imageComponent}</div>
+        </div>
+      ) : (
+
+        <>
+        {imageComponent}
+
+        </>
+      )}
     </>
-  )
+  );
 }

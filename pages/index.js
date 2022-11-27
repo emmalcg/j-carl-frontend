@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import AppHeader from '../components/AppHeader'
 import MyImage from '../components/MyImage'
+import Footer from '../components/Footer'
 
 export default function Home({ homepage }) {
 
@@ -33,30 +34,28 @@ export default function Home({ homepage }) {
   //thing’s end (Wuhan), #1 pk. entrance plaza, Wuhan, China, 2018
   return (
     <>
-      <AppHeader categories={categories}/>
+      <AppHeader categories={categories} />
       <main>
         <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3 sm:gap-x-6 sm:grid-cols-3 md:grid-cols-4 lg:gap-x-4">
           {mugshots.map((mug) => (
             <div key={mug.src} className="group relative">
               <div>
                 <div className="w-full overflow-hidden object-cover">
-                  <MyImage
-                    image={mug}
-                    size="thumbnail"
-                    index={0}
-                    ></MyImage>
+                  <MyImage image={mug} size="thumbnail" index={0}></MyImage>
                 </div>
                 <div>
-                  <p className="text-center border border-black opacity-0 group-hover:opacity-100">{mug.name}</p>
+                  <p className="text-center border border-black opacity-0 group-hover:opacity-100">
+                    {mug.name}
+                  </p>
                 </div>
               </div>
-              
             </div>
           ))}
         </div>
       </main>
+      <Footer />
     </>
-  )
+  );
 }
 
 export async function getStaticProps() {

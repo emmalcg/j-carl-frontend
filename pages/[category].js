@@ -4,76 +4,125 @@ import { useState, useEffect } from 'react'
 import Article from '../components/Article'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 import ListLink from '../components/ListLink'
+import Footer from '../components/Footer'
 
 export default function categoryPage({ category, categories }) {
-  console.log({category})
+  //console.log({category})
   const text = category.attributes.texts.data
   const articles = category.attributes.article.data
   const artworks = category.attributes.artworks.data
+
   const [showImages, setShowImages] = useState(true)
+  const [sortBy, setSortBy] = useState('yearStarted');
 
-  const arrayForSort = [...artworks]
-  //console.log('artworks', artworks)
-  const sortedWork = arrayForSort.sort((a,b) => 
-    (a.attributes.yearStarted > b.attributes.yearStarted) ? 1 : (a.attributes.yearStarted < b.attributes.yearStarted) ? -1 : 0)
-    //a.attributes.yearStarted - b.attributes.yearStarted
+  let sortedWork = [...artworks]
 
-  console.log('sorted', sortedWork)
+  if (sortBy !== null) {
+    sortedWork.sort((a, b) =>
+      a.attributes[sortBy] > b.attributes[sortBy]
+        ? 1
+        : a.attributes[sortBy] < b.attributes[sortBy]
+        ? -1
+        : 0
+    );
+  }
+  
+  const requestSort = (event) => {
+    const value = event.target.value;
+    setSortBy(value);
+  };
+
   const [buttonText, setButtonText] = useState('titles')
 
   useEffect(() => {
     showImages ? setButtonText('titles') : setButtonText('images')
   },[showImages])
 
+  const ImageList = ({list}) => {
+    return (
+      <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        {list.map((artwork, i) => (
+          <ArtworkThumbnail
+            key={`${artwork.attributes.title}${i}`}
+            artwork={artwork.attributes}
+          />
+        ))}
+      </ul>
+    )
+  }
+
+  const TitleList = ({list}) => {
+    return (
+      <ul>
+        {list.map((artwork, i) => (
+          <ListLink
+            key={`${artwork.attributes.title}${i}`}
+            artwork={artwork.attributes}
+          />
+        ))}
+      </ul>
+    );
+  }
+
   return (
     <>
-      <AppHeader categories={categories} currentPath={category.attributes.slug} currentType={category.attributes.type}/>
+      <AppHeader
+        categories={categories}
+        currentPath={category.attributes.slug}
+        currentType={category.attributes.type}
+      />
       <main>
-        <div className="flex mb-3.5 space-x-2">
+        <div className="flex mb-3.5">
           <h2 className="text-lg font-semibold">{category.attributes.title}</h2>
-          { category.attributes.type === 'Work' && (
+          {category.attributes.type === "Work" && (
             <>
-              <span>|</span>
-              <button onClick={() => {setShowImages(!showImages) }} className="underline hover:font-medium">{buttonText}</button>
+              <span className="px-2">|</span>
+              <button
+                onClick={() => {
+                  setShowImages(!showImages);
+                }}
+                className="underline hover:font-medium flex pt-[1px]"
+              >
+                {buttonText}
+              </button>
+              <div className="ml-auto">
+                <label htmlFor="sort" className="hidden">
+                  Sort
+                </label>
+                <select
+                  id="sort"
+                  name="sort"
+                  onChange={requestSort}
+                  className="block w-full border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                >
+                  <option value="yearStarted">Sort by year</option>
+                  <option value="title">Sort by title</option>
+                </select>
+              </div>
             </>
           )}
-
         </div>
         {/*<h2 className="text-lg font-semibold mb-3.5">{category.attributes.title}</h2>*/}
         <section>
-            {
-              !!artworks.length && showImages &&
-                <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                
-                { 
-                  sortedWork.map((artwork, i) => 
-                  <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
-                  )
-                }
-                </ul>
-            }
-            {
-              !!artworks.length && !showImages &&
-                <ul>
-                  {
-                  sortedWork.map((artwork, i) => 
-                    <ListLink key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes} />
-                    )
-                  }
-                </ul>
-            }
-            {
-              !!articles.length &&  
-                <ul> 
-                {articles.map((article, i) => 
-                  <Article key={`${article.attributes.title}${i}`} article={article.attributes}/>
-                )}
-                </ul>
-            }
+          {!!artworks.length && showImages && <ImageList list={sortedWork} />}
+
+          {!!artworks.length && !showImages && <TitleList list={sortedWork} />}
+
+          {!!articles.length && (
+            <ul>
+              {articles.map((article, i) => (
+                <Article
+                  key={`${article.attributes.title}${i}`}
+                  article={article.attributes}
+                />
+              ))}
+            </ul>
+          )}
         </section>
       </main>
+      <Footer />
     </>
-  )
+  );
 }
 
 export async function getStaticProps({ params }) {

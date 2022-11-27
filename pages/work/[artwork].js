@@ -5,6 +5,7 @@ import { Fragment, useState, useEffect } from 'react'
 import AppHeader from '../../components/AppHeader'
 import MyImage from '../../components/MyImage'
 import ArtworkInfo from '../../components/ArtworkInfo'
+import Footer from '../../components/Footer'
 
 export default function ArtworkPage({ artwork, categories }) {
 
@@ -28,38 +29,43 @@ export default function ArtworkPage({ artwork, categories }) {
         <div className="flex mb-3.5 space-x-2">
           <h2 className="text-lg">{art.title}</h2>
           <span>|</span>
-          <button onClick={() => {setShowImages(!showImages) }} className="underline hover:font-medium">{buttonText}</button>
-
+          <button
+            onClick={() => {
+              setShowImages(!showImages);
+            }}
+            className="underline hover:font-medium"
+          >
+            {buttonText}
+          </button>
         </div>
         <section>
-          {
-            showImages ? (
-              <ul className="grid gap-y-5">
-                {
-                  images.map((image, index) => 
-                    <li className="max-h-screen" key={image.attributes.caption}>
-                      <MyImage image={image.attributes} size="large" index={index}/>
-                    </li>
-                  )
-                }
-              </ul>
-            )
-            : (
-              <>
+          {showImages ? (
+            <ul className="grid gap-y-5">
+              {images.map((image, index) => (
+                <li className="max-h-screen" key={image.attributes.caption}>
+                  <MyImage
+                    image={image.attributes}
+                    size="large"
+                    index={index}
+                  />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <>
               <div className="w-1/2">
                 <MyImage image={images[0].attributes} index={1} size="small" />
               </div>
-                <article className="my-3.5">
-                  <ArtworkInfo artwork={art}/>
-                </article>
-              </>
-            )
-          }
-
+              <article className="my-3.5">
+                <ArtworkInfo artwork={art} />
+              </article>
+            </>
+          )}
         </section>
       </main>
+      <Footer />
     </>
-  )
+  );
 }
 
 export async function getStaticProps({ params }) {
