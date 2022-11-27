@@ -32,7 +32,6 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
   const aboutNav = categories?.filter(cat => cat.attributes.type === 'About').reverse()
   console.log({ aboutNav })
 
-
   console.log({currentType})
 
   //const years = ['2020s', '2010s', '2000s', '1990s']
@@ -51,7 +50,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
 
 
   return (
-    <header className="text-sm sm:text-base mt-2 sm:mt-4 mb-4">
+    <header className="text-xs xs:text-sm sm:text-base mt-2 sm:mt-4 mb-4">
       {!isRFQ && (
         <span>
           <div className="flex justify-between border border-black relative">
@@ -63,7 +62,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                       setWorkOpen(false);
                       setAboutOpen(false);
                     }}
-                    className={`text-1xl font-bold border-r border-black py-2 px-4 sm:px-6 hover:underline hover:bg-gray-200`}
+                    className={`text-1xl font-bold border-r border-black px-2 py-2 xs:px-4 sm:px-6 hover:underline hover:bg-gray-200`}
                   >
                     James Carl
                   </a>
@@ -77,13 +76,13 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                     }`}
                   >
                     <Link href="/work">
-                      <a className="py-2 px-3 sm:px-4 font-medium hover:underline  hover:bg-gray-200">
+                      <a className="py-2 px-2 xs:px-3 sm:px-4 font-medium hover:underline  hover:bg-gray-200">
                         Work
                       </a>
                     </Link>
                   </li>
                   {workOpen && (
-                    <ul className="hidden sm:flex">
+                    <ul className="hidden lg:flex">
                       {workNav.map((year) => (
                         <li key={`${year.attributes.title}-large`}>
                           <Link href={`/${year.attributes.slug}`}>
@@ -111,51 +110,43 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                       `}
                     >
                       <Link href={`/${item.attributes.slug}`}>
-                        <a className="font-medium hover:underline  hover:bg-gray-200 py-2 px-3 sm:px-4">
+                        <a className="font-medium hover:underline  hover:bg-gray-200 py-2 px-2 xs:px-3 sm:px-4">
                           {item.attributes.title}
                         </a>
                       </Link>
                     </li>
                   ))}
-                  {/*{aboutOpen && (
-                    <ul className="hidden sm:flex">
-                      {aboutNav.map((item) => (
-                        <li key={`${item.attributes.slug}-large`}>
-                          <Link href={`/${item.attributes.slug}`}>
-                            <a
-                              className={`block py-2 px-4 hover:underline text-[14px] ${
-                                currentPath.includes(item.attributes.slug) &&
-                                `italic underline`
-                              }`}
-                            >
-                              {item.attributes.title}
-                            </a>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}*/}
+                  <li
+                    className={`flex border-r border-black hover:underline hover:bg-gray-200 ${
+                      workOpen && "border-l border-r-0"
+                    }`}
+                  >
+                    <a
+                      href="https://en.wikipedia.org/wiki/James_Carl"
+                      target="_blank"
+                      className="font-medium hover:underline  hover:bg-gray-200 py-2 px-2 xs:px-3 sm:px-4 cursor-alias"
+                    >
+                      About
+                    </a>
+                  </li>
                 </ul>
               </nav>
             </div>
           </div>
 
-          {aboutOpen && (
-            <div className="border border-black border-t-0 sm:hidden">
+          {workOpen && (
+            <div className="border border-black border-t-0 lg:hidden">
               <ul className="flex">
-                {aboutNav.map((item) => (
-                  <li
-                    className="border-r border-black"
-                    key={item.attributes.slug}
-                  >
-                    <Link href={`/${item.attributes.slug}`}>
+                {workNav.map((year) => (
+                  <li key={`${year.attributes.title}-small`}>
+                    <Link href={`/${year.attributes.slug}`}>
                       <a
-                        className={`block py-2 px-4 hover:underline ${
-                          currentPath.includes(item.attributes.slug) &&
+                        className={`block py-2 px-2 xs:px-4 hover:underline text-[14px] ${
+                          currentPath.includes(year.attributes.slug) &&
                           `italic underline`
                         }`}
                       >
-                        {item.attributes.title}
+                        {year.attributes.title}
                       </a>
                     </Link>
                   </li>
