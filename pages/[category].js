@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import AppHeader from '../components/AppHeader'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Article from '../components/Article'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 import ListLink from '../components/ListLink'
@@ -64,6 +64,7 @@ export default function categoryPage({ category, categories }) {
     );
   }
 
+
   return (
     <>
       <AppHeader
@@ -96,7 +97,7 @@ export default function categoryPage({ category, categories }) {
                   className="block w-full border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 >
                   <option value="yearStarted">Sort by year</option>
-                  <option value="title">Sort by title</option>
+                  <option value="slug">Sort by title</option>
                 </select>
               </div>
             </>
