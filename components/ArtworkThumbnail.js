@@ -43,8 +43,8 @@ export default function ArtworkThumbnail({artwork}) {
                   //to do add loading
                   //placeholder="blur"
                   layout="fill"
-                  objectFit="cover"
-                  //objectFit="contain"
+                  //objectFit="cover"
+                  objectFit="contain"
                 />
               </div>
             )

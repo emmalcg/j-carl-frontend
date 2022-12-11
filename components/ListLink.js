@@ -13,6 +13,6 @@ export default function ListLink({artwork}) {
           {artwork.yearEnded && `-${artwork.yearEnded}`}
           </a>
       </Link>
-    </li>
+    </li> 
   )
 }

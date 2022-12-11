@@ -34,20 +34,32 @@ Deployed automatically from `main` branch with Vercel
 -make sure all image links are working: http://localhost:3000/work/fountain
 -only grab the things needed for the work page Warning: data for page "/work" is 200 kB, this amount of data can reduce performance.
 See more info here: https://nextjs.org/docs/messages/large-page-data
-
-SEO
+-seo
 
 -work opens up to year as well
 -need to change data based for categories. categories will be: work: years, about, cv, writing: years
 
 -have some sort of indiciation of clicking
 -database 
--About will just led to wikipedia 
+-need another thing
+-need categories / sub menus 
+-titles is default no italics
+-plus sign
+
+-information page optional 
+-left justified
+-have seperate thumbnail photo
+
+-jalousie
+  -jalousie (roman), 2008, Art Gallery of Ontario
+
 
 website anna tasks
 -photo sizing
 -spreadsheet
 -by title 
+
+
 -could sort by title or by year
 -might need to account for a name below the photos
 -how to download the font
@@ -55,5 +67,4 @@ website anna tasks
 -have the gmail
 -create login for strapi
 
-
--look into google sheet at src of truth
+-look into google sheet as src of truth

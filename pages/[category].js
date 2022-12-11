@@ -40,7 +40,7 @@ export default function categoryPage({ category, categories }) {
 
   const ImageList = ({list}) => {
     return (
-      <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+      <ul className="space-y-3 w-96">
         {list.map((artwork, i) => (
           <ArtworkThumbnail
             key={`${artwork.attributes.title}${i}`}
@@ -48,7 +48,7 @@ export default function categoryPage({ category, categories }) {
           />
         ))}
       </ul>
-    )
+    );
   }
 
   const TitleList = ({list}) => {
