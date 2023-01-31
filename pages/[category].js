@@ -7,12 +7,33 @@ import ListLink from '../components/ListLink'
 import Footer from '../components/Footer'
 
 export default function categoryPage({ category, categories }) {
-  //console.log({category})
   const text = category.attributes.texts.data
   const articles = category.attributes.article.data
   const artworks = category.attributes.artworks.data
 
-  const [showImages, setShowImages] = useState(true)
+  let artworkSeries = []
+
+  artworks.forEach(artwork => {
+    if (!artwork.attributes.series.data) {
+      artworkSeries.push(artwork.attributes)
+    } else {
+      const seriesTitle = artwork.attributes.series.data.attributes.Title
+      const series = {
+        ...artwork.attributes.series.data.attributes,
+        artworks: [],
+      };
+      const index = artworkSeries.findIndex(work => work.Title === seriesTitle)
+      if(index === -1) {
+        artworkSeries.push(series)
+      } else {
+        artworkSeries[index].artworks.push(artwork.attributes);
+      }
+    }
+  })
+
+  console.log('artworkSeries', artworkSeries)
+
+  const [showImages, setShowImages] = useState(false)
   const [sortBy, setSortBy] = useState('yearStarted');
 
   let sortedWork = [...artworks]
@@ -176,7 +197,7 @@ export async function getStaticProps({ params }) {
                   attributes {
                     title,
                     archive,
-                    slug,
+                    Slug,
                     yearStarted,
                     yearEnded,
                     description,
@@ -184,6 +205,28 @@ export async function getStaticProps({ params }) {
                     dimensions,
                     location,
                     client,
+                    series {
+                      data {
+                        attributes {
+                          Title,
+                          displayName,
+                          Slug,   
+                          yearStarted,
+                          yearEnded   
+                        }
+                      }
+                    },
+                    thumbnail {
+                      data {
+                        attributes {
+                          url,
+                          formats,
+                          caption,
+                          width,
+                          height
+                        }
+                      }
+                    },
                     media {
                       data {
                         attributes {

@@ -49,6 +49,14 @@ See more info here: https://nextjs.org/docs/messages/large-page-data
 -information page optional 
 -left justified
 -have seperate thumbnail photo
+-need to figure out password protection for writing and add boolean
+-arrow indicating and column like finder
+-[series title ] 2005+ > 
+-web projects
+  -projects
+  -downloads
+-time switcharoo for landing page
+-washing machine as loading symbol
 
 -jalousie
   -jalousie (roman), 2008, Art Gallery of Ontario

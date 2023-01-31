@@ -94,7 +94,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                                 `italic underline`
                               }`}
                             >
-                              {year.attributes.title}
+                              {year.attributes.title}+
                             </a>
                           </Link>
                         </li>
@@ -148,7 +148,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                           `italic underline`
                         }`}
                       >
-                        {year.attributes.title}
+                        {year.attributes.title}+
                       </a>
                     </Link>
                   </li>

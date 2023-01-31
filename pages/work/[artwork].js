@@ -80,9 +80,9 @@ export async function getStaticProps({ params }) {
 
   const { data: singleArtworkData } = await client.query({ 
     query: gql `
-      query getArtworks ($slug: String!){
+      query getArtworks ($Slug: String!){
       artworks(filters:{
-        slug:{ eq: $slug}
+        Slug:{ eq: $Slug}
       }) {
         data {
           id
@@ -112,7 +112,7 @@ export async function getStaticProps({ params }) {
     }
     `,
     variables: {
-      slug: artwork,
+      Slug: artwork,
     }
    })
 
@@ -156,7 +156,7 @@ export async function getStaticPaths() {
         artworks {
           data {
             attributes {
-              slug
+              Slug
             }
           }
         }
@@ -168,7 +168,7 @@ export async function getStaticPaths() {
   const artworkSlugs = data.artworks.data 
   const paths = artworkSlugs.map(({attributes}) => {
     return {
-      params: { artwork: attributes.slug }
+      params: { artwork: attributes.Slug }
     };
   });
   return {

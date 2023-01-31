@@ -25,9 +25,9 @@ const ToggleItem = ({ name, artworks }) => {
   return (
     <>
       <div>
-        <div className="w-full flex justify-between mb-1">
+        <div className="w-full flex justify-between mb-3">
           <Link href={`/${name}`} key={`${name}`}>
-            <a>{name}</a>
+            <a>{name}+</a>
           </Link>
           <button
             className="no-underline text-[14px]"
@@ -44,6 +44,7 @@ const ToggleItem = ({ name, artworks }) => {
                     <ArtworkThumbnail
                       key={`${artwork.attributes.title}${i}`}
                       artwork={artwork.attributes}
+                      centered={true}
                     />
                   )
               )
@@ -51,48 +52,20 @@ const ToggleItem = ({ name, artworks }) => {
                 <ArtworkThumbnail
                   key={`${artwork.attributes.title}${i}`}
                   artwork={artwork.attributes}
+                  centered={true}
                 />
               ))}
         </ul>
       </div>
-      <Footer />
     </>
   );
 }
 
 export default function work({ artworks, categories }) {
 
-  
   const yearNav = categories?.filter(cat => cat.attributes.type === 'Year')
 
-
-  console.log({ yearNav })
   const [years, setYears] = useState([])
-  //const years = [
-  //  {
-  //    title: '2020s',
-  //    artworks: []
-  //  },
-  //  {
-  //    title: '2010s',
-  //    artworks: []
-  //  },
-  //  {
-  //    title: '2000s',
-  //    artworks: []
-  //  },
-  //  {
-  //    title: '1990s',
-  //    artworks: []
-  //  },
-  //  {
-  //    title: '1980s',
-  //    artworks: []
-  //  }
-  //]
-
-
-  console.log({years})
 
   const [ twentyTwenty, setTwentyTwenty ] = useState([])
   const [ twentyTen, setTwentyTen ] = useState([])
@@ -156,47 +129,28 @@ export default function work({ artworks, categories }) {
     setEighties(eighty)
 
     setYears(data)
-    //artworks.data.filter.forEach(artwork => {
-    //  if(artwork.attributes.yearStarted >= 2020) {
 
-    //  }
-    //})
   }, [artworks])
   
-
-  //console.log({ twentyTwenty })
-  //console.log({ twoThousand })
-  //console.log({ ninties })
-  //console.log({ eighties })
   return (
     <>
       <AppHeader categories={categories} currentPath='work' currentType="Work"/>
       <main>
-        {/*<h2 className="text-lg font-semibold mb-3.5">{category.attributes.title}</h2>*/}
         <section>
-          <div className="underline flex flex-col space-y-6">
+          <div className="underline flex flex-col space-y-5">
          
             <ToggleItem name="2020" artworks={twentyTwenty} />
             <ToggleItem name="2010" artworks={twentyTen} />
             <ToggleItem name="2000" artworks={twoThousand} />
             <ToggleItem name="1990" artworks={ninties} />
-            {/*<ToggleItem name="2020s" artworks={twentyTwenty} />*/}
           </div>
-
-                {/*<ul className="grid grid-cols-3 gap-4">
-                {archiveArtworks.map((artwork, i) => 
-                  //<Artwork key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/>    
-                  <ArtworkThumbnail key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
-                  )
-                }
-              </ul>*/}
-
         </section>
       </main>
     </>
   )
 }
 export async function getStaticProps() {
+  console.log('stat')
   const { API_URL } = process.env
   const client = new ApolloClient({
     uri: `${API_URL}`,
@@ -228,7 +182,27 @@ export async function getStaticProps() {
             dimensions,
             location,
             client,
-            slug,
+            Slug,
+            series {
+              data {
+                attributes {
+                  Title,
+                  displayName,
+                  Slug,      
+                }
+              }
+            },
+            thumbnail {
+              data {
+                attributes {
+                  url,
+                  formats,
+                  caption,
+                  width,
+                  height
+                }
+              }
+            },
             media {
               data {
                 attributes {
