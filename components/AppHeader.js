@@ -94,22 +94,34 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                                 `italic underline`
                               }`}
                             >
-                              {year.attributes.title}+
+                              {year.attributes.title}
                             </a>
                           </Link>
                         </li>
                       ))}
                     </ul>
                   )}
+                  <li
+                    className={`flex border-black hover:underline hover:bg-gray-200 ${
+                      workOpen && "ml-auto border-l"
+                    } 
+                      `}
+                  >
+                    <Link href='/web'>
+                      <a
+                        className="font-medium hover:underline hover:bg-gray-200 py-2 px-2 xs:px-3 sm:px-4"
+                      >
+                        Web
+                      </a>
+                    </Link>
+                  </li>
                   {aboutNav.map((item, i) => (
                     <li
                       key={item.attributes.slug}
-                      className={`flex border-r border-black hover:underline hover:bg-gray-200 ${
+                      className={`flex border-black hover:underline hover:bg-gray-200 border-l border-r-0 ${
                         currentPath.includes(item.attributes.slug) &&
                         "bg-gray-200"
-                      } ${workOpen && "border-l border-r-0"} 
-                      ${workOpen && i == 0 && "ml-auto"} 
-                      `}
+                      }`}
                     >
                       <Link href={`/${item.attributes.slug}`}>
                         <a className="font-medium hover:underline  hover:bg-gray-200 py-2 px-2 xs:px-3 sm:px-4">
@@ -119,8 +131,8 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                     </li>
                   ))}
                   <li
-                    className={`flex border-r border-black hover:underline hover:bg-gray-200 ${
-                      workOpen && "border-l border-r-0"
+                    className={`flex border-r border-l border-black hover:underline hover:bg-gray-200 ${
+                      workOpen && "border-r-0"
                     }`}
                   >
                     <a
@@ -148,7 +160,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
                           `italic underline`
                         }`}
                       >
-                        {year.attributes.title}+
+                        {year.attributes.title}
                       </a>
                     </Link>
                   </li>

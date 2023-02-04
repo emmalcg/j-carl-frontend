@@ -7,7 +7,7 @@ import AppHeader from '../components/AppHeader'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 import Footer from '../components/Footer';
 
-const ToggleItem = ({ name, artworks }) => {
+const ToggleItem = ({ name, artworks, slug }) => {
   const [open, setOpen] = useState(false)
   //const windowWidth = window.innerWidth
 
@@ -26,8 +26,8 @@ const ToggleItem = ({ name, artworks }) => {
     <>
       <div>
         <div className="w-full flex justify-between mb-3">
-          <Link href={`/${name}`} key={`${name}`}>
-            <a>{name}+</a>
+          <Link href={`/${slug}`} key={`${name}`}>
+            <a>{name}</a>
           </Link>
           <button
             className="no-underline text-[14px]"
@@ -134,20 +134,23 @@ export default function work({ artworks, categories }) {
   
   return (
     <>
-      <AppHeader categories={categories} currentPath='work' currentType="Work"/>
+      <AppHeader
+        categories={categories}
+        currentPath="work"
+        currentType="Work"
+      />
       <main>
         <section>
           <div className="underline flex flex-col space-y-5">
-         
-            <ToggleItem name="2020" artworks={twentyTwenty} />
-            <ToggleItem name="2010" artworks={twentyTen} />
-            <ToggleItem name="2000" artworks={twoThousand} />
-            <ToggleItem name="1990" artworks={ninties} />
+            <ToggleItem name="2020+" slug="2020" artworks={twentyTwenty} />
+            <ToggleItem name="2010+" slug="2010" artworks={twentyTen} />
+            <ToggleItem name="2000+" slug="2000" artworks={twoThousand} />
+            <ToggleItem name="1990+" slug="1990" artworks={ninties} />
           </div>
         </section>
       </main>
     </>
-  )
+  );
 }
 export async function getStaticProps() {
   console.log('stat')

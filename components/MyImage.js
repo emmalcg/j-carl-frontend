@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { buildUrl } from 'cloudinary-build-url'
 
-export default function MyImage ({image, index, size, showLoading= false }) {
-  console.log(image)
+export default function MyImage ({image, index, size, showLoading= false, responsive = true }) {
+  console.log("image", image)
   const imgSlug = image?.formats[size]?.provider_metadata?.public_id || image.url
 
   const thumbnail = image.caption
@@ -25,15 +25,17 @@ export default function MyImage ({image, index, size, showLoading= false }) {
     }
   });
 
-  const imageComponent = <Image 
-                  src={url}
-                  alt={image.caption}
-                  width="100%"
-                  height="100%"
-                  layout="responsive"
-                  objectFit='contain'
-                  priority={index == 0 ? true : false}
-                />
+  const imageComponent = (
+    <Image
+      src={url}
+      alt={image.caption}
+      width={responsive ? `100%` : image.formats[size].width}
+      height={responsive ? `100%` : image.formats[size].height}
+      layout={responsive ? `responsive` : `fixed`}
+      objectFit="contain"
+      priority={index == 0 ? true : false}
+    />
+  );
   return (
     <>
       {showLoading ? (

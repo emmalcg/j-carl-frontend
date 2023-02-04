@@ -6,10 +6,12 @@ import AppHeader from '../../components/AppHeader'
 import MyImage from '../../components/MyImage'
 import ArtworkInfo from '../../components/ArtworkInfo'
 import Footer from '../../components/Footer'
+import ArtworkThumbnail from '../../components/ArtworkThumbnail'
 
 export default function ArtworkPage({ artwork, categories }) {
 
   const art = artwork.attributes
+  console.log({art})
   const images = art.media.data 
 
   const [showImages, setShowImages] = useState(true)
@@ -54,7 +56,8 @@ export default function ArtworkPage({ artwork, categories }) {
           ) : (
             <>
               <div className="w-1/2">
-                <MyImage image={images[0].attributes} index={1} size="small" />
+                {/*<ArtworkThumbnail artwork={artwork.attributes} />*/}
+                <MyImage image={art.thumbnail.data.attributes} index={1} size="small" responsive={false}/>
               </div>
               <article className="my-3.5">
                 <ArtworkInfo artwork={art} />
@@ -95,6 +98,17 @@ export async function getStaticProps({ params }) {
             dimensions,
             location,
             client,
+            thumbnail {
+              data {
+                attributes {
+                  url,
+                  formats,
+                  caption,
+                  width,
+                  height
+                }
+              }
+            },
             media {
               data {
                 attributes {
