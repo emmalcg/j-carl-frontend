@@ -11,7 +11,43 @@ export default function categoryPage({ category, categories }) {
   const articles = category.attributes.article.data;
   const artworks = category.attributes.artworks.data;
 
+  const pw = "bands";
+
+  const [viewPP, setViewPP] = useState(false);
+  const [message, setMessage] = useState("");
+
+  console.log('viewPPPPPP', viewPP)
+
+  useEffect(() => {
+    const saved = localStorage.getItem("showPP");
+    saved && setViewPP(true);
+  }, []);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    let password = e.target.elements.password?.value;
+    if (password == pw) {
+      setViewPP(true);
+      localStorage.setItem("showPP", true);
+    } else {
+      setMessage("Wrong Password");
+    }
+  };
+
   console.log({ articles });
+
+  let articleSeries = [...articles]
+
+  articleSeries.sort((a, b) => {
+    console.log('a', a)
+    a.attributes.year > b.attributes.year
+      ? 1
+      : a.attributes.year < b.attributes.year
+      ? -1
+      : 0;
+  });
+
+  console.log('articleSeries', articleSeries)
 
   let artworkSeries = [];
 
@@ -41,9 +77,14 @@ export default function categoryPage({ category, categories }) {
   let sortedWork = [...artworks];
 
   if (sortBy !== null) {
-    artworkSeries.sort((a, b) =>
-      a[sortBy] > b[sortBy] ? 1 : a[sortBy] < b[sortBy] ? -1 : 0
-    );
+
+    if(category.attributes.type === "Work") {
+      artworkSeries.sort((a, b) =>
+        a[sortBy] > b[sortBy] ? 1 : a[sortBy] < b[sortBy] ? -1 : 0
+      );
+    }
+  } else {
+
   }
 
   const requestSort = (event) => {
@@ -83,7 +124,8 @@ export default function categoryPage({ category, categories }) {
             setOpen(!open);
           }}
         >
-          {artwork.Title}{" "}
+          {artwork.Title}, {artwork.yearStarted}
+          {artwork.yearEnded && `-${artwork.yearEnded}`}
           <div className="flex h-full ml-7">
             <svg
               className={`mt-[7px] ${open && `rotate-90`}`}
@@ -178,6 +220,22 @@ export default function categoryPage({ category, categories }) {
               </div>
             </>
           )}
+          {!!articleSeries.length && (
+            <div className="ml-auto">
+              <label htmlFor="sort" className="hidden">
+                Sort
+              </label>
+              <select
+                id="sort"
+                name="sort"
+                onChange={requestSort}
+                className="block w-full border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              >
+                <option value="year">Sort by year</option>
+                <option value="displayName">Sort by title</option>
+              </select>
+            </div>
+          )}
         </div>
         {/*<h2 className="text-lg font-semibold mb-3.5">{category.attributes.title}</h2>*/}
         <section>
@@ -187,15 +245,41 @@ export default function categoryPage({ category, categories }) {
             <SeriesList list={artworkSeries} />
           )}
 
-          {!!articles.length && (
-            <ul>
-              {articles.map((article, i) => (
-                <Article
-                  key={`${article.attributes.title}${i}`}
-                  article={article.attributes}
-                />
-              ))}
-            </ul>
+          {!!articleSeries.length && (
+            <>
+              <ul>
+                {articleSeries.map((article, i) => (
+                  <Article
+                    key={`${article.attributes.title}${i}`}
+                    article={article.attributes}
+                    passwordEntered={viewPP}
+                  />
+                ))}
+              </ul>
+              <div className="border border-black max-w-[300px] m-auto mt-20">
+                <form onSubmit={handleFormSubmit}>
+                  <div className="flex flex-col text-center">
+                    <label className="py-2" htmlFor="password">
+                      Password
+                    </label>
+                    <input
+                      className="border-y border-black p-2 text-center"
+                      type="password"
+                      id="password"
+                      type="text"
+                    />
+                  </div>
+                  <button className="text-center w-full py-2 hover:bg-gray-200">
+                    Submit
+                  </button>
+                </form>
+                {message && (
+                  <p className="border-t border-black py-2 text-center text-red-800 font-bold">
+                    {message}
+                  </p>
+                )}
+              </div>
+            </>
           )}
         </section>
       </main>
@@ -232,6 +316,8 @@ export async function getStaticProps({ params }) {
                     title,
                     date,
                     displayName,
+                    year,
+                    passwordProtected,
                     Document {
                       data {
                         attributes {

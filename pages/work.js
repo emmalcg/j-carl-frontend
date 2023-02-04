@@ -11,6 +11,27 @@ const ToggleItem = ({ name, artworks, slug }) => {
   const [open, setOpen] = useState(false)
   //const windowWidth = window.innerWidth
 
+  let artworkSeries = []
+  artworks.forEach((artwork) => {
+    if (!artwork.attributes.series.data) {
+      artworkSeries.push(artwork.attributes);
+    } else {
+      const seriesTitle = artwork.attributes.series.data.attributes.Title;
+      const series = {
+        ...artwork.attributes.series.data.attributes,
+        artworks: [artwork.attributes],
+      };
+      const index = artworkSeries.findIndex(
+        (work) => work.Title === seriesTitle
+      );
+      if (index === -1) {
+        artworkSeries.push(series);
+      } else {
+        artworkSeries[index].artworks.unshift(artwork.attributes);
+      }
+    }
+  });
+
   const [imageAmount, setImageAmount] = useState(3)
 
   useEffect(() => {
@@ -33,7 +54,7 @@ const ToggleItem = ({ name, artworks, slug }) => {
             className="no-underline text-[14px]"
             onClick={() => setOpen((prev) => !prev)}
           >
-            {!open && artworks.length > 3 ? "Show all" : "Show less"}
+            {!open && artworks.length > 2 ? "Show all" : "Show less"}
           </button>
         </div>
         <ul className="grid grid-cols-2 md:grid-cols-3 gap-4">

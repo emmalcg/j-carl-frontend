@@ -4,7 +4,7 @@ import AppHeader from "../components/AppHeader";
 import Footer from "../components/Footer";
 
 export default function webPage({ categories }) {
-  
+
   return (
     <>
       <AppHeader
