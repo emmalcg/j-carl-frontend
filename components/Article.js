@@ -10,11 +10,17 @@ export default function Article({ article, passwordEntered }) {
       }`}
     >
       <a
-        href={article.Document.data.attributes.url}
+        href={article?.document?.data?.attributes?.url}
         target="_blank"
-        className="underline cursor-alias"
+        className="hover:underline cursor-alias"
       >
-        {article.displayName}
+        {article.type}: "{article.title}",{" "}
+        {article.publication && (
+          <span className="italic">{article.publication}, </span>
+        )}
+        {article.author && (`${article.author}, `)} 
+        { article.editor && (`Ed: ${article.editor}, `)}
+        {article.year}
       </a>
     </li>
   );

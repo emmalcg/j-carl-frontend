@@ -16,13 +16,13 @@ const ToggleItem = ({ name, artworks, slug }) => {
     if (!artwork.attributes.series.data) {
       artworkSeries.push(artwork.attributes);
     } else {
-      const seriesTitle = artwork.attributes.series.data.attributes.Title;
+      const seriesTitle = artwork.attributes.series.data.attributes.title;
       const series = {
         ...artwork.attributes.series.data.attributes,
         artworks: [artwork.attributes],
       };
       const index = artworkSeries.findIndex(
-        (work) => work.Title === seriesTitle
+        (work) => work.title === seriesTitle
       );
       if (index === -1) {
         artworkSeries.push(series);
@@ -206,13 +206,13 @@ export async function getStaticProps() {
             dimensions,
             location,
             client,
-            Slug,
+            slug,
             series {
               data {
                 attributes {
-                  Title,
+                  title,
                   displayName,
-                  Slug,      
+                  slug,      
                 }
               }
             },

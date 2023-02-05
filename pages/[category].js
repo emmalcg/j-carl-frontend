@@ -7,7 +7,6 @@ import ListLink from '../components/ListLink'
 import Footer from '../components/Footer'
 
 export default function categoryPage({ category, categories }) {
-  const text = category.attributes.texts.data;
   const articles = category.attributes.article.data;
   const artworks = category.attributes.artworks.data;
 
@@ -55,13 +54,13 @@ export default function categoryPage({ category, categories }) {
     if (!artwork.attributes.series.data) {
       artworkSeries.push(artwork.attributes);
     } else {
-      const seriesTitle = artwork.attributes.series.data.attributes.Title;
+      const seriesTitle = artwork.attributes.series.data.attributes.title;
       const series = {
         ...artwork.attributes.series.data.attributes,
         artworks: [artwork.attributes],
       };
       const index = artworkSeries.findIndex(
-        (work) => work.Title === seriesTitle
+        (work) => work.title === seriesTitle
       );
       if (index === -1) {
         artworkSeries.push(series);
@@ -124,7 +123,7 @@ export default function categoryPage({ category, categories }) {
             setOpen(!open);
           }}
         >
-          {artwork.Title}, {artwork.yearStarted}
+          {artwork.title}, {artwork.yearStarted}
           {artwork.yearEnded && `-${artwork.yearEnded}`}
           <div className="flex h-full ml-7">
             <svg
@@ -215,7 +214,7 @@ export default function categoryPage({ category, categories }) {
                   className="block w-full border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 >
                   <option value="yearStarted">Sort by year</option>
-                  <option value="Slug">Sort by title</option>
+                  <option value="slug">Sort by title</option>
                 </select>
               </div>
             </>
@@ -314,11 +313,16 @@ export async function getStaticProps({ params }) {
                 data {
                   attributes {
                     title,
-                    date,
+                    year,
+                    publication,
+                    author,
+                    editor,
+                    issueNumber,
+                    type,
                     displayName,
                     year,
                     passwordProtected,
-                    Document {
+                    document {
                       data {
                         attributes {
                           url
@@ -328,20 +332,12 @@ export async function getStaticProps({ params }) {
                   }
                 }
               },
-              texts {
-                data {
-                  attributes {
-                    title, 
-                    Markup
-                  }
-                }
-              },
               artworks {
                 data {
                   attributes {
                     title,
                     archive,
-                    Slug,
+                    slug,
                     yearStarted,
                     yearEnded,
                     description,
@@ -352,9 +348,9 @@ export async function getStaticProps({ params }) {
                     series {
                       data {
                         attributes {
-                          Title,
+                          title,
                           displayName,
-                          Slug,   
+                          slug,   
                           yearStarted,
                           yearEnded   
                         }

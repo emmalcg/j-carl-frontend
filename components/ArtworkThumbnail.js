@@ -4,7 +4,7 @@ import Link from 'next/link'
 export default function ArtworkThumbnail({ artwork, centered = false }) {
   console.log('artwork', artwork)
 
-  const slug = artwork.Slug
+  const slug = artwork.slug
 
   const img = artwork.thumbnail?.data?.attributes 
   console.log('img', img)
