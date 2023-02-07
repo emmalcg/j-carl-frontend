@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { useRouter } from "next/router";
 import { Fragment, useState, useEffect } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import NavSub from './NavSubheading';
 
 function MainLink(props) {
   const router = useRouter()

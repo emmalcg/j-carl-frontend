@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { buildUrl } from 'cloudinary-build-url'
 
 export default function MyImage ({image, index, size, showLoading= false, responsive = true }) {
-  console.log("image", image)
+  //console.log("image", image)
   const imgSlug = image?.formats[size]?.provider_metadata?.public_id || image.url
 
   const thumbnail = image.caption

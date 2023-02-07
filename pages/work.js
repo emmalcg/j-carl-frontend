@@ -1,180 +1,53 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
-import { useState, useEffect } from 'react';
 import Link from 'next/link'
 import AppHeader from '../components/AppHeader'
-//import Artwork from '../components/Artwork'
-//import Article from '../components/Article'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 import Footer from '../components/Footer';
 
-const ToggleItem = ({ name, artworks, slug }) => {
-  const [open, setOpen] = useState(false)
-  //const windowWidth = window.innerWidth
-
-  let artworkSeries = []
-  artworks.forEach((artwork) => {
-    if (!artwork.attributes.series.data) {
-      artworkSeries.push(artwork.attributes);
-    } else {
-      const seriesTitle = artwork.attributes.series.data.attributes.title;
-      const series = {
-        ...artwork.attributes.series.data.attributes,
-        artworks: [artwork.attributes],
-      };
-      const index = artworkSeries.findIndex(
-        (work) => work.title === seriesTitle
-      );
-      if (index === -1) {
-        artworkSeries.push(series);
-      } else {
-        artworkSeries[index].artworks.unshift(artwork.attributes);
-      }
-    }
-  });
-
-  const [imageAmount, setImageAmount] = useState(3)
-
-  useEffect(() => {
-    if(window.innerWidth < 768) {
-      setImageAmount(2)
-    } else if(window.innerWidth > 768) {
-      setImageAmount(3)
-    }
-  }, [])
-
-
+const DecadeItem = ({ page, artwork }) => {
   return (
     <>
       <div>
         <div className="w-full flex justify-between mb-3">
-          <Link href={`/${slug}`} key={`${name}`}>
-            <a>{name}</a>
+          <Link href={`/${page.slug}`}>
+            <a>{page.title}</a>
           </Link>
-          <button
-            className="no-underline text-[14px]"
-            onClick={() => setOpen((prev) => !prev)}
-          >
-            {!open && artworks.length > 2 ? "Show all" : "Show less"}
-          </button>
         </div>
-        <ul className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {!open
-            ? artworks.map(
-                (artwork, i) =>
-                  i < imageAmount && (
-                    <ArtworkThumbnail
-                      key={`${artwork.attributes.title}${i}`}
-                      artwork={artwork.attributes}
-                      centered={true}
-                    />
-                  )
-              )
-            : artworks.map((artwork, i) => (
-                <ArtworkThumbnail
-                  key={`${artwork.attributes.title}${i}`}
-                  artwork={artwork.attributes}
-                  centered={true}
-                />
-              ))}
-        </ul>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <ArtworkThumbnail
+            artwork={artwork}
+            centered={true}
+            slug={`/${page.slug}`}
+          />
+        </div>
       </div>
     </>
   );
 }
 
-export default function work({ artworks, categories }) {
-
-  const yearNav = categories?.filter(cat => cat.attributes.type === 'Year')
-
-  const [years, setYears] = useState([])
-
-  const [ twentyTwenty, setTwentyTwenty ] = useState([])
-  const [ twentyTen, setTwentyTen ] = useState([])
-  const [ twoThousand, setTwoThousand ] = useState([])
-  const [ ninties, setNinties ] = useState([])
-  const [ eighties, setEighties ] = useState([])
-  useEffect(() => {
-
-    const data = [
-      {
-        title: '2020s',
-        artworks: artworks.data.filter((artwork) => {
-          return artwork.attributes.yearStarted >= 2020
-        })
-      },
-      {
-        title: '2010s',
-        artworks: artworks.data.filter((artwork) => {
-          return artwork.attributes.yearStarted >= 2010 && artwork.attributes.yearStarted < 2020
-        })
-      },
-      {
-        title: '2000s',
-        artworks: artworks.data.filter((artwork) => {
-          return artwork.attributes.yearStarted >= 2000 && artwork.attributes.yearStarted < 2010
-        })
-      },
-      {
-        title: '1990s',
-        artworks: artworks.data.filter((artwork) => {
-          return artwork.attributes.yearStarted >= 1990 && artwork.attributes.yearStarted < 2000
-        })
-      },
-      {
-        title: '1980s',
-        artworks: artworks.data.filter((artwork) => {
-          return artwork.attributes.yearStarted >= 1980 && artwork.attributes.yearStarted < 1990
-        })
-      }
-    ]
-
-    const twenty = artworks.data.filter((artwork) => {
-      return artwork.attributes.yearStarted >= 2020
-    })
-    const ten = artworks.data.filter((artwork) => {
-      return artwork.attributes.yearStarted >= 2010 && artwork.attributes.yearStarted < 2020
-    })
-    const thousand = artworks.data.filter((artwork) => {
-      return artwork.attributes.yearStarted >= 2000 && artwork.attributes.yearStarted < 2010
-    })
-    const ninty = artworks.data.filter((artwork) => {
-      return artwork.attributes.yearStarted >= 1990 && artwork.attributes.yearStarted < 2000
-    })
-    const eighty = artworks.data.filter((artwork) => {
-      return artwork.attributes.yearStarted >= 1980 && artwork.attributes.yearStarted < 1990
-    })
-    setTwentyTwenty(twenty)
-    setTwentyTen(ten)
-    setTwoThousand(thousand)
-    setNinties(ninty)
-    setEighties(eighty)
-
-    setYears(data)
-
-  }, [artworks])
-  
+export default function work({ pages }) {
+  const decades = pages.data[0].attributes.sublink
   return (
     <>
-      <AppHeader
-        categories={categories}
-        currentPath="work"
-        currentType="Work"
-      />
+      <AppHeader currentPath="work" currentType="Work" />
       <main>
         <section>
           <div className="underline flex flex-col space-y-5">
-            <ToggleItem name="2020+" slug="2020" artworks={twentyTwenty} />
-            <ToggleItem name="2010+" slug="2010" artworks={twentyTen} />
-            <ToggleItem name="2000+" slug="2000" artworks={twoThousand} />
-            <ToggleItem name="1990+" slug="1990" artworks={ninties} />
+            {decades.map((decade) => (
+              <DecadeItem
+                key={decade.page.data.attributes.slug}
+                page={decade.page.data.attributes}
+                artwork={decade.artwork.data.attributes}
+              />
+            ))}
           </div>
         </section>
       </main>
     </>
   );
 }
+
 export async function getStaticProps() {
-  console.log('stat')
   const { API_URL } = process.env
   const client = new ApolloClient({
     uri: `${API_URL}`,
@@ -183,90 +56,48 @@ export async function getStaticProps() {
 
   const { data } = await client.query({
     query: gql`
-    query getArtworks {
-      artworks(sort: ["yearStarted:desc"], filters: { 
-          archive: { eq: true }
-        }) {
-        data {
-          id
-          attributes {
-            archive,
-            people {
-              data {
-                attributes {
-                  lastName
-                }
-              }
-            }
-            title,
-            yearStarted,
-            yearEnded,
-            description,
-            materials,
-            dimensions,
-            location,
-            client,
-            slug,
-            series {
-              data {
-                attributes {
-                  title,
-                  displayName,
-                  slug,      
-                }
-              }
-            },
-            thumbnail {
-              data {
-                attributes {
-                  url,
-                  formats,
-                  caption,
-                  width,
-                  height
-                }
-              }
-            },
-            media {
-              data {
-                attributes {
-                  url,
-                  formats,
-                  caption,
-                  width,
-                  height
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    `
-  });
-
-  const {data: allCategoryData } = await client.query({
-    query: gql `
-      query getCategories {
-        categories (sort: ["title"]) {
+      query GET_WORK_PAGE {
+        pages(filters: { slug: { eq: "work" } }) {
           data {
             attributes {
-              title,
-              type,
-              slug
+              sublink {
+                artwork {
+                  data {
+                    attributes {
+                      title,
+                      thumbnail {
+                        data {
+                          attributes {
+                            url,
+                            formats,
+                            caption,
+                            width,
+                            height
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                page {
+                  data {
+                    attributes {
+                      slug,
+                      title,
+                    }
+                  }
+                }
+              }
             }
           }
         }
       }
-    `
-  })
-
-  const allCategories = allCategoryData.categories.data
+    `,
+  });
 
   return {
     props: {
-      artworks: data.artworks,
-      categories: allCategories
+      pages: data.pages
     }
   }
 }

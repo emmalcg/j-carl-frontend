@@ -1,7 +1,13 @@
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { ApolloClient, ApolloProvider, InMemoryCache, gql } from '@apollo/client'
 import AppHeader from '../components/AppHeader'
 import MyImage from '../components/MyImage'
 import Footer from '../components/Footer'
+
+ const { API_URL } = process.env;
+ const client = new ApolloClient({
+   uri: `${API_URL}`,
+   cache: new InMemoryCache(),
+ });
 
 export default function Home({ homepage }) {
 

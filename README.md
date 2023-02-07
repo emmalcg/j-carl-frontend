@@ -76,3 +76,20 @@ website anna tasks
 -create login for strapi
 
 -look into google sheet as src of truth
+
+
+catalogues (pamphlets), 
+essays,
+entries books,
+reviews
+
+catalogue front and center
+-look at biblio entries
+
+, Edition of 16, 13 bands per box
+
+exhibition and collectors can come later
+
+-tighter grid 4 per page 
+and each decade needs 1 representative artwork
+-cardboard, jalousie, rubber bands, marble 
