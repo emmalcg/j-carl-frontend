@@ -1,63 +1,45 @@
-import Image from 'next/image'
-import { buildUrl } from 'cloudinary-build-url'
+import Image from "next/image";
+import { buildUrl } from "cloudinary-build-url";
 
-export default function MyImage ({image, index, size, showLoading= false, responsive = true }) {
-  //console.log("image", image)
-  const imgSlug = image?.formats[size]?.provider_metadata?.public_id || image.url
+export default function MyImage({ image, index, size }) {
+  const imgSlug = image.formats[size].provider_metadata.public_id;
 
-  const thumbnail = image.caption
-
-  //console.log(thumbnail)
-    
   const url = buildUrl(`${imgSlug}`, {
     cloud: {
-      cloudName: 'dgonyuzzz'
-    }
-  })
+      cloudName: "dgonyuzzz",
+    },
+  });
 
   const urlBlurred = buildUrl(`${imgSlug}`, {
     cloud: {
-      cloudName: 'dgonyuzzz',
+      cloudName: "dgonyuzzz",
     },
     transformations: {
       effect: "blur:1000",
-      quality: 1
-    }
+      quality: 1,
+    },
   });
-
-  const imageComponent = (
-    <Image
-      src={url}
-      alt={image.caption}
-      width={responsive ? `100%` : image.formats[size].width}
-      height={responsive ? `100%` : image.formats[size].height}
-      layout={responsive ? `responsive` : `fixed`}
-      objectFit="contain"
-      priority={index == 0 ? true : false}
-    />
-  );
   return (
-    <>
-      {showLoading ? (
-        <div
-          style={{
-            position: "relative",
-            height: 0,
-            paddingTop: `${(image.height / image.width) * 100}%`,
-            backgroundImage: `url(${urlBlurred})`,
-            backgroundPosition: "center center",
-            backgroundSize: "100%",
-          }}
-        >
-          <div className="absolute inset-0">{imageComponent}</div>
-        </div>
-      ) : (
-
-        <>
-        {imageComponent}
-
-        </>
-      )}
-    </>
+    <div
+      style={{
+        position: "relative",
+        height: 0,
+        paddingTop: `${(image.height / image.width) * 100}%`,
+        backgroundImage: `url(${urlBlurred})`,
+        backgroundPosition: "center center",
+        backgroundSize: "100%",
+      }}
+    >
+      <div className="absolute inset-0">
+        <Image
+          src={url}
+          alt={image.caption}
+          width={image.width}
+          height={image.height}
+          layout="responsive"
+          priority={index == 0 ? true : false}
+        />
+      </div>
+    </div>
   );
 }

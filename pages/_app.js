@@ -43,7 +43,7 @@ export default function MyApp({ Component, pageProps, categories }) {
   return (
     <ApolloProvider client={client}>
       <div className="flex flex-col">
-        <div className="m-auto px-2 sm:px-4 md:px-16 max-w-screen-lg w-full flex flex-col">
+        <div className="m-auto px-2 sm:px-4 max-w-[1200px] w-full flex flex-col">
           {!isRFQ && <Component {...pageProps} />}
           {isRFQ && loggedIn && <Component {...pageProps} />}
           {isRFQ && !loggedIn && (

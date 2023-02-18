@@ -1,14 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function ArtworkThumbnail({ artwork, centered = false, slug }) {
-  console.log('artwork', artwork)
+export default function ArtworkThumbnail({ artwork, centered = true, slug }) {
 
   const thumbnailSlug = slug || `/work/${artwork.slug}`;
 
   const img = artwork.thumbnail?.data?.attributes 
-  //console.log('img', img)
-  //console.log({ img })
 
   let imagePosition = centered ? 'center' : 'left'
   let fit = 'cover';

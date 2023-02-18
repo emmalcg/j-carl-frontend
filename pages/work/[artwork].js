@@ -3,7 +3,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { Fragment, useState, useEffect } from 'react'
 import AppHeader from '../../components/AppHeader'
-import MyImage from '../../components/MyImage'
+import ArtworkImage from '../../components/ArtworkImage'
 import ArtworkInfo from '../../components/ArtworkInfo'
 import Footer from '../../components/Footer'
 import ArtworkThumbnail from '../../components/ArtworkThumbnail'
@@ -11,7 +11,7 @@ import ArtworkThumbnail from '../../components/ArtworkThumbnail'
 export default function ArtworkPage({ artwork, categories }) {
 
   const art = artwork.attributes
-  console.log({art})
+  //console.log({art})
   const images = art.media.data 
 
   const [showImages, setShowImages] = useState(true)
@@ -44,8 +44,8 @@ export default function ArtworkPage({ artwork, categories }) {
           {showImages ? (
             <ul className="grid gap-y-5">
               {images.map((image, index) => (
-                <li className="max-h-screen" key={image.attributes.caption}>
-                  <MyImage
+                <li className="max-h-screen" key={`${image.attributes.slug}${index}`}>
+                  <ArtworkImage
                     image={image.attributes}
                     size="large"
                     index={index}
@@ -57,7 +57,8 @@ export default function ArtworkPage({ artwork, categories }) {
             <>
               <div className="w-1/2">
                 {/*<ArtworkThumbnail artwork={artwork.attributes} />*/}
-                <MyImage image={art.thumbnail.data.attributes} index={1} size="small" responsive={false}/>
+                
+                <ArtworkImage image={art.thumbnail.data.attributes} index={1} size="small" responsive={false}/>
               </div>
               <article className="my-3.5">
                 <ArtworkInfo artwork={art} />

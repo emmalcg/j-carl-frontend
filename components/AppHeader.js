@@ -8,7 +8,7 @@ const SubMenu = ({ nav, currentPath }) => (
   <ul className="flex">
     {nav.map((year) => (
       <li key={year?.page?.data?.attributes.slug}>
-        <Link href={year?.page?.data?.attributes.slug}>
+        <Link href={`/${year?.page?.data?.attributes.slug}`}>
           <a
             className={`block py-2 px-4 xs:px-4 hover:underline text-[14px] ${
               currentPath.includes(year?.page?.data?.attributes.slug) &&
@@ -34,7 +34,6 @@ export default function AppHeader({
   const { data: page, loading: sublinkLoading, error: sublinkError } = useQuery(GET_SUBLINKS);
 
   const sublinks = page?.pages?.data[0].attributes?.sublink
-  console.log({sublinks})
 
   const navigation = nav?.global?.data?.attributes?.navigation.links
 
@@ -81,7 +80,7 @@ export default function AppHeader({
                         }`}
                       >
                         <Link
-                          href={item.page?.data?.attributes?.slug || item.href}
+                          href={item.page?.data?.attributes?.slug ? `/${item.page.data.attributes.slug}` : item.href}
                         >
                           <a
                             target={item.target}
@@ -205,8 +204,6 @@ export async function getStaticProps() {
   });
 
   const navigation = globalData.global.data.attributes;
-
-  console.log('nav', navigation)
 
   return {
     props: {

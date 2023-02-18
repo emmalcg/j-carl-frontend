@@ -14,21 +14,7 @@ function MainLink(props) {
   )
 }
 
-function SubLink(props) {
-  const router = useRouter()
-  let { href, children, ...rest } = props
-
-  return (
-    <Link href={href}>
-      <a {...rest} className={`block py-2 px-4 underline ${router.pathname == href && "font-medium"}`}>{children}</a>
-    </Link>
-  )
-}
-
-export default function RfqHeader({categories, currentPath = '/', currentType = ''}) {
-  const workNav = categories?.filter(cat => cat.attributes.type === 'Work')
-  const aboutNav = categories?.filter(cat => cat.attributes.type === 'About')
-
+export default function RfqHeader() {
   
   const router = useRouter()
 
@@ -99,9 +85,7 @@ export default function RfqHeader({categories, currentPath = '/', currentType = 
                 })
               }
               </Menu.Items>
-
             </Transition>
-
           </Menu>
         </nav>
       </div>

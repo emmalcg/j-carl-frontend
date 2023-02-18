@@ -42,7 +42,7 @@ export default function Home({ homepage }) {
     <>
       <AppHeader categories={categories} />
       <main>
-        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3 sm:gap-x-6 sm:grid-cols-3 md:grid-cols-4 lg:gap-x-4">
+        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3 sm:gap-x-6 sm:grid-cols-3 md:grid-cols-5 lg:gap-x-4">
           {mugshots.map((mug) => (
             <div key={mug.src} className="group relative">
               <div>

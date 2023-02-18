@@ -43,6 +43,7 @@ export default function work({ pages }) {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }
