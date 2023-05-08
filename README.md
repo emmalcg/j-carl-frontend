@@ -93,3 +93,8 @@ exhibition and collectors can come later
 -tighter grid 4 per page 
 and each decade needs 1 representative artwork
 -cardboard, jalousie, rubber bands, marble 
+
+-next and previous for series
+-maybe back button for general webpage
+-washing machine gif
+-im feeling lucky button

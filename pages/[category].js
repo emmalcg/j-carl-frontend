@@ -15,8 +15,6 @@ export default function categoryPage({ category, categories }) {
   const [viewPP, setViewPP] = useState(false);
   const [message, setMessage] = useState("");
 
-  //console.log('viewPPPPPP', viewPP)
-
   useEffect(() => {
     const saved = localStorage.getItem("showPP");
     saved && setViewPP(true);
@@ -36,9 +34,9 @@ export default function categoryPage({ category, categories }) {
   let articleSeries = [...articles]
 
  articleSeries.sort((a, b) => 
-   a.attributes.year > b.attributes.year
+   a.attributes.year < b.attributes.year
      ? 1
-     : a.attributes.year < b.attributes.year
+     : a.attributes.year > b.attributes.year
      ? -1
      : 0
  );
@@ -139,25 +137,19 @@ export default function categoryPage({ category, categories }) {
         </button>
         {open && (
           <ul className="pl-14">
-            {artwork.artworks.map((work, i) => (
-              <ListLink key={`${work.title}${i}`} artwork={work} />
-            ))}
+            {artwork.artworks.map((work, i) => {
+              return (
+                <ListLink
+                  key={`${work.title}${i}`}
+                  artwork={work}
+                  series={artworks}
+                  categorySlug={category.attributes.slug}
+                />
+              );})
+            }
           </ul>
         )}
       </div>
-    );
-  };
-
-  const TitleList = ({ list }) => {
-    return (
-      <ul>
-        {list.map((artwork, i) => (
-          <ListLink
-            key={`${artwork.attributes.title}${i}`}
-            artwork={artwork.attributes}
-          />
-        ))}
-      </ul>
     );
   };
 
@@ -166,7 +158,14 @@ export default function categoryPage({ category, categories }) {
       <ul>
         {list.map((artwork, i) => {
           if (artwork.__typename === "Artwork")
-            return <ListLink key={`${artwork.title}${i}`} artwork={artwork} />;
+            return (
+              <ListLink
+                key={`${artwork.title}${i}`}
+                artwork={artwork}
+                series={false}
+                categorySlug={category.attributes.slug}
+              />
+            );
           if (artwork.__typename === "Serie")
             return (
               <SeriesArtworks key={`${artwork.title}${i}`} artwork={artwork} />
@@ -224,7 +223,7 @@ export default function categoryPage({ category, categories }) {
 
           {!!articleSeries.length && (
             <>
-              <ul>
+              <ul className="min-h-screen max-w-[47rem]">
                 {articleSeries.map((article, i) => (
                   <Article
                     key={`${article.attributes.title}${i}`}
@@ -244,7 +243,6 @@ export default function categoryPage({ category, categories }) {
                         className="border-y border-black p-2 text-center"
                         type="password"
                         id="password"
-                        type="text"
                       />
                     </div>
                     <button className="text-center w-full py-2 hover:bg-gray-200">
@@ -257,9 +255,7 @@ export default function categoryPage({ category, categories }) {
                     </p>
                   )}
                 </div>
-              )
-              
-              }
+              )}
             </>
           )}
         </section>

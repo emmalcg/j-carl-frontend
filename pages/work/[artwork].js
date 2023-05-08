@@ -1,17 +1,18 @@
 //<Artwork key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
 
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
-import { Fragment, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import AppHeader from '../../components/AppHeader'
 import ArtworkImage from '../../components/ArtworkImage'
 import ArtworkInfo from '../../components/ArtworkInfo'
 import Footer from '../../components/Footer'
-import ArtworkThumbnail from '../../components/ArtworkThumbnail'
+import BackButton from '../../components/BackButton'
+import SeriesButton from '../../components/SeriesButton'
 
 export default function ArtworkPage({ artwork, categories }) {
 
   const art = artwork.attributes
-  //console.log({art})
+  console.log('ART', {art})
   const images = art.media.data 
 
   const [showImages, setShowImages] = useState(true)
@@ -22,11 +23,21 @@ export default function ArtworkPage({ artwork, categories }) {
     showImages ? setButtonText('information') : setButtonText('images')
   },[showImages])
 
-  //console.log('categories', categories)
+  const series = art?.series?.data?.attributes
 
   return (
     <>
       <AppHeader categories={categories} />
+      <div className={`flex justify-between items-center ${series ? `mb-2` : `mb-4`}`}>
+        <BackButton />
+        <SeriesButton currentSlug={art.slug} series={series} />
+      </div>
+      {series && (
+        <p className="text-sm ml-auto">
+          <span className="font-semibold">{series.title}</span>{" "}
+          {series.yearStarted}-{series.yearEnded}
+        </p>
+      )}
       <main>
         <div className="flex mb-3.5 space-x-2">
           <h2 className="text-lg">{art.title}</h2>
@@ -44,7 +55,10 @@ export default function ArtworkPage({ artwork, categories }) {
           {showImages ? (
             <ul className="grid gap-y-5">
               {images.map((image, index) => (
-                <li className="max-h-screen" key={`${image.attributes.slug}${index}`}>
+                <li
+                  className="max-h-screen"
+                  key={`${image.attributes.slug}${index}`}
+                >
                   <ArtworkImage
                     image={image.attributes}
                     size="large"
@@ -57,11 +71,16 @@ export default function ArtworkPage({ artwork, categories }) {
             <>
               <div className="w-1/2">
                 {/*<ArtworkThumbnail artwork={artwork.attributes} />*/}
-                
-                <ArtworkImage image={art.thumbnail.data.attributes} index={1} size="small" responsive={false}/>
+
+                <ArtworkImage
+                  image={art.thumbnail.data.attributes}
+                  index={1}
+                  size="small"
+                  responsive={false}
+                />
               </div>
               <article className="my-3.5">
-                <ArtworkInfo artwork={art} />
+                <ArtworkInfo artwork={art} series={series} />
               </article>
             </>
           )}
@@ -82,8 +101,8 @@ export async function getStaticProps({ params }) {
     cache: new InMemoryCache()
   })
 
-  const { data: singleArtworkData } = await client.query({ 
-    query: gql `
+  const { data: singleArtworkData } = await client.query({
+    query: gql`
       query getArtworks ($slug: String!){
       artworks(filters:{
         slug:{ eq: $slug}
@@ -100,6 +119,25 @@ export async function getStaticProps({ params }) {
             location,
             slug,
             client,
+            series {
+              data {
+                attributes {
+                  slug,
+                  title,
+                  yearStarted,
+                  yearEnded,
+                  artworks {
+                    data {
+                      attributes {
+                        title,
+                        archive,
+                        slug,
+                      }
+                    }
+                  }
+                }
+              }
+            },
             thumbnail {
               data {
                 attributes {
@@ -129,10 +167,10 @@ export async function getStaticProps({ params }) {
     `,
     variables: {
       slug: artwork,
-    }
-   })
+    },
+  });
 
-   const {data: allCategoryData } = await client.query({
+  const { data: allCategoryData } = await client.query({
     query: gql `
       query getCategories {
         categories (sort: ["title"]) {
