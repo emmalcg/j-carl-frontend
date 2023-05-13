@@ -1,11 +1,10 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import AppHeader from '../components/AppHeader'
-import MyImage from '../components/MyImage'
-import Homepage from '../components/homepage'
+import HomepageImage from '../components/HomepageImage';
 
-export default function Home({ homepage }) {
+export default function Home({ homepageData }) {
 
-  const categories = homepage.categories.data
+  const categories = homepageData.categories.data;
 
   return (
     <>
@@ -18,7 +17,7 @@ export default function Home({ homepage }) {
         >
           Conformity, April 29th - May 19th 2023 at Nicholas Metivier &#x2192;
         </a>
-        <Homepage />
+        <HomepageImage />
       </main>
     </>
   );
@@ -49,7 +48,7 @@ export async function getStaticProps() {
   });
   return {
     props: {
-      homepage: data,
+      homepageData: data,
     }
   }
 }
