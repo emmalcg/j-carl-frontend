@@ -48,12 +48,20 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
   },[router.pathname])
 
   return (
-    <header className="text-sm sm:text-base mt-2 sm:mt-4 mb-4 sm:mb-8">
+    <header className="text-sm sm:text-base mt-2 sm:mt-4 mb-4">
       <div className="flex justify-between border border-black relative">
         <div className="no-underline flex w-full">
           <h1 className="flex justify-items-center">
             <Link href="/">
-              <a onClick={() => {setWorkOpen(false); setAboutOpen(false)}} className={`text-1xl font-bold border-r border-black py-2 px-4 sm:px-6 hover:bg-gray-200`}>James Carl</a>
+              <a
+                onClick={() => {
+                  setWorkOpen(false);
+                  setAboutOpen(false);
+                }}
+                className={`text-1xl font-bold border-r border-black py-2 px-4 sm:px-6 hover:bg-gray-200`}
+              >
+                James Carl
+              </a>
             </Link>
           </h1>
           {/*{
@@ -112,9 +120,7 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
               <a className={`border-black py-2 px-3 sm:px-6 ${router.pathname == "/rfq" && "bg-gray-200"} ${isRFQ ? 'border-r' : 'border-l'}`}>RFQ</a>
             </Link>
           </div>*/}
-        </div> 
-        
-
+        </div>
 
         {/*{ isRFQ && (
 
@@ -202,5 +208,5 @@ export default function AppHeader({categories, currentPath = '/', currentType = 
         )
       }*/}
     </header>
-  )
+  );
 }
