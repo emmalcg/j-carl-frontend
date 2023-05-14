@@ -59,7 +59,7 @@ export default function categoryPage({ category }) {
       if (index === -1) {
         artworkSeries.push(series);
       } else {
-        artworkSeries[index].artworks.unshift(artwork.attributes);
+        artworkSeries[index].artworks.push(artwork.attributes);
       }
     }
   });
@@ -275,30 +275,28 @@ export async function getStaticProps({ params }) {
     cache: new InMemoryCache()
   })
 
-  const { data: singleCategoryData } = await client.query({ 
-    query: gql `
-      query getCategory ($slug: String!){
-        categories (filters: { 
-          slug: { eq: $slug }
-        } ){
+  const { data: singleCategoryData } = await client.query({
+    query: gql`
+      query getCategory($slug: String!) {
+        categories(filters: { slug: { eq: $slug } }) {
           data {
             attributes {
-              type,
-              title,
-              slug,
+              type
+              title
+              slug
               article {
                 data {
                   attributes {
-                    title,
-                    year,
-                    publication,
-                    author,
-                    editor,
-                    issueNumber,
-                    type,
-                    displayName,
-                    year,
-                    passwordProtected,
+                    title
+                    year
+                    publication
+                    author
+                    editor
+                    issueNumber
+                    type
+                    displayName
+                    year
+                    passwordProtected
                     document {
                       data {
                         attributes {
@@ -308,49 +306,49 @@ export async function getStaticProps({ params }) {
                     }
                   }
                 }
-              },
-              artworks {
+              }
+              artworks(sort: "yearStarted") {
                 data {
                   attributes {
-                    title,
-                    archive,
-                    slug,
-                    yearStarted,
-                    yearEnded,
-                    description,
-                    materials,
-                    dimensions,
-                    location,
-                    client,
+                    title
+                    archive
+                    slug
+                    yearStarted
+                    yearEnded
+                    description
+                    materials
+                    dimensions
+                    location
+                    client
                     series {
                       data {
                         attributes {
-                          title,
-                          displayName,
-                          slug,   
-                          yearStarted,
-                          yearEnded   
+                          title
+                          displayName
+                          slug
+                          yearStarted
+                          yearEnded
                         }
                       }
-                    },
+                    }
                     thumbnail {
                       data {
                         attributes {
-                          url,
-                          formats,
-                          caption,
-                          width,
+                          url
+                          formats
+                          caption
+                          width
                           height
                         }
                       }
-                    },
+                    }
                     media {
                       data {
                         attributes {
-                          url,
-                          formats,
-                          caption,
-                          width,
+                          url
+                          formats
+                          caption
+                          width
                           height
                         }
                       }
@@ -365,8 +363,8 @@ export async function getStaticProps({ params }) {
     `,
     variables: {
       slug: category,
-    }
-   })
+    },
+  });
 
   const [categoryData] = singleCategoryData.categories.data;
 

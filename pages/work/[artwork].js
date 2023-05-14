@@ -23,6 +23,7 @@ export default function ArtworkPage({ artwork }) {
   },[showImages])
 
   const series = art?.series?.data?.attributes
+  console.log({series})
 
   return (
     <>
@@ -106,67 +107,66 @@ export async function getStaticProps({ params }) {
 
   const { data: singleArtworkData } = await client.query({
     query: gql`
-      query getArtworks ($slug: String!){
-      artworks(filters:{
-        slug:{ eq: $slug}
-      }) {
-        data {
-          id,
-          attributes {
-            title,
-            yearStarted,
-            yearEnded,
-            description,
-            materials,
-            dimensions,
-            location,
-            slug,
-            client,
-            series {
-              data {
-                attributes {
-                  slug,
-                  title,
-                  yearStarted,
-                  yearEnded,
-                  artworks {
-                    data {
-                      attributes {
-                        title,
-                        archive,
-                        slug,
+      query getArtworks($slug: String!) {
+        artworks(filters: { slug: { eq: $slug } }) {
+          data {
+            id
+            attributes {
+              title
+              yearStarted
+              yearEnded
+              description
+              materials
+              dimensions
+              location
+              slug
+              client
+              series {
+                data {
+                  attributes {
+                    slug
+                    title
+                    yearStarted
+                    yearEnded
+                    artworks(sort: "yearStarted") {
+                      data {
+                        attributes {
+                          title
+                          archive
+                          slug
+                          yearStarted
+                        }
                       }
                     }
                   }
                 }
               }
-            },
-            thumbnail {
-              data {
-                attributes {
-                  url,
-                  formats,
-                  caption,
-                  width,
-                  height
+              thumbnail {
+                data {
+                  attributes {
+                    url
+                    formats
+                    caption
+                    width
+                    height
+                  }
                 }
               }
-            },
-            media {
-              data {
-                attributes {
-                  url,
-                  formats,
-                  caption,
-                  width,
-                  height
+              media {
+                data {
+                  attributes {
+                    url
+                    formats
+                    caption
+                    width
+                    height
+                  }
                 }
               }
             }
           }
         }
       }
-    }
     `,
     variables: {
       slug: artwork,
