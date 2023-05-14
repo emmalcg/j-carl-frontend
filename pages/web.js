@@ -8,10 +8,7 @@ export default function webPage() {
 
   return (
     <>
-      <AppHeader
-        currentPath="/web"
-        currentType="about"
-      />
+      <AppHeader currentPath="/web" currentType="about" />
       <main>
         <div className="flex flex-col mb-3.5">
           <h2 className="text-lg font-semibold">Web</h2>
@@ -30,22 +27,18 @@ export default function webPage() {
           <h3 className="mt-4 font-semibold">Downloads</h3>
           <ul>
             <li className="list-none flex flex-col md:flex-row mt-2">
-              <a
-                href="https://the-balcony.netlify.app/"
-                target="_blank"
-                className="underline cursor-alias"
-              >
-                <span>Font</span>, 2000-2005
-              </a>
+              <Link href="/font">
+                <a className="underline">
+                  <span>Content Font</span>
+                </a>
+              </Link>
             </li>
             <li className="list-none flex flex-col md:flex-row mt-2">
-            <Link href='/washing-machine'>
-                <a
-                  className="underline"
-                >
-                  <span>Washing Machine</span>, 2000-2005
+              <Link href="/washing-machine">
+                <a className="underline">
+                  <span>Washing Machine</span>
                 </a>
-            </Link>
+              </Link>
             </li>
           </ul>
         </div>

@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Content';
+  src: url('/CONTENT.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ContentBlack';
+  src: url('/ContentBlack.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
