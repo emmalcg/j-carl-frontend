@@ -14,14 +14,13 @@ import { useState } from 'react';
 
 export default function Home({ homepage }) {
 
-  const categories = homepage.categories.data
   const mugshots = homepage.mugshots.data[0].attributes.Images.data;
 
   const [showMugshots, setShowMugshots] = useState(false);
 
   return (
     <>
-      <AppHeader categories={categories} />
+      <AppHeader />
       <main>
         {showMugshots ? (
           <Mugshots mugshotsData={mugshots} />
@@ -67,15 +66,6 @@ export async function getStaticProps() {
   const { data } = await client.query({
     query: gql`
     query getHomepage {
-      categories (sort: ["title"]){
-        data {
-          attributes {
-            title,
-            type,
-            slug
-          }
-        }
-      },
       mugshots {
         data {
           id,

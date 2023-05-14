@@ -1,10 +1,8 @@
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import AppHeader from "../components/AppHeader";
 
 import Footer from "../components/Footer";
 
-export default function webPage() {
-
+export default function washingMachinePage() {
   return (
     <>
       <AppHeader

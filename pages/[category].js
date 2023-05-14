@@ -6,7 +6,7 @@ import ArtworkThumbnail from '../components/ArtworkThumbnail'
 import ListLink from '../components/ListLink'
 import Footer from '../components/Footer'
 
-export default function categoryPage({ category, categories }) {
+export default function categoryPage({ category }) {
   const articles = category.attributes.article.data;
   const artworks = category.attributes.artworks.data;
 
@@ -178,7 +178,6 @@ export default function categoryPage({ category, categories }) {
   return (
     <>
       <AppHeader
-        categories={categories}
         currentPath={category.attributes.slug}
         currentType={category.attributes.type}
       />
@@ -369,29 +368,11 @@ export async function getStaticProps({ params }) {
     }
    })
 
-   const {data: allCategoryData } = await client.query({
-    query: gql `
-      query getCategories {
-        categories (sort: ["title"]) {
-          data {
-            attributes {
-              title,
-              type,
-              slug
-            }
-          }
-        }
-      }
-    `
-  })
-  
   const [categoryData] = singleCategoryData.categories.data;
-  const allCategories = allCategoryData.categories.data
 
   return {
     props: {
      category: categoryData,
-     categories: allCategories
     }
   }
 }

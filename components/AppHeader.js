@@ -46,6 +46,10 @@ export default function AppHeader({
     currentType === "Work" || router.pathname.includes("/work")
   );
 
+  const [webOpen, setWebOpen] = useState(
+    router.pathname.includes("/web")
+  );
+
   useEffect(() => {
     router.pathname.includes("/rfq") ? setIsRFQ(true) : setIsRFQ(false);
     router.pathname.includes("/cv") ||

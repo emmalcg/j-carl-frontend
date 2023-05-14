@@ -1,10 +1,8 @@
 import ReactMarkdown from 'react-markdown'
 
-export default function ArtworkInfo({ artwork, series }) {
+export default function ArtworkInfo({ artwork }) {
 
   const date = artwork.yearEnded ? `${artwork.yearStarted}-${artwork.yearEnded}` : artwork.yearStarted
-
-  const { title, yearEnded, yearStarted } = series
 
   return (
     <div className="text-sm">

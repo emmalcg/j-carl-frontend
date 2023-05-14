@@ -9,10 +9,9 @@ import Footer from '../../components/Footer'
 import BackButton from '../../components/BackButton'
 import SeriesButton from '../../components/SeriesButton'
 
-export default function ArtworkPage({ artwork, categories }) {
+export default function ArtworkPage({ artwork }) {
 
   const art = artwork.attributes
-  console.log('ART', {art})
   const images = art.media.data 
 
   const [showImages, setShowImages] = useState(true)
@@ -27,8 +26,12 @@ export default function ArtworkPage({ artwork, categories }) {
 
   return (
     <>
-      <AppHeader categories={categories} />
-      <div className={`flex justify-between items-center ${series ? `mb-2` : `mb-4`}`}>
+      <AppHeader currentType="Work" />
+      <div
+        className={`flex justify-between items-center ${
+          series ? `mb-2` : `mb-4`
+        }`}
+      >
         <BackButton />
         <SeriesButton currentSlug={art.slug} series={series} />
       </div>
@@ -169,30 +172,12 @@ export async function getStaticProps({ params }) {
       slug: artwork,
     },
   });
-
-  const { data: allCategoryData } = await client.query({
-    query: gql `
-      query getCategories {
-        categories (sort: ["title"]) {
-          data {
-            attributes {
-              title,
-              type,
-              slug
-            }
-          }
-        }
-      }
-    `
-  })
   
   const [artworkData] = singleArtworkData.artworks.data;
-  const allCategories = allCategoryData.categories.data
 
   return {
     props: {
      artwork: artworkData,
-     categories: allCategories
     }
   }
 }
