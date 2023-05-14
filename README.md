@@ -17,39 +17,29 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 ## Tailwind
 
-Styled using Tailwind 
+Styled using Tailwind CSS
 ## Deployed automatically on Vercel
 
 Deployed automatically from `main` branch with Vercel
 
+## Database 
+database is at [https://james-backend.herokuapp.com/admin](https://james-backend.herokuapp.com/admin)
+
+## photo sizing 
+
 ## TODO
-- [ ] make thumbnails all the same size
-- [ ] make sure all image links are working: http://localhost:3000/work/fountain
-- [ ] only grab the things needed for the work page Warning: data for page "/work" is 200 kB, this amount of data can reduce performance.
-See more info here: https://nextjs.org/docs/messages/large-page-data
-- [ ] seo
-- [ ] writing: years
-- [ ] left justified
-- [ ] have seperate thumbnail photo
-- [ ] arrow indicating and column like finder : [series title ] 2005+ > 
-- [ ] switcharoo for landing page
-- [ ] adding timing to this?
-- [ ] washing machine as loading symbol
-- [ ] each decade needs representative work: cardboard, jalousie, rubber bands, marble 
-- [ ] next and previous for series
-
-- [ ] web projects
-  -projects
-  -downloads
-- [ ] download font
-- [ ] download gif
-
+- seo
+- comb through photos and ensure sizing 
+- adding timing to switcharoo this
+- washing machine as loading symbol:
+  -main page and on [year] page
+- series is not sorting properly
 
 admin / James stuff: 
-- [ ] create james log in for strapi
-- [ ] add gmail somewhere 
-- [ ] should add series information? on information page
-- [ ] information page optional - when does this happen?
+- create james log in for strapi
+- add gmail somewhere 
+- should add series information? on information page
+- information page optional - when does this happen?
 
 catalogues (pamphlets), 
 essays,

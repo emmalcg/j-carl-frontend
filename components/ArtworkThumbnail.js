@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function ArtworkThumbnail({ artwork, centered = true, slug }) {
+export default function ArtworkThumbnail({ artwork, centered = true, slug, priority = false }) {
 
   const thumbnailSlug = slug || `/work/${artwork.slug}`;
 
@@ -37,6 +37,7 @@ export default function ArtworkThumbnail({ artwork, centered = true, slug }) {
                 //objectPosition={center ? "right" : "left"}
                 layout="fill"
                 objectFit={fit}
+                priority={priority}
               />
             ) : (
               <div className="bg-black h-full w-full"></div>

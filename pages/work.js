@@ -18,6 +18,7 @@ const DecadeItem = ({ page, artwork }) => {
             artwork={artwork}
             centered={true}
             slug={`/${page.slug}`}
+            priority={true}
           />
         </div>
       </div>
