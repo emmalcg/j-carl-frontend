@@ -2,12 +2,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
+To run the development server 
+```
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -26,57 +23,33 @@ Styled using Tailwind
 Deployed automatically from `main` branch with Vercel
 
 ## TODO
--make thumbnails all the same size
--add years to top bar
--make image max height page height
--add expanding feature 
--clicking in a year leads to categories? 
--make sure all image links are working: http://localhost:3000/work/fountain
--only grab the things needed for the work page Warning: data for page "/work" is 200 kB, this amount of data can reduce performance.
+- [ ] make thumbnails all the same size
+- [ ] make sure all image links are working: http://localhost:3000/work/fountain
+- [ ] only grab the things needed for the work page Warning: data for page "/work" is 200 kB, this amount of data can reduce performance.
 See more info here: https://nextjs.org/docs/messages/large-page-data
--seo
+- [ ] seo
+- [ ] writing: years
+- [ ] information page optional 
+- [ ] left justified
+- [ ] have seperate thumbnail photo
+- [ ] arrow indicating and column like finder : [series title ] 2005+ > 
+- [ ] switcharoo for landing page
+- [ ] adding timing to this?
+- [ ] washing machine as loading symbol
+- [ ] each decade needs representative work: cardboard, jalousie, rubber bands, marble 
+- [ ] next and previous for series
 
--work opens up to year as well
--need to change data based for categories. categories will be: work: years, about, cv, writing: years
-
--have some sort of indiciation of clicking
--database 
--need another thing
--need categories / sub menus 
--titles is default no italics
--plus sign
-
--information page optional 
--left justified
--have seperate thumbnail photo
--need to figure out password protection for writing and add boolean
--arrow indicating and column like finder
--[series title ] 2005+ > 
--web projects
+- [ ] web projects
   -projects
   -downloads
--time switcharoo for landing page
--washing machine as loading symbol
-
--jalousie
-  -jalousie (roman), 2008, Art Gallery of Ontario
+- [ ] download font
+- [ ] download gif
 
 
-website anna tasks
--photo sizing
--spreadsheet
--by title 
-
-
--could sort by title or by year
--might need to account for a name below the photos
--how to download the font
--can have grey on hover
--have the gmail
--create login for strapi
-
--look into google sheet as src of truth
-
+admin / James stuff: 
+- [ ] create james log in for strapi
+- [ ] add gmail somewhere 
+- [ ] should add series information? on information page
 
 catalogues (pamphlets), 
 essays,
@@ -90,11 +63,5 @@ catalogue front and center
 
 exhibition and collectors can come later
 
--tighter grid 4 per page 
-and each decade needs 1 representative artwork
--cardboard, jalousie, rubber bands, marble 
-
--next and previous for series
--maybe back button for general webpage
--washing machine gif
--im feeling lucky button
+-jalousie
+  -jalousie (roman), 2008, Art Gallery of Ontario
