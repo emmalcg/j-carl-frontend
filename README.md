@@ -29,7 +29,6 @@ Deployed automatically from `main` branch with Vercel
 See more info here: https://nextjs.org/docs/messages/large-page-data
 - [ ] seo
 - [ ] writing: years
-- [ ] information page optional 
 - [ ] left justified
 - [ ] have seperate thumbnail photo
 - [ ] arrow indicating and column like finder : [series title ] 2005+ > 
@@ -50,6 +49,7 @@ admin / James stuff:
 - [ ] create james log in for strapi
 - [ ] add gmail somewhere 
 - [ ] should add series information? on information page
+- [ ] information page optional - when does this happen?
 
 catalogues (pamphlets), 
 essays,

@@ -32,6 +32,7 @@ export default function Home({ homepage }) {
       <button
         onClick={() => {
           setShowMugshots(!showMugshots);
+          window.scrollTo({ top: 0, behavior: "smooth" });
         }}
         className="border border-black mx-auto px-4 py-2 hover:bg-gray-200 cursor-pointer z-10"
       >
