@@ -2,6 +2,7 @@ import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import AppHeader from "../components/AppHeader";
 
 import Footer from "../components/Footer";
+import Link from "next/link";
 
 export default function webPage() {
 
@@ -38,13 +39,13 @@ export default function webPage() {
               </a>
             </li>
             <li className="list-none flex flex-col md:flex-row mt-2">
-              <a
-                href="https://the-balcony.netlify.app/"
-                target="_blank"
-                className="underline cursor-alias"
-              >
-                <span>Washing Machine</span>, 2000-2005
-              </a>
+            <Link href='/washing-machine'>
+                <a
+                  className="underline"
+                >
+                  <span>Washing Machine</span>, 2000-2005
+                </a>
+            </Link>
             </li>
           </ul>
         </div>

@@ -1,6 +1,5 @@
 import { ApolloClient, ApolloProvider, InMemoryCache, gql } from '@apollo/client'
 import AppHeader from '../components/AppHeader'
-import MyImage from '../components/MyImage'
 import Footer from '../components/Footer'
 import Mugshots from '../components/Mugshots';
 import HomepageSingleImage from '../components/HomepageSingleImage';
