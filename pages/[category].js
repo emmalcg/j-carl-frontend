@@ -93,7 +93,7 @@ export default function categoryPage({ category }) {
 
   const ImageList = ({ list }) => {
     return (
-      <ul className="grid grid-cols-3 md:grid-cols-4 gap-4">
+      <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {list.map((artwork, i) => (
           <ArtworkThumbnail
             key={`${artwork.attributes.title}${i}`}
