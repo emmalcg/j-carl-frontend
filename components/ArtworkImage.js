@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { buildUrl } from "cloudinary-build-url";
+import washing from "../public/washing.webp";
 
 export default function MyImage({ image, index, size }) {
+
   console.log({image})
   const imgSlug = image.formats.large.url
 
@@ -29,28 +31,16 @@ export default function MyImage({ image, index, size }) {
     },
   });
   return (
-    //<div
-    //  style={{
-    //    position: "relative",
-    //    height: 0,
-    //    paddingTop: `${(imageHeight / imageWidth) * 100}%`,
-    //    backgroundImage: `url(${urlBlurred})`,
-    //    backgroundPosition: "center center",
-    //    backgroundSize: "100%",
-    //  }}
-    //>
-    //<div className="absolute inset-0">
     <a href={image.formats.large.url}>
       <Image
         src={url}
         alt={image.caption}
         width={imageWidth}
         height={imageHeight}
-        //layout="responsive"
         priority={index == 0 ? true : false}
+        placeholder="blur"
+        blurDataURL={urlBlurred}
       />
     </a>
-    //</div>
-    //</div>
   );
 }

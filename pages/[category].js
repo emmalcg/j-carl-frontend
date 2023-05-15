@@ -93,7 +93,7 @@ export default function categoryPage({ category }) {
 
   const ImageList = ({ list }) => {
     return (
-      <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-7">
         {list.map((artwork, i) => (
           <ArtworkThumbnail
             key={`${artwork.attributes.title}${i}`}
@@ -182,7 +182,7 @@ export default function categoryPage({ category }) {
         currentType={category.attributes.type}
       />
       <main>
-        <div className="flex mb-3.5">
+        <div className="flex items-center">
           <h2 className="text-lg font-semibold">{category.attributes.title}</h2>
           {category.attributes.type === "Work" && (
             <>
@@ -196,18 +196,22 @@ export default function categoryPage({ category }) {
                 {buttonText}
               </button>
               <div className="ml-auto">
-                <label htmlFor="sort" className="hidden">
-                  Sort
-                </label>
-                <select
-                  id="sort"
-                  name="sort"
-                  onChange={requestSort}
-                  className="block w-full border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                >
-                  <option value="yearStarted">Sort by year</option>
-                  <option value="slug">Sort by title</option>
-                </select>
+                {!showImages && (
+                  <>
+                    <label htmlFor="sort" className="hidden">
+                      Sort
+                    </label>
+                    <select
+                      id="sort"
+                      name="sort"
+                      onChange={requestSort}
+                      className="block w-full border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    >
+                      <option value="yearStarted">Sort by year</option>
+                      <option value="slug">Sort by title</option>
+                    </select>
+                  </>
+                )}
               </div>
             </>
           )}

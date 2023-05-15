@@ -74,8 +74,6 @@ export default function ArtworkPage({ artwork }) {
           ) : (
             <>
               <div className="w-1/2">
-                {/*<ArtworkThumbnail artwork={artwork.attributes} />*/}
-
                 <ArtworkImage
                   image={art.thumbnail.data.attributes}
                   index={1}
