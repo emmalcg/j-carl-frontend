@@ -5,6 +5,7 @@ import Article from '../components/Article'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 import ListLink from '../components/ListLink'
 import Footer from '../components/Footer'
+import BackButton from '../components/BackButton'
 
 export default function categoryPage({ category }) {
   const articles = category.attributes.article.data;
@@ -181,7 +182,8 @@ export default function categoryPage({ category }) {
         currentPath={category.attributes.slug}
         currentType={category.attributes.type}
       />
-      <main>
+      {!articleSeries.length && <BackButton link="/work" />}
+      <main className="mt-2">
         <div className="flex items-center">
           <h2 className="text-lg font-semibold">{category.attributes.title}</h2>
           {category.attributes.type === "Work" && (

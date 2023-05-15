@@ -9,19 +9,19 @@ export default function washingMachinePage() {
     <>
       <AppHeader currentType="about" />
       <div className="flex flex-col mb-4">
-        <BackButton />
+        <BackButton link="/web" />
       </div>
       <main>
         <div className="flex mb-10 space-x-2 align-center">
           <h2 className="text-lg font-medium">washing gif</h2>
           <span>|</span>
-            <a
-              href="/washing.gif"
-              download="washing.gif"
-              className="text-lg underline hover:font-medium"
-            >
-              download
-            </a>
+          <a
+            href="/washing.gif"
+            download="washing.gif"
+            className="text-lg underline hover:font-medium"
+          >
+            download
+          </a>
         </div>
         <section>
           <Image priority={true} src={washing} height={146} width={245} />

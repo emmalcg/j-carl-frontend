@@ -13,7 +13,7 @@ export default function fontPage() {
     <>
       <AppHeader currentType="about" />
       <div className="flex flex-col mb-4">
-        <BackButton />
+        <BackButton link="/web"/>
       </div>
       <main>
         <div className="flex mb-6 space-x-2 align-center">
@@ -28,7 +28,7 @@ export default function fontPage() {
           </a>
         </div>
         <section className="max-w-[500px]">
-          <label for="font-test" class="sr-only">
+          <label htmlFor="font-test" className="sr-only">
             Test the "content" font here
           </label>
           <textarea
