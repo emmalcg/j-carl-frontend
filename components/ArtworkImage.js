@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { buildUrl } from "cloudinary-build-url";
-import washing from "../public/washing.webp";
 
 export default function MyImage({ image, index, size }) {
 
@@ -21,7 +20,7 @@ export default function MyImage({ image, index, size }) {
     },
   });
 
-  const urlBlurred = buildUrl(`${image.formats[size].url}`, {
+  const urlBlurred = buildUrl(`${image.formats.small.url}`, {
     cloud: {
       cloudName: "dgonyuzzz",
     },

@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { buildUrl } from "cloudinary-build-url";
 
 export default function ArtworkThumbnail({ artwork, centered = true, slug, priority = false }) {
 
@@ -19,6 +20,16 @@ export default function ArtworkThumbnail({ artwork, centered = true, slug, prior
     }
     
   }
+
+  const urlBlurred = buildUrl(`${img.formats.small.url}`, {
+    cloud: {
+      cloudName: "dgonyuzzz",
+    },
+    transformations: {
+      effect: "blur:1000",
+      quality: 1,
+    },
+  });
   //let heightClass =
   //  img.formats.small.height > img.formats.small.width && !centered ? "h-80" : "h-52";
   return (
@@ -31,13 +42,13 @@ export default function ArtworkThumbnail({ artwork, centered = true, slug, prior
               <Image
                 src={img.formats.medium.url || img.url}
                 alt={img.caption}
-                //to do add loading
-                //placeholder="blur"
                 objectPosition={imagePosition}
                 //objectPosition={center ? "right" : "left"}
                 layout="fill"
                 objectFit={fit}
                 priority={priority}
+                placeholder="blur"
+                blurDataURL={urlBlurred}
               />
             ) : (
               <div className="bg-black h-full w-full"></div>

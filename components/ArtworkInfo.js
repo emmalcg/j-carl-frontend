@@ -12,7 +12,9 @@ export default function ArtworkInfo({ artwork }) {
         <ReactMarkdown>{artwork.dimensions}</ReactMarkdown>
       )}
       {artwork.description && (
-        <ReactMarkdown>{artwork.description}</ReactMarkdown>
+        <div className='mt-5'>
+          <ReactMarkdown>{artwork.description}</ReactMarkdown>
+        </div>
       )}
       {/*{
         artwork.client && 
