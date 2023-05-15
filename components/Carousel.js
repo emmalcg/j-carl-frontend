@@ -42,7 +42,7 @@ export default function Carousel({artwork}) {
         {
           artwork.media.data.map((image, index) =>
             <div key={image.attributes.url} className="relative flex-[0_0_100%]">
-              <MyImage image={image.attributes} index={index} size="large"/>
+              <MyImage image={image.attributes} index={index} size="large" showLoading={true}/>
             </div>
           )
         }

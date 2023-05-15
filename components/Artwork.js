@@ -1,4 +1,4 @@
-import ArtworkInfo from "./ArtworkInfo"
+import ArtworkInfoBox from "./ArtworkInfoBox"
 import useEmblaCarousel from "embla-carousel-react"
 import Carousel from "./Carousel"
 
@@ -18,7 +18,7 @@ export default function Artwork({artwork}) {
       </h2>
       <div className="flex flex-col md:flex-row">
           <p className="pb-2 pr-4 md:pb-0">{artwork.description}</p>
-          <ArtworkInfo artwork={artwork} />
+          <ArtworkInfoBox artwork={artwork} />
       </div>
 
       <Carousel artwork={artwork} />

@@ -2,6 +2,7 @@ import Artwork from "../components/Artwork"
 import AppHeader from '../components/AppHeader'
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useState, useEffect } from 'react';
+import Footer from "../components/Footer";
 
 export default function RfqWork({ artworks }) {
   const [ rfqArtworks, setRfqArtworks ] = useState([])
@@ -12,18 +13,17 @@ export default function RfqWork({ artworks }) {
 
   return (
     <>
-    <AppHeader />
-    <main>
-      <ul>
-        {
-          rfqArtworks.map(artwork => 
-            <Artwork key={artwork.id} artwork={artwork.attributes}/>    
-            )
-        }
-      </ul>
-    </main>
+      <AppHeader />
+      <main>
+        <ul>
+          {rfqArtworks.map((artwork) => (
+            <Artwork key={artwork.id} artwork={artwork.attributes} />
+          ))}
+        </ul>
+      </main>
+      <Footer />
     </>
-  )
+  );
 }
 
 export async function getStaticProps() {
