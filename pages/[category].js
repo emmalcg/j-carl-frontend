@@ -1,13 +1,29 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import AppHeader from '../components/AppHeader'
-import { useState, useEffect, useMemo } from 'react'
-import Article from '../components/Article'
+import { useState, useEffect} from 'react'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 import ListLink from '../components/ListLink'
 import Footer from '../components/Footer'
 import BackButton from '../components/BackButton'
+import usePreviousSlug from '../hooks/usePreviousSlug'
+import Loader from '../components/Loader'
 
 export default function categoryPage({ category }) {
+  const previousSlug = usePreviousSlug();
+
+  const [isLoading, setIsLoading] = useState(previousSlug === 'work' ? true : false);
+
+  useEffect(() => {
+
+    if (previousSlug === 'work') {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
+
   const artworks = category.attributes.artworks.data;
 
   let artworkSeries = [];
@@ -70,7 +86,6 @@ export default function categoryPage({ category }) {
     );
   };
 
-  // hover:outline hover:outline-slate-600 hover:outline-offset-2
   const SeriesArtworks = ({ artwork }) => {
     const [open, setOpen] = useState(false);
     return (
@@ -147,55 +162,61 @@ export default function categoryPage({ category }) {
         currentPath={category.attributes.slug}
         currentType={category.attributes.type}
       />
-      <BackButton link="/work" />
-      <main className="mt-2">
-        <div className="flex items-center">
-          <h2 className="text-lg font-semibold">{category.attributes.title}</h2>
-          <span className="px-2">|</span>
-          <button
-            onClick={() => {
-              setShowImages(!showImages);
-            }}
-            className="underline hover:font-medium flex pt-[1px]"
-          >
-            {buttonText}
-          </button>
-          <div className="ml-auto">
-            {!showImages && (
-              <>
-                <label htmlFor="sort" className="hidden">
-                  Sort
-                </label>
-                <select
-                  id="sort"
-                  name="sort"
-                  onChange={requestSort}
-                  className="block w-full border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                >
-                  <option value="yearStarted">Sort by year</option>
-                  <option value="slug">Sort by title</option>
-                </select>
-              </>
-            )}
+      { isLoading 
+      ? <Loader />
+      : (
+        <>
+        <BackButton link="/work" />
+        <main className="mt-2">
+          <div className="flex items-center">
+            <h2 className="text-lg font-semibold">{category.attributes.title}</h2>
+            <span className="px-2">|</span>
+            <button
+              onClick={() => {
+                setShowImages(!showImages);
+              }}
+              className="underline hover:font-medium flex pt-[1px]"
+            >
+              {buttonText}
+            </button>
+            <div className="ml-auto">
+              {!showImages && (
+                <>
+                  <label htmlFor="sort" className="hidden">
+                    Sort
+                  </label>
+                  <select
+                    id="sort"
+                    name="sort"
+                    onChange={requestSort}
+                    className="block w-full border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  >
+                    <option value="yearStarted">Sort by year</option>
+                    <option value="slug">Sort by title</option>
+                  </select>
+                </>
+              )}
+            </div>
+
           </div>
+          <section>
+          {showImages && <ImageList list={sortedWork} />}
 
-        </div>
-        <section>
-        {showImages && <ImageList list={sortedWork} />}
+          {!showImages && <SeriesList list={artworkSeries} />}
 
-        {!showImages && <SeriesList list={artworkSeries} />}
-
-        </section>
-      </main>
-      <Footer />
+          </section>
+        </main>
+        <Footer />
+      </>
+      )
+      
+      }
     </>
   );
 }
 
 export async function getStaticProps({ params }) {
   const { category } = params;
-  //console.log("category", { category })
-  //console.log('params', params)
 
   const { API_URL } = process.env
   const client = new ApolloClient({

@@ -8,8 +8,6 @@ import Footer from "../components/Footer";
 import BackButton from "../components/BackButton";
 
 export default function workPage({ articles }) {
-  //const articles = category.attributes.article.data;
-  console.log({articles})
   const pw = "bands";
 
   const [viewPP, setViewPP] = useState(false);

@@ -8,8 +8,12 @@ import ArtworkInfo from '../../components/ArtworkInfo'
 import Footer from '../../components/Footer'
 import BackButton from '../../components/BackButton'
 import SeriesButton from '../../components/SeriesButton'
+import usePreviousSlug from '../../hooks/usePreviousSlug'
 
 export default function ArtworkPage({ artwork }) {
+  const previousSlug = usePreviousSlug()
+
+  console.log('ps', previousSlug)
 
   const art = artwork.attributes
   const images = art.media.data 
@@ -23,7 +27,6 @@ export default function ArtworkPage({ artwork }) {
   },[showImages])
 
   const series = art?.series?.data?.attributes
-  console.log({series})
 
   return (
     <>
@@ -95,7 +98,6 @@ export default function ArtworkPage({ artwork }) {
 
 export async function getStaticProps({ params }) {
   const { artwork } = params;
-  //console.log(artwork)
 
   const { API_URL } = process.env
   const client = new ApolloClient({

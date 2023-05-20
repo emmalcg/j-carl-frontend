@@ -4,8 +4,6 @@ import Link from "next/link";
 export default function BackButton({link}) {
   const router = useRouter()
 
-  console.log({link})
-
   if(link) return (
     <Link href={link}>
       <a className="inline-flex shrink text-sm hover:underline hover:font-semibold items-center">

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import AppHeader from '../components/AppHeader'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 import Footer from '../components/Footer';
+import usePreviousSlug from '../hooks/usePreviousSlug';
 
 const DecadeItem = ({ page, artwork }) => {
   return (
@@ -27,6 +28,7 @@ const DecadeItem = ({ page, artwork }) => {
 }
 
 export default function work({ pages }) {
+  const previousSlug = usePreviousSlug();
   const decades = pages.data[0].attributes.sublink
   return (
     <>
