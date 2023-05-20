@@ -7,7 +7,12 @@ import RfqHeader from "./RfqHeader";
 const SubMenu = ({ nav, currentPath }) => (
   <ul className="flex">
     {nav.map((year) => (
-      <li key={year?.page?.data?.attributes.slug}>
+      <li
+        onClick={() => {
+          localStorage.setItem("showLoading", false);
+        }}
+        key={year?.page?.data?.attributes.slug}
+      >
         <Link href={`/${year?.page?.data?.attributes.slug}`}>
           <a
             className={`block py-2 px-4 xs:px-4 hover:underline text-[14px] ${
@@ -20,7 +25,6 @@ const SubMenu = ({ nav, currentPath }) => (
         </Link>
       </li>
     ))}
-
   </ul>
 );
 
@@ -112,7 +116,7 @@ export default function AppHeader({
             </div>
           </div>
           {workOpen && !sublinkLoading && (
-            <div className="border border-black border-t-0 lg:hidden">
+            <div className="border border-black border-t-0 lg:hidden" >
               <SubMenu nav={sublinks} currentPath={currentPath} />
             </div>
           )}

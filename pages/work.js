@@ -8,7 +8,11 @@ import usePreviousSlug from '../hooks/usePreviousSlug';
 const DecadeItem = ({ page, artwork }) => {
   return (
     <>
-      <div>
+      <div
+        onClick={() => {
+          localStorage.setItem("showLoading", true);
+        }}
+      >
         <div className="w-full flex justify-between mb-3">
           <Link href={`/${page.slug}`}>
             <a>{page.title}</a>
@@ -28,7 +32,6 @@ const DecadeItem = ({ page, artwork }) => {
 }
 
 export default function work({ pages }) {
-  const previousSlug = usePreviousSlug();
   const decades = pages.data[0].attributes.sublink
   return (
     <>
