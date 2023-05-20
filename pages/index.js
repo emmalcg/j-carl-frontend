@@ -1,9 +1,10 @@
 import { ApolloClient, ApolloProvider, InMemoryCache, gql } from '@apollo/client'
 import AppHeader from '../components/AppHeader'
 import Footer from '../components/Footer'
-import Mugshots from '../components/Mugshots';
 import HomepageSingleImage from '../components/HomepageSingleImage';
 import { useState } from 'react';
+import washing from "../public/washing.webp";
+import Image from 'next/image';
 
  const { API_URL } = process.env;
  const client = new ApolloClient({
@@ -11,25 +12,25 @@ import { useState } from 'react';
    cache: new InMemoryCache(),
  });
 
-export default function Home({ homepage }) {
+export default function Home() {
 
-  const mugshots = homepage.mugshots.data[0].attributes.Images.data;
-
-  const [showMugshots, setShowMugshots] = useState(false);
+  const [showGif, setShowGif] = useState(false);
 
   return (
     <>
       <AppHeader />
       <main>
-        {showMugshots ? (
-          <Mugshots mugshotsData={mugshots} />
+        {showGif ? (
+          <section  className="h-[80vh] flex justify-center items-center">
+            <Image priority={true} src={washing} height={146} width={245} />
+          </section>
         ) : (
           <HomepageSingleImage />
         )}
       </main>
       <button
         onClick={() => {
-          setShowMugshots(!showMugshots);
+          setShowGif(!showGif);
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
         className="border border-black mx-auto px-4 py-2 hover:bg-gray-200 cursor-pointer z-10 mt-10"
