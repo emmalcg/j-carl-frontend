@@ -2,12 +2,9 @@ import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import AppHeader from "../components/AppHeader";
 import { useState, useEffect, useMemo } from "react";
 import Article from "../components/Article";
-import ArtworkThumbnail from "../components/ArtworkThumbnail";
-import ListLink from "../components/ListLink";
 import Footer from "../components/Footer";
-import BackButton from "../components/BackButton";
 
-export default function workPage({ articles }) {
+export default function writing({ articles }) {
   const pw = "bands";
 
   const [viewPP, setViewPP] = useState(false);
