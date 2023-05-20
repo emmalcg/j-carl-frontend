@@ -23,20 +23,27 @@ export default function webPage() {
                 <span>The Balcony</span>, 2000-2005
               </a>
             </li>
+            <li className="list-none flex flex-col md:flex-row mt-2">
+              <Link href="/vanity-search">
+                <a className="underline">
+                  <span>vanity search, 2022</span>
+                </a>
+              </Link>
+            </li>
           </ul>
           <h3 className="mt-4 font-semibold">Downloads</h3>
           <ul>
             <li className="list-none flex flex-col md:flex-row mt-2">
               <Link href="/font">
                 <a className="underline">
-                  <span>Content Font</span>
+                  <span>Content Font, 2002</span>
                 </a>
               </Link>
             </li>
             <li className="list-none flex flex-col md:flex-row mt-2">
               <Link href="/washing-machine">
                 <a className="underline">
-                  <span>Washing Machine</span>
+                  <span>laundry, 2018</span>
                 </a>
               </Link>
             </li>

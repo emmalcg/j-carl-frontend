@@ -26,14 +26,19 @@ Deployed automatically from `main` branch with Vercel
 database is at [https://james-backend.herokuapp.com/admin](https://james-backend.herokuapp.com/admin)
 
 ## photo sizing 
-
+thumbnails 1120px x 1140px - borders on the side
 ## TODO
 - seo
 - comb through photos and ensure sizing 
+- feature event on the page
+- washing machine 
+- sitting on the page for 45 seconds with no interaction
+- first thing second thing third
 - adding timing to switcharoo this
 - washing machine as loading symbol:
   -main page and on [year] page
 - series is not sorting properly
+- look for the catoglue in the new format 
 
 admin / James stuff: 
 - create james log in for strapi
@@ -55,3 +60,7 @@ exhibition and collectors can come later
 
 -jalousie
   -jalousie (roman), 2008, Art Gallery of Ontario
+
+
+Mug short
+-vanity search, 2023

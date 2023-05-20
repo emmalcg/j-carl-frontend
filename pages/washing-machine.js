@@ -13,7 +13,7 @@ export default function washingMachinePage() {
       </div>
       <main>
         <div className="flex mb-10 space-x-2 align-center">
-          <h2 className="text-lg font-medium">washing gif</h2>
+          <h2 className="text-lg font-medium">laundry</h2>
           <span>|</span>
           <a
             href="/washing.gif"
