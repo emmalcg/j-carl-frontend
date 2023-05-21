@@ -6,6 +6,7 @@ import ListLink from '../components/ListLink'
 import Footer from '../components/Footer'
 import BackButton from '../components/BackButton'
 import Loader from '../components/Loader'
+import Head from 'next/head'
 
 export default function categoryPage({ category }) {
  const [isLoading, setIsLoading] = useState(true);
@@ -155,6 +156,13 @@ export default function categoryPage({ category }) {
 
   return (
     <>
+      <Head>
+        <title>{category.attributes.title} artwork by James Carl</title>
+        <meta
+          name="description"
+          content="Archive website of James Carl, toronto based sculptor and artist."
+        />
+      </Head>
       <AppHeader
         currentPath={category.attributes.slug}
         currentType={category.attributes.type}
