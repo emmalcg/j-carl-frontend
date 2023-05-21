@@ -1,7 +1,7 @@
 import Image from "next/image";
 import AppHeader from "../components/AppHeader";
 import BackButton from "../components/BackButton";
-import roll from "../public/roll.webp";
+import roll from "../public/roll.gif";
 import Footer from "../components/Footer";
 import Head from "next/head";
 
@@ -21,8 +21,8 @@ export default function rollPage() {
           <h2 className="text-lg font-medium">roll</h2>
           <span>|</span>
           <a
-            href="/washing.gif"
-            download="washing.gif"
+            href="/roll.gif"
+            download="roll.gif"
             className="text-lg underline hover:font-medium"
           >
             download

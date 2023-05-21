@@ -1,7 +1,7 @@
 import Image from "next/image";
 import AppHeader from "../components/AppHeader";
 import BackButton from "../components/BackButton";
-import washing from '../public/washing.webp'
+import washing from '../public/washing.gif'
 import Footer from "../components/Footer";
 import Head from "next/head";
 
