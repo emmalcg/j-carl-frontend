@@ -8,6 +8,7 @@ import AppHeader from "../components/AppHeader";
 import BackButton from "../components/BackButton";
 import Footer from "../components/Footer";
 import Mugshots from "../components/Mugshots";
+import Head from "next/head";
 
 const { API_URL } = process.env;
 const client = new ApolloClient({
@@ -19,6 +20,10 @@ export default function vanitySearch({ homepage }) {
   const mugshots = homepage.mugshots.data[0].attributes.Images.data;
   return (
     <>
+      <Head>
+        <title>vanity search by James Carl</title>
+        <meta name="description" content="photos of multiple James Carls, that have been collected over the years by artist James Carl" />
+      </Head>
       <AppHeader currentType="about" />
       <div className="flex flex-col mb-4">
         <BackButton link="/web" />

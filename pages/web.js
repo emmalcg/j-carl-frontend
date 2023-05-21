@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import Head from "next/head";
 import AppHeader from "../components/AppHeader";
 
 import Footer from "../components/Footer";
@@ -8,6 +8,10 @@ export default function webPage() {
 
   return (
     <>
+      <Head>
+        <title>Web projects by James Carl</title>
+        <meta name="description" content="James Carl artist web projects spanning from the early 2000s to present. " />
+      </Head>
       <AppHeader currentPath="/web" currentType="about" />
       <main>
         <div className="flex flex-col mb-3.5">

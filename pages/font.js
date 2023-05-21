@@ -3,6 +3,7 @@ import AppHeader from "../components/AppHeader";
 import BackButton from "../components/BackButton";
 import Footer from "../components/Footer";
 import { useState } from "react";
+import Head from "next/head";
 
 export default function fontPage() {
   const [fontTest, setFontTest] = useState(
@@ -13,6 +14,10 @@ export default function fontPage() {
 
   return (
     <>
+      <Head>
+        <title>Content Font by James Carl</title>
+        <meta name="description" content="Content Font, available for download. Made by James Carl and published by Art Metropole and Mercier Union in 2002." />
+      </Head>
       <AppHeader currentType="about" />
       <div className="flex flex-col mb-4">
         <BackButton link="/web" />

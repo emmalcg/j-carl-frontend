@@ -3,10 +3,15 @@ import AppHeader from "../components/AppHeader";
 import BackButton from "../components/BackButton";
 import washing from '../public/washing.webp'
 import Footer from "../components/Footer";
+import Head from "next/head";
 
 export default function washingMachinePage() {
   return (
     <>
+      <Head>
+        <title>washing by James Carl</title>
+        <meta name="description" content="gif of a washing machine available for download, made by James Carl." />
+      </Head>
       <AppHeader currentType="about" />
       <div className="flex flex-col mb-4">
         <BackButton link="/web" />

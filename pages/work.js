@@ -4,6 +4,7 @@ import AppHeader from '../components/AppHeader'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 import Footer from '../components/Footer';
 import usePreviousSlug from '../hooks/usePreviousSlug';
+import Head from 'next/head';
 
 const DecadeItem = ({ page, artwork }) => {
   return (
@@ -35,6 +36,10 @@ export default function work({ pages }) {
   const decades = pages.data[0].attributes.sublink
   return (
     <>
+      <Head>
+        <title>All artwork by James Carl</title>
+        <meta name="description" content="artwork by James Carl spanning from the 1990s to present, sorted by decade." />
+      </Head>
       <AppHeader currentPath="work" currentType="Work" />
       <main>
         <section>

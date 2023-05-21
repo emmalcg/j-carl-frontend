@@ -3,6 +3,7 @@ import AppHeader from "../components/AppHeader";
 import { useState, useEffect } from "react";
 import Article from "../components/Article";
 import Footer from "../components/Footer";
+import Head from "next/head";
 
 export default function writingPage({ articles }) {
   const pw = "bands";
@@ -28,6 +29,10 @@ export default function writingPage({ articles }) {
 
   return (
     <>
+      <Head>
+        <title>Bibliography of James Carl</title>
+        <meta name="description" content="All writing referencing James Carl" />
+      </Head>
       <AppHeader currentPath="writing" currentType="About" />
       <main className="mt-2">
         <div className="flex items-center">
