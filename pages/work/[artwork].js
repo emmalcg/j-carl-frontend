@@ -1,6 +1,5 @@
-//<Artwork key={`${artwork.attributes.title}${i}`} artwork={artwork.attributes}/> 
-
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import Head from "next/head";
 import { useState, useEffect } from 'react'
 import AppHeader from '../../components/AppHeader'
 import ArtworkImage from '../../components/ArtworkImage'
@@ -8,12 +7,8 @@ import ArtworkInfo from '../../components/ArtworkInfo'
 import Footer from '../../components/Footer'
 import BackButton from '../../components/BackButton'
 import SeriesButton from '../../components/SeriesButton'
-import usePreviousSlug from '../../hooks/usePreviousSlug'
 
 export default function ArtworkPage({ artwork }) {
-  const previousSlug = usePreviousSlug()
-
-  console.log('ps', previousSlug)
 
   const art = artwork.attributes
   const images = art.media.data 
@@ -28,8 +23,15 @@ export default function ArtworkPage({ artwork }) {
 
   const series = art?.series?.data?.attributes
 
+  const metaDescription = `James Carl ${art.yearStarted} ${art.title}. ${art.materials}, ${art.description}.`
+
   return (
     <>
+      <Head>
+        <title>{art.title} by James Carl</title>
+        <meta name="description" content={metaDescription} />
+        {/* Add other meta tags as needed */}
+      </Head>
       <AppHeader currentType="Work" />
       <div
         className={`flex justify-between items-center ${
