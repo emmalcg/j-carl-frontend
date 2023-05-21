@@ -3,7 +3,6 @@ import Link from 'next/link'
 import AppHeader from '../components/AppHeader'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 import Footer from '../components/Footer';
-import usePreviousSlug from '../hooks/usePreviousSlug';
 import Head from 'next/head';
 
 const DecadeItem = ({ page, artwork }) => {
