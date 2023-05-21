@@ -2,8 +2,6 @@ import Image from "next/image";
 import { buildUrl } from "cloudinary-build-url";
 
 export default function MyImage({ image, index, size }) {
-
-  console.log({image})
   const imgSlug = image.formats.large.url
 
   let imageHeight = image.formats[size].height;

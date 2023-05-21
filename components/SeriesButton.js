@@ -21,7 +21,6 @@ export default function SeriesButton({ series, currentSlug }) {
   //if(!series || series.length == 0) return null
 
   if(!series) return null
-  console.log({series})
   const { title, yearStarted, yearEnded } = series
   const seriesArtworks = series?.artworks?.data;
 
@@ -31,8 +30,6 @@ export default function SeriesButton({ series, currentSlug }) {
   );
 
   const router = useRouter()
-  
-  console.log(router.pathname)
 
   return (
     <div className="text-sm items-center inline-flex">

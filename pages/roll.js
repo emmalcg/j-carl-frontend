@@ -1,16 +1,16 @@
 import Image from "next/image";
 import AppHeader from "../components/AppHeader";
 import BackButton from "../components/BackButton";
-import washing from '../public/washing.webp'
+import roll from "../public/roll.webp";
 import Footer from "../components/Footer";
 import Head from "next/head";
 
-export default function washingMachinePage() {
+export default function rollPage() {
   return (
     <>
       <Head>
-        <title>washing by James Carl</title>
-        <meta name="description" content="gif of a washing machine available for download, made by James Carl." />
+        <title>roll by James Carl</title>
+        <meta name="description" content="gif of a toilet paper roll, available for download, by James Carl." />
       </Head>
       <AppHeader currentType="about" />
       <div className="flex flex-col mb-4">
@@ -18,7 +18,7 @@ export default function washingMachinePage() {
       </div>
       <main>
         <div className="flex mb-10 space-x-2 align-center">
-          <h2 className="text-lg font-medium">laundry</h2>
+          <h2 className="text-lg font-medium">roll</h2>
           <span>|</span>
           <a
             href="/washing.gif"
@@ -29,7 +29,7 @@ export default function washingMachinePage() {
           </a>
         </div>
         <section>
-          <Image priority={true} src={washing} height={146} width={245} />
+          <Image priority={true} src={roll} height={560} width={280} />
         </section>
       </main>
       <Footer />

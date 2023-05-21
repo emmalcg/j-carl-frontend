@@ -1,47 +1,27 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import AppHeader from '../components/AppHeader'
-import { useState, useEffect, useMemo } from 'react'
-import Article from '../components/Article'
+import { useState, useEffect} from 'react'
 import ArtworkThumbnail from '../components/ArtworkThumbnail'
 import ListLink from '../components/ListLink'
 import Footer from '../components/Footer'
 import BackButton from '../components/BackButton'
+import Loader from '../components/Loader'
 
 export default function categoryPage({ category }) {
-  const articles = category.attributes.article.data;
+ const [isLoading, setIsLoading] = useState(true);
+ const [showLoader, setShowLoader] = useState(true);
+
+ useEffect(() => {
+   setTimeout(() => {
+     setIsLoading(false);
+   }, 2000);
+   setTimeout(() => {
+    setShowLoader(false)
+   }, 1700)
+ }, []);
+
+
   const artworks = category.attributes.artworks.data;
-
-  const pw = "bands";
-
-  const [viewPP, setViewPP] = useState(false);
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    const saved = localStorage.getItem("showPP");
-    saved && setViewPP(true);
-  }, []);
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    let password = e.target.elements.password?.value;
-    if (password == pw) {
-      setViewPP(true);
-      localStorage.setItem("showPP", true);
-    } else {
-      setMessage("Wrong Password");
-    }
-  };
-
-  let articleSeries = [...articles]
-
- articleSeries.sort((a, b) => 
-   a.attributes.year < b.attributes.year
-     ? 1
-     : a.attributes.year > b.attributes.year
-     ? -1
-     : 0
- );
-  //console.log({ articleSeries });
 
   let artworkSeries = [];
 
@@ -77,9 +57,7 @@ export default function categoryPage({ category }) {
         a[sortBy] > b[sortBy] ? 1 : a[sortBy] < b[sortBy] ? -1 : 0
       );
     }
-  } else {
-
-  }
+  } 
 
   const requestSort = (event) => {
     const value = event.target.value;
@@ -105,7 +83,6 @@ export default function categoryPage({ category }) {
     );
   };
 
-  // hover:outline hover:outline-slate-600 hover:outline-offset-2
   const SeriesArtworks = ({ artwork }) => {
     const [open, setOpen] = useState(false);
     return (
@@ -182,87 +159,51 @@ export default function categoryPage({ category }) {
         currentPath={category.attributes.slug}
         currentType={category.attributes.type}
       />
-      {!articleSeries.length && <BackButton link="/work" />}
+      <BackButton link="/work" />
       <main className="mt-2">
         <div className="flex items-center">
           <h2 className="text-lg font-semibold">{category.attributes.title}</h2>
-          {category.attributes.type === "Work" && (
-            <>
-              <span className="px-2">|</span>
-              <button
-                onClick={() => {
-                  setShowImages(!showImages);
-                }}
-                className="underline hover:font-medium flex pt-[1px]"
-              >
-                {buttonText}
-              </button>
-              <div className="ml-auto">
-                {!showImages && (
-                  <>
-                    <label htmlFor="sort" className="hidden">
-                      Sort
-                    </label>
-                    <select
-                      id="sort"
-                      name="sort"
-                      onChange={requestSort}
-                      className="block w-full border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    >
-                      <option value="yearStarted">Sort by year</option>
-                      <option value="slug">Sort by title</option>
-                    </select>
-                  </>
-                )}
-              </div>
-            </>
-          )}
+          <span className="px-2">|</span>
+          <button
+            onClick={() => {
+              setShowImages(!showImages);
+            }}
+            className="underline hover:font-medium flex pt-[1px]"
+          >
+            {buttonText}
+          </button>
+          <div className="ml-auto">
+            {!showImages && (
+              <>
+                <label htmlFor="sort" className="hidden">
+                  Sort
+                </label>
+                <select
+                  id="sort"
+                  name="sort"
+                  onChange={requestSort}
+                  className="block w-full border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                >
+                  <option value="yearStarted">Sort by year</option>
+                  <option value="slug">Sort by title</option>
+                </select>
+              </>
+            )}
+          </div>
         </div>
-        {/*<h2 className="text-lg font-semibold mb-3.5">{category.attributes.title}</h2>*/}
         <section>
-          {!!artworks.length && showImages && <ImageList list={sortedWork} />}
+          {showImages && <ImageList list={sortedWork} />}
 
-          {!!artworks.length && !showImages && (
-            <SeriesList list={artworkSeries} />
+          {!showImages && isLoading && (
+            <section
+              className={`h-[80vh] flex justify-center items-center ${
+                showLoader ? "opacity-100" : "opacity-0"
+              } transition-opacity ease-out duration-500`}
+            >
+              <Loader />
+            </section>
           )}
-
-          {!!articleSeries.length && (
-            <>
-              <ul className="min-h-screen max-w-[47rem]">
-                {articleSeries.map((article, i) => (
-                  <Article
-                    key={`${article.attributes.title}${i}`}
-                    article={article.attributes}
-                    passwordEntered={viewPP}
-                  />
-                ))}
-              </ul>
-              {!viewPP && (
-                <div className="border border-black max-w-[300px] m-auto mt-20">
-                  <form onSubmit={handleFormSubmit}>
-                    <div className="flex flex-col text-center">
-                      <label className="py-2" htmlFor="password">
-                        Password
-                      </label>
-                      <input
-                        className="border-y border-black p-2 text-center"
-                        type="password"
-                        id="password"
-                      />
-                    </div>
-                    <button className="text-center w-full py-2 hover:bg-gray-200">
-                      Submit
-                    </button>
-                  </form>
-                  {message && (
-                    <p className="border-t border-black py-2 text-center text-red-800 font-bold">
-                      {message}
-                    </p>
-                  )}
-                </div>
-              )}
-            </>
-          )}
+          {!showImages && !isLoading && <SeriesList list={artworkSeries} />}
         </section>
       </main>
       <Footer />
@@ -272,8 +213,6 @@ export default function categoryPage({ category }) {
 
 export async function getStaticProps({ params }) {
   const { category } = params;
-  //console.log("category", { category })
-  //console.log('params', params)
 
   const { API_URL } = process.env
   const client = new ApolloClient({
@@ -290,29 +229,6 @@ export async function getStaticProps({ params }) {
               type
               title
               slug
-              article {
-                data {
-                  attributes {
-                    title
-                    year
-                    publication
-                    author
-                    editor
-                    issueNumber
-                    type
-                    displayName
-                    year
-                    passwordProtected
-                    document {
-                      data {
-                        attributes {
-                          url
-                        }
-                      }
-                    }
-                  }
-                }
-              }
               artworks(sort: "yearStarted") {
                 data {
                   attributes {
