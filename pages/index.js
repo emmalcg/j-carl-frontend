@@ -3,7 +3,7 @@ import AppHeader from '../components/AppHeader'
 import Footer from '../components/Footer'
 import HomepageSingleImage from '../components/HomepageSingleImage';
 import { useState } from 'react';
-import washing from "../public/washing.webp";
+import washing from "../public/washing.gif";
 import Image from 'next/image';
 import Head from 'next/head';
 
