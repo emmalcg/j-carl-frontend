@@ -5,6 +5,7 @@ import HomepageSingleImage from '../components/HomepageSingleImage';
 import { useState } from 'react';
 import washing from "../public/washing.webp";
 import Image from 'next/image';
+import Head from 'next/head';
 
  const { API_URL } = process.env;
  const client = new ApolloClient({
@@ -18,10 +19,14 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>James Carl artist</title>
+        <meta name="description" content="Archive website of James Carl, toronto based sculptor and artist." />
+      </Head>
       <AppHeader />
       <main>
         {showGif ? (
-          <section  className="h-[80vh] flex justify-center items-center">
+          <section className="h-[80vh] flex justify-center items-center">
             <Image priority={true} src={washing} height={146} width={245} />
           </section>
         ) : (
