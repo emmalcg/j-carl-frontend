@@ -30,7 +30,6 @@ export default function ArtworkPage({ artwork }) {
       <Head>
         <title>{art.title} by James Carl</title>
         <meta name="description" content={metaDescription} />
-        {/* Add other meta tags as needed */}
       </Head>
       <AppHeader currentType="Work" />
       <div
