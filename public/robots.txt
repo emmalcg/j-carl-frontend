@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.carjam.ca/
+
+# Sitemaps
+Sitemap: https://www.carjam.ca/sitemap.xml
