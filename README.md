@@ -20,7 +20,7 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 Styled using Tailwind CSS
 ## Deployed automatically on Vercel
 
-Deployed automatically from `main` branch with Vercel
+Deployed automatically from `main` branch with Vercel on domain
 
 ## Database 
 database is at [https://james-backend.herokuapp.com/admin](https://james-backend.herokuapp.com/admin)
