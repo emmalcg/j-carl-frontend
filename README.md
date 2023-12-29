@@ -64,3 +64,19 @@ exhibition and collectors can come later
 
 Mug short
 -vanity search, 2023
+
+
+
+-LOOK INTO PUBLISHED VS UN-PUBLISHED
+-OPTION for selecting what is on the homepage
+-neeed to look into decade / name stuff and change all work page - dont need images
+- decade stuff of images that span https://carjam.ca/2010
+- add link around photo on homepage
+-look into exhibition stuff - add link to the gallery 
+.5 rem to reduce the grid
+-balcony:
+  -LOOK INTO ross sinclair not being the correct link
+  -corriane is broken on balcony
+-dont hide the rotator
+-dashes 
+-reverse order, start with the most recent work

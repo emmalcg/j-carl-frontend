@@ -54,9 +54,15 @@ export default function categoryPage({ category }) {
   if (sortBy !== null) {
 
     if(category.attributes.type === "Work") {
-      artworkSeries.sort((a, b) =>
-        a[sortBy] > b[sortBy] ? 1 : a[sortBy] < b[sortBy] ? -1 : 0
-      );
+      if(sortBy === 'slug') {
+        artworkSeries.sort((a, b) =>
+          a[sortBy] > b[sortBy] ? 1 : a[sortBy] < b[sortBy] ? -1 : 0
+        );
+      } else {
+        artworkSeries.sort((a, b) =>
+          a[sortBy] < b[sortBy] ? 1 : a[sortBy] > b[sortBy] ? -1 : 0
+        );
+      }
     }
   } 
 
