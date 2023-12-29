@@ -228,11 +228,13 @@ export default function categoryPage({ category }) {
 export async function getStaticProps({ params }) {
   const { category } = params;
 
-  const { API_URL } = process.env
+  const { API_URL } = process.env;
   const client = new ApolloClient({
     uri: `${API_URL}`,
-    cache: new InMemoryCache()
-  })
+    cache: new InMemoryCache(),
+  });
+
+  //"yearStarted:desc"
 
   const { data: singleCategoryData } = await client.query({
     query: gql`
@@ -306,9 +308,9 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-     category: categoryData,
-    }
-  }
+      category: categoryData,
+    },
+  };
 }
 
 

@@ -31,25 +31,55 @@ const DecadeItem = ({ page, artwork }) => {
   );
 }
 
-export default function work({ pages }) {
-  const decades = pages.data[0].attributes.sublink
+export default function work({ artworks }) {
+  console.log({artworks})
+
+  const work = artworks.data
+
+  let artworkSeries = [];
+
+  work.forEach((artwork) => {
+    if (!artwork.attributes.series.data) {
+      artworkSeries.push(artwork.attributes);
+    } else {
+      const seriesTitle = artwork.attributes.series.data.attributes.title;
+      const series = {
+        ...artwork.attributes.series.data.attributes,
+        artworks: [artwork.attributes],
+      };
+      const index = artworkSeries.findIndex(
+        (work) => work.title === seriesTitle
+      );
+      if (index === -1) {
+        artworkSeries.push(series);
+      } else {
+        artworkSeries[index].artworks.push(artwork.attributes);
+      }
+    }
+  });
+  console.log({work})
+  //const decades = pages.data[0].attributes.sublink
   return (
     <>
       <Head>
         <title>All artwork by James Carl</title>
-        <meta name="description" content="artwork by James Carl spanning from the 1990s to present, sorted by decade." />
+        <meta
+          name="description"
+          content="artwork by James Carl spanning from the 1990s to present, sorted by decade."
+        />
       </Head>
       <AppHeader currentPath="work" currentType="Work" />
       <main>
         <section>
           <div className="underline flex flex-col space-y-5">
-            {decades.map((decade) => (
-              <DecadeItem
-                key={decade.page.data.attributes.slug}
-                page={decade.page.data.attributes}
-                artwork={decade.artwork.data.attributes}
-              />
-            ))}
+            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-7">
+              {work.map((artwork, i) => (
+                <ArtworkThumbnail
+                  key={`${artwork.attributes.title}${i}`}
+                  artwork={artwork.attributes}
+                />
+              ))}
+            </ul>
           </div>
         </section>
       </main>
@@ -59,43 +89,59 @@ export default function work({ pages }) {
 }
 
 export async function getStaticProps() {
-  const { API_URL } = process.env
+  const { API_URL } = process.env;
   const client = new ApolloClient({
     uri: `${API_URL}`,
-    cache: new InMemoryCache()
-  })
+    cache: new InMemoryCache(),
+  });
 
   const { data } = await client.query({
     query: gql`
-      query GET_WORK_PAGE {
-        pages(filters: { slug: { eq: "work" } }) {
+      query getArtworks {
+        artworks(filters: { archive: { eq: true }}, sort: ["yearStarted:desc"]) {
           data {
+            id
             attributes {
-              sublink {
-                artwork {
-                  data {
-                    attributes {
-                      title,
-                      thumbnail {
-                        data {
-                          attributes {
-                            url,
-                            formats,
-                            caption,
-                            width,
-                            height
-                          }
-                        }
-                      }
-                    }
+              title
+              archive
+              slug
+              yearStarted
+              yearEnded
+              description
+              materials
+              dimensions
+              location
+              client
+              series {
+                data {
+                  attributes {
+                    title
+                    displayName
+                    slug
+                    yearStarted
+                    yearEnded
                   }
-                },
-                page {
-                  data {
-                    attributes {
-                      slug,
-                      title,
-                    }
+                }
+              }
+              thumbnail {
+                data {
+                  attributes {
+                    url
+                    formats
+                    caption
+                    width
+                    height
+                  }
+                }
+              }
+              media {
+                data {
+                  attributes {
+                    url
+                    formats
+                    caption
+                    width
+                    height
                   }
                 }
               }
@@ -108,8 +154,60 @@ export async function getStaticProps() {
 
   return {
     props: {
-      pages: data.pages
-    }
-  }
+      artworks: data.artworks,
+    },
+  };
 }
 
+
+
+
+
+
+  //const { data } = await client.query({
+  //  query: gql`
+  //    query GET_WORK_PAGE {
+  //      pages(filters: { slug: { eq: "work" } }) {
+  //        data {
+  //          attributes {
+  //            sublink {
+  //              artwork {
+  //                data {
+  //                  attributes {
+  //                    title,
+  //                    thumbnail {
+  //                      data {
+  //                        attributes {
+  //                          url,
+  //                          formats,
+  //                          caption,
+  //                          width,
+  //                          height
+  //                        }
+  //                      }
+  //                    }
+  //                  }
+  //                }
+  //              },
+  //              page {
+  //                data {
+  //                  attributes {
+  //                    slug,
+  //                    title,
+  //                  }
+  //                }
+  //              }
+  //            }
+  //          }
+  //        }
+  //      }
+  //    }
+  //  `,
+  //});
+
+  //return {
+  //  props: {
+  //    pages: data.pages
+  //  }
+  //}
+//}

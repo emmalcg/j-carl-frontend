@@ -12,16 +12,16 @@ export default function ArtworkThumbnail({ artwork, centered = true, slug, prior
   let fit = 'cover';
   
   if(img) {
-    if(img.formats.medium.height < img.formats.medium.width && centered) {
+    if(img.formats?.medium?.height < img.formats?.medium?.width && centered) {
       imagePosition = 'top'
     }
-    if (img.formats.medium.height > img.formats.medium.width) {
+    if (img.formats?.medium?.height > img.formats?.medium?.width) {
       fit = "contain";
     }
     
   }
 
-  const urlBlurred = buildUrl(`${img.formats.small.url}`, {
+  const urlBlurred = buildUrl(`${img?.formats?.small?.url}`, {
     cloud: {
       cloudName: "dgonyuzzz",
     },
@@ -37,11 +37,11 @@ export default function ArtworkThumbnail({ artwork, centered = true, slug, prior
       <Link href={thumbnailSlug}>
         <a>
           {/*{artwork.media.data[0].attributes && (*/}
-          <div className="relative w-full h-52">
+          <div className="relative w-full h-52 bg-slate-200">
             {img ? (
               <Image
-                src={img.formats.medium.url || img.url}
-                alt={img.caption}
+                src={img?.formats?.medium?.url || img?.url || ""}
+                alt={img?.caption}
                 objectPosition={imagePosition}
                 //objectPosition={center ? "right" : "left"}
                 layout="fill"
