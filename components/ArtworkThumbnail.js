@@ -37,7 +37,7 @@ export default function ArtworkThumbnail({ artwork, centered = true, slug, prior
       <Link href={thumbnailSlug}>
         <a>
           {/*{artwork.media.data[0].attributes && (*/}
-          <div className="relative w-full h-52 bg-slate-200">
+          <div className="relative w-full h-52 bg-[#c4c6c1]">
             {img ? (
               <Image
                 src={img?.formats?.medium?.url || img?.url || ""}
