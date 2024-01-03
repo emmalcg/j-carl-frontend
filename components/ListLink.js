@@ -8,7 +8,7 @@ export default function ListLink({ artwork, series, categorySlug }) {
     localStorage.setItem("categorySlug", categorySlug);
   }
   return (
-    <li className="list-none flex flex-col md:flex-row mt-7">
+    <li className="list-none flex flex-col md:flex-row mt-7 ml-6">
       <Link
         href={`/work/${slug}`}
         key={`${slug}`}

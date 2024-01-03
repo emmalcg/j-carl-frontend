@@ -11,6 +11,7 @@
   "dependencies": {
     "@apollo/client": "^3.5.6",
     "@headlessui/react": "^1.4.3",
+    "@radix-ui/react-accordion": "^1.1.2",
     "cloudinary-build-url": "^0.2.4",
     "dotenv": "^10.0.0",
     "embla-carousel-react": "^6.0.2",
