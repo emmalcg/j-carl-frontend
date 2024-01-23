@@ -20,4 +20,16 @@
   .AccordionTrigger[data-state='open']>.AccordionChevron {
       transform: rotate(90deg);
     }
+  .AccordionTrigger[data-state='closed']>.openFolder {
+    display: none
+  }
+  .AccordionTrigger[data-state='open']>.openFolder {
+    display: flex
+  }
+  .AccordionTrigger[data-state='open']>.closedFolder {
+    display: none
+  }
+  .AccordionTrigger[data-state='closed']>.closedFolder {
+    display: flex
+  }
 }

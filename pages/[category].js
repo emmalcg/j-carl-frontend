@@ -25,8 +25,9 @@ const List = ({ artworks, category }) => {
   );
 };
 
-function organizeArtworksByDecades(artworks) {
+function organizeArtworksByDecades(artworks, targetDecade) {
   const organizedArtworks = [];
+  let targetDecadeObject;
 
   artworks.forEach((artwork) => {
     const startYear = artwork.attributes.yearStarted;
@@ -52,8 +53,12 @@ function organizeArtworksByDecades(artworks) {
       dimensions: artwork.attributes.dimensions,
       location: artwork.attributes.location,
       client: artwork.attributes.client,
-      thumbnail: artwork.attributes.thumbnail
+      thumbnail: artwork.attributes.thumbnail,
     });
+
+    if (decade === targetDecade) {
+      targetDecadeObject = decadeObject;
+    }
   });
 
   // Sort artworks within each decade
@@ -69,8 +74,12 @@ function organizeArtworksByDecades(artworks) {
     });
   });
 
-  // Sort decades in descending order
-  organizedArtworks.sort((a, b) => b.decade - a.decade);
+  // Sort decades in descending order, with targetDecadeObject moved to the front
+  organizedArtworks.sort((a, b) => {
+    if (a === targetDecadeObject) return -1;
+    if (b === targetDecadeObject) return 1;
+    return b.decade - a.decade;
+  });
 
   return organizedArtworks;
 }
@@ -86,8 +95,9 @@ const SeriesImageList = ({ artworks }) => {
 };
 
 const SeriesImages = ({ series, category }) => {
-  const seriesArtworks = organizeArtworksByDecades(series.artworks.data);
   const decade = Number(category.attributes.slug);
+  const seriesArtworks = organizeArtworksByDecades(series.artworks.data, decade);
+  console.log({seriesArtworks})
 
   return (
     <>
@@ -135,19 +145,19 @@ const ImageList = ({ list, category }) => {
 
 const SeriesArtworks = ({ series, category }) => {
 
-  const seriesArtworks = organizeArtworksByDecades(series.artworks.data);
-
   const decade = Number(category.attributes.slug)
+  const seriesArtworks = organizeArtworksByDecades(series.artworks.data, decade);
+  console.log({seriesArtworks})
+
 
   return (
     <div>
       <Accordion.Root type="single" collapsible>
         <Accordion.Item value={series.title}>
           <Accordion.Header>
-            <Accordion.Trigger className="AccordionTrigger rounded-sm flex md:flex-row mt-7 open:rotate-90 ">
+            <Accordion.Trigger className="AccordionTrigger rounded-sm flex md:flex-row mt-7">
               <div className="flex h-full AccordionChevron mt-[7px] mr-2">
                 <svg
-                  className=""
                   fill="none"
                   height="10"
                   viewBox="0 0 10 16"
@@ -162,6 +172,49 @@ const SeriesArtworks = ({ series, category }) => {
                   />
                 </svg>
               </div>
+              <div className="openFolder h-full mt-[4px] mr-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 50 50"
+                  x="0px"
+                  y="0px"
+                  width="15"
+                  height="15"
+                >
+                  <path
+                    d="m2.23,42.05s5.59-20.61,5.7-21.03c.56-2.09.61-2.06,1.69-2.06h38.31c.66,0,.32.73-.22,2.36-.28.84-5.79,17.68-6.42,19.59-.64,1.91-1.2,2.17-2.72,2.16-1,0-33.3,0-34.86,0s-2.02-1.03-2.02-2.02V8.73c0-.99.46-1.73,1.53-1.79h7.96s.93.07,1.39.6c.46.53,2.59,3.18,2.59,3.18h24.02c1.79,0,2.12,1.46,2.12,2.12v5.63"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeMiterlimit="10"
+                    strokeWidth="2"
+                  />
+                </svg>
+              </div>
+              <div className="closedFolder h-full mt-[4px] mr-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 50 50"
+                  x="0px"
+                  y="0px"
+                  width="15"
+                  height="15"
+                >
+                  <path
+                    d="m1.8,8.73v32.31c0,1,.46,2.02,2.02,2.02h34.86c1,0,2.72-.3,2.72-2.16V12.84c0-.66-.33-2.12-2.12-2.12H15.26s-2.12-2.65-2.59-3.18-1.39-.6-1.39-.6H3.32c-1.06.07-1.53.8-1.53,1.79Z"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeMiterlimit="10"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="m1.7,16.56s.96-1.39,1.69-1.39h36.39c.83,0,1.79,1.39,1.79,1.39"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeMiterlimit="10"
+                    strokeWidth="2"
+                  />
+                </svg>
+              </div>
               {series.title}
             </Accordion.Trigger>
           </Accordion.Header>
@@ -169,18 +222,20 @@ const SeriesArtworks = ({ series, category }) => {
             <ul className="pl-6">
               {seriesArtworks.map((work, i) => {
                 if (work.decade == decade) {
-                  return (
-                    <List key={i} artworks={work} category={category} />
-                  );
+                  return <List key={i} artworks={work} category={category} />;
                 } else {
                   return (
-                    <Accordion.Root key={i} type="single" collapsible>
+                    <Accordion.Root
+                      key={i}
+                      type="single"
+                      collapsible
+                      className="pl-5"
+                    >
                       <Accordion.Item value={series.title}>
                         <Accordion.Header>
-                          <Accordion.Trigger className="AccordionTrigger rounded-sm flex md:flex-row mt-7 open:rotate-90 text-slate-700">
+                          <Accordion.Trigger className="AccordionTrigger rounded-sm flex md:flex-row mt-7 open:rotate-90 text-slate-500">
                             <div className="flex h-full AccordionChevron mt-[7px] mr-2">
                               <svg
-                                className=""
                                 fill="none"
                                 height="10"
                                 viewBox="0 0 10 16"
@@ -195,16 +250,55 @@ const SeriesArtworks = ({ series, category }) => {
                                 />
                               </svg>
                             </div>
+                            <div className="openFolder h-full mt-[4px] mr-2">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 50 50"
+                                x="0px"
+                                y="0px"
+                                width="15"
+                                height="15"
+                              >
+                                <path
+                                  d="m2.23,42.05s5.59-20.61,5.7-21.03c.56-2.09.61-2.06,1.69-2.06h38.31c.66,0,.32.73-.22,2.36-.28.84-5.79,17.68-6.42,19.59-.64,1.91-1.2,2.17-2.72,2.16-1,0-33.3,0-34.86,0s-2.02-1.03-2.02-2.02V8.73c0-.99.46-1.73,1.53-1.79h7.96s.93.07,1.39.6c.46.53,2.59,3.18,2.59,3.18h24.02c1.79,0,2.12,1.46,2.12,2.12v5.63"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeMiterlimit="10"
+                                  strokeWidth="2"
+                                />
+                              </svg>
+                            </div>
+                            <div className="closedFolder h-full mt-[4px] mr-2">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 50 50"
+                                x="0px"
+                                y="0px"
+                                width="15"
+                                height="15"
+                              >
+                                <path
+                                  d="m1.8,8.73v32.31c0,1,.46,2.02,2.02,2.02h34.86c1,0,2.72-.3,2.72-2.16V12.84c0-.66-.33-2.12-2.12-2.12H15.26s-2.12-2.65-2.59-3.18-1.39-.6-1.39-.6H3.32c-1.06.07-1.53.8-1.53,1.79Z"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeMiterlimit="10"
+                                  strokeWidth="2"
+                                />
+                                <path
+                                  d="m1.7,16.56s.96-1.39,1.69-1.39h36.39c.83,0,1.79,1.39,1.79,1.39"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeMiterlimit="10"
+                                  strokeWidth="2"
+                                />
+                              </svg>
+                            </div>
                             {work.decade}-
                           </Accordion.Trigger>
                         </Accordion.Header>
                         <Accordion.Content>
                           <div className="ml-6">
-                            <List
-                              key={i}
-                              artworks={work}
-                              category={category}
-                            />
+                            <List key={i} artworks={work} category={category} />
                           </div>
                         </Accordion.Content>
                       </Accordion.Item>

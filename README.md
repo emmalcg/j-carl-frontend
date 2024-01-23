@@ -67,16 +67,24 @@ Mug short
 
 
 
--LOOK INTO PUBLISHED VS UN-PUBLISHED
+
 -OPTION for selecting what is on the homepage
--neeed to look into decade / name stuff and change all work page - dont need images
-- decade stuff of images that span https://carjam.ca/2010
-- add link around photo on homepage
--look into exhibition stuff - add link to the gallery 
-.5 rem to reduce the grid
+
 -balcony:
   -LOOK INTO ross sinclair not being the correct link
   -corriane is broken on balcony
--dont hide the rotator
--dashes 
--reverse order, start with the most recent work
+
+-on all work, group work by series. each work / series will have its own line and works with a series will take up an entire line and possibly spill over. there could also be some sort of folder opening. 
+-Also want to add the option to switch between title and images on work page
+
+-add shows to navigation, -look into exhibition stuff - add link to the gallery around the image
+-add mug shots back in too
+
+-open and closing of folder
+-don't hide the rotator button on the homepage, bring it up so it is visible right below the image
+
+-make it so that all folder decades, fall after the series work in that actual decade
+
+-add review to homepage
+
+-fix focus state of input, especially content font

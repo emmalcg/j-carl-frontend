@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { buildUrl } from "cloudinary-build-url";
 
-export default function ArtworkThumbnail({ artwork, centered = true, slug, priority = false }) {
+export default function ArtworkThumbnail({ artwork, centered = true, slug, priority = false, shrinkHeight = false }) {
 
   const thumbnailSlug = slug || `/work/${artwork.slug}`;
 
@@ -32,12 +32,14 @@ export default function ArtworkThumbnail({ artwork, centered = true, slug, prior
   });
   //let heightClass =
   //  img.formats.small.height > img.formats.small.width && !centered ? "h-80" : "h-52";
+
+  let heightClass = shrinkHeight ? 'h-32' : 'h-52'
   return (
     <li className="list-none w-full">
       <Link href={thumbnailSlug}>
         <a>
           {/*{artwork.media.data[0].attributes && (*/}
-          <div className="relative w-full h-52 bg-[#c4c6c1]">
+          <div className={`relative w-full ${heightClass} bg-[#bdbdbd]`}>
             {img ? (
               <Image
                 src={img?.formats?.medium?.url || img?.url || ""}

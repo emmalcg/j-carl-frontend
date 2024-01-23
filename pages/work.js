@@ -72,11 +72,12 @@ export default function work({ artworks }) {
       <main>
         <section>
           <div className="underline flex flex-col space-y-5">
-            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-7">
+            <ul className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-7">
               {work.map((artwork, i) => (
                 <ArtworkThumbnail
                   key={`${artwork.attributes.title}${i}`}
                   artwork={artwork.attributes}
+                  shrinkHeight={true}
                 />
               ))}
             </ul>
