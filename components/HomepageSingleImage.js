@@ -3,7 +3,7 @@ import homepagePic from "../public/jamesMarbleStudio.jpg";
 
 export default function HomepageSingleImage() {
   return (
-    <div style={{ height: `calc(100vh - 100px)` }}>
+    <div style={{ height: `calc(100vh - 200px)` }}>
       <a
         href="https://privateviews.artlogic.net/2/a6bfc670af5a781b652ec6/"
         className="hover:underline"

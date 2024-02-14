@@ -65,7 +65,9 @@ exhibition and collectors can come later
 Mug short
 -vanity search, 2023
 
+-Recent vs Work
 
+-work automatically opens date tab
 
 
 -OPTION for selecting what is on the homepage
@@ -74,16 +76,13 @@ Mug short
   -LOOK INTO ross sinclair not being the correct link
   -corriane is broken on balcony
 
--on all work, group work by series. each work / series will have its own line and works with a series will take up an entire line and possibly spill over. there could also be some sort of folder opening. 
+-on all work, group work by series for images. each work / series will have its own line and works with a series will take up an entire line and possibly spill over. there could also be some sort of folder opening. 
 -Also want to add the option to switch between title and images on work page
 
 -add shows to navigation, -look into exhibition stuff - add link to the gallery around the image
 -add mug shots back in too
 
--open and closing of folder
 -don't hide the rotator button on the homepage, bring it up so it is visible right below the image
-
--make it so that all folder decades, fall after the series work in that actual decade
 
 -add review to homepage
 
