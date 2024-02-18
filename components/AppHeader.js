@@ -11,7 +11,7 @@ const SubMenu = ({ nav, currentPath }) => (
         onClick={() => {
           localStorage.setItem("showLoading", false);
         }}
-        key={item.slug}
+        key={`${item.slug}-subnav`}
       >
         <Link href={item.slug}>
           <a
@@ -57,7 +57,7 @@ export default function AppHeader({
   );
 
   const [workOpen, setWorkOpen] = useState(
-    currentType === "Work" || router.pathname.includes("/work")
+    currentType === "Work" || router.pathname.includes("/work-")
   )
 
   console.log({currentPath})
@@ -78,7 +78,7 @@ export default function AppHeader({
                 <Link href="/">
                   <a
                     className={`rounded-tl-lg text-1xl font-bold border border-black pl-2 py-2 pr-4 sm:pl-4 sm:pr-9 hover:underline hover:bg-gray-200 text-nowrap ${
-                      router.pathname.includes("/work") && "border-r-0"
+                      router.pathname.includes("/work-") && "border-r-0"
                     }`}
                   >
                     James Carl
@@ -133,11 +133,13 @@ export default function AppHeader({
                             </Link>
                           </li>
                           {item.label === "Work" &&
-                            router.pathname.includes("/work") && (
+                            router.pathname.includes("/work-") && (
                               <div className="hidden sm:flex">
                                 {workSubLinks.map((item) => {
                                   return (
-                                    <div className="border border-black border-l-0 text-xs sm:text-sm pl-2 py-2 pr-2 sm:pr-9">
+                                    <div 
+                                      key={item.title}
+                                    className="border border-black border-l-0 text-xs sm:text-sm pl-2 py-2 pr-2 sm:pr-9">
                                       <span className="invisible">
                                         {item.title}
                                       </span>
@@ -153,7 +155,7 @@ export default function AppHeader({
               </nav>
             </div>
           </div>
-          {router.pathname.startsWith("/work") && (
+          {router.pathname.startsWith("/work-") && (
             <div className="flex">
               <div className="w-[103px] sm:w-[209px]"></div>
               <SubMenu nav={workSubLinks} currentPath={router.pathname} />

@@ -1,62 +1,25 @@
+import { useState, useEffect } from "react";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-import Link from "next/link";
 import AppHeader from "../components/AppHeader";
-import ArtworkThumbnail from "../components/ArtworkThumbnail";
 import Footer from "../components/Footer";
 import Head from "next/head";
+import { Decade } from "../components/Decade";
+import Loader from "../components/Loader";
 
-const DecadeItem = ({ page, artwork }) => {
-  return (
-    <>
-      <div
-        onClick={() => {
-          localStorage.setItem("showLoading", true);
-        }}
-      >
-        <div className="w-full flex justify-between mb-3">
-          <Link href={`/${page.slug}`}>
-            <a>{page.title}</a>
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          <ArtworkThumbnail
-            artwork={artwork}
-            centered={true}
-            slug={`/${page.slug}`}
-            priority={true}
-          />
-        </div>
-      </div>
-    </>
-  );
-};
+export default function workDate({ categories }) {
+  const categoriesData = categories.categories.data
 
-export default function workDate({ artworks }) {
-  console.log({ artworks });
+  const [isLoading, setIsLoading] = useState(true);
+  const [showLoader, setShowLoader] = useState(true);
 
-  const work = artworks.data;
-
-  let artworkSeries = [];
-
-  work.forEach((artwork) => {
-    if (!artwork.attributes.series.data) {
-      artworkSeries.push(artwork.attributes);
-    } else {
-      const seriesTitle = artwork.attributes.series.data.attributes.title;
-      const series = {
-        ...artwork.attributes.series.data.attributes,
-        artworks: [artwork.attributes],
-      };
-      const index = artworkSeries.findIndex(
-        (work) => work.title === seriesTitle
-      );
-      if (index === -1) {
-        artworkSeries.push(series);
-      } else {
-        artworkSeries[index].artworks.push(artwork.attributes);
-      }
-    }
-  });
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    setTimeout(() => {
+      setShowLoader(false);
+    }, 1700);
+  }, []);
 
   return (
     <>
@@ -70,18 +33,27 @@ export default function workDate({ artworks }) {
       <AppHeader currentPath="work" currentType="Work" />
       <main>
         <section>
-          <div className="underline flex flex-col space-y-5">
-          Work- Date
-            <ul className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-7">
-              {work.map((artwork, i) => (
-                <ArtworkThumbnail
-                  key={`${artwork.attributes.title}${i}`}
-                  artwork={artwork.attributes}
-                  shrinkHeight={true}
-                />
-              ))}
+          {isLoading && (
+            <section
+              className={`h-[80vh] flex justify-center items-center ${
+                showLoader ? "opacity-100" : "opacity-0"
+              } transition-opacity ease-out duration-500`}
+            >
+              <Loader />
+            </section>
+          )}
+          {!isLoading && (
+            <ul>
+              {categoriesData.map((category, i) => {
+                return (
+                  <Decade
+                    category={category}
+                    key={`${category.attributes.slug}-${i}`}
+                  />
+                );
+              })}
             </ul>
-          </div>
+          )}
         </section>
       </main>
       <Footer />
@@ -98,54 +70,103 @@ export async function getStaticProps() {
 
   const { data } = await client.query({
     query: gql`
-      query getArtworks {
-        artworks(
-          filters: { archive: { eq: true } }
-          sort: ["yearStarted:desc"]
-        ) {
+      query getCategories {
+        categories(sort: ["title:desc"]) {
           data {
-            id
             attributes {
+              type
               title
-              archive
               slug
-              yearStarted
-              yearEnded
-              description
-              materials
-              dimensions
-              location
-              client
               series {
                 data {
                   attributes {
                     title
-                    displayName
+                    yearEnded
+                    yearStarted
+                    slug
+                    artworks {
+                      data {
+                        attributes {
+                          title
+                          archive
+                          slug
+                          yearStarted
+                          yearEnded
+                          description
+                          materials
+                          dimensions
+                          location
+                          client
+                          thumbnail {
+                            data {
+                              attributes {
+                                url
+                                formats
+                                caption
+                                width
+                                height
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              artworks(sort: "yearStarted:desc") {
+                data {
+                  attributes {
+                    title
+                    archive
                     slug
                     yearStarted
                     yearEnded
-                  }
-                }
-              }
-              thumbnail {
-                data {
-                  attributes {
-                    url
-                    formats
-                    caption
-                    width
-                    height
-                  }
-                }
-              }
-              media {
-                data {
-                  attributes {
-                    url
-                    formats
-                    caption
-                    width
-                    height
+                    description
+                    materials
+                    dimensions
+                    location
+                    client
+                    categories {
+                      data {
+                        attributes {
+                          slug
+                        }
+                      }
+                    }
+                    series {
+                      data {
+                        attributes {
+                          title
+                          displayName
+                          slug
+                          yearStarted
+                          yearEnded
+                        }
+                      }
+                    }
+                    thumbnail {
+                      data {
+                        attributes {
+                          url
+                          formats
+                          caption
+                          width
+                          height
+                        }
+                      }
+                    }
+                    media {
+                      data {
+                        attributes {
+                          url
+                          formats
+                          caption
+                          width
+                          height
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -158,8 +179,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      artworks: data.artworks,
+      categories: data,
     },
   };
 }
-
