@@ -6,27 +6,38 @@ import RfqHeader from "./RfqHeader";
 
 const SubMenu = ({ nav, currentPath }) => (
   <ul className="flex">
-    {nav.map((year) => (
+    {nav.map((item, i) => (
       <li
         onClick={() => {
           localStorage.setItem("showLoading", false);
         }}
-        key={year?.page?.data?.attributes.slug}
+        key={item.slug}
       >
-        <Link href={`/${year?.page?.data?.attributes.slug}`}>
+        <Link href={item.slug}>
           <a
-            className={`block py-2 px-4 xs:px-4 hover:underline text-[14px] ${
-              currentPath.includes(year?.page?.data?.attributes.slug) &&
-              `italic underline`
+            className={`block pl-2 py-2 pr-2 sm:pr-9 hover:underline text-xs sm:text-sm ${
+              currentPath.includes(item.slug) &&
+              `bg-gray-200 border border-black border-t-0 rounded-b-lg`
             }`}
           >
-            {year.page.data.attributes.title}
+            {item.title}
           </a>
         </Link>
       </li>
     ))}
   </ul>
 );
+
+const workSubLinks = [
+  { slug: "/work-date", title: "Date" },
+  { slug: "/work-title", title: "Title" }
+];
+
+const mainNav = [
+  {
+    
+  }
+]
 
 export default function AppHeader({
   currentPath = "/",
@@ -35,25 +46,21 @@ export default function AppHeader({
 
   const { data: nav, loading: navLoading, error: navError } = useQuery(GET_NAVIGATION);
 
-  const { data: page, loading: sublinkLoading, error: sublinkError } = useQuery(GET_SUBLINKS);
-
-  const sublinks = page?.pages?.data[0].attributes?.sublink
-
   const navigation = nav?.global?.data?.attributes?.navigation.links
 
   const router = useRouter();
 
+  console.log({navigation})
+
   const [isRFQ, setIsRFQ] = useState(
     router.pathname.includes("/rfq") ? true : false
   );
+
   const [workOpen, setWorkOpen] = useState(
     currentType === "Work" || router.pathname.includes("/work")
-  );
+  )
 
-  const [webOpen, setWebOpen] = useState(
-    router.pathname.includes("/web")
-  );
-
+  console.log({currentPath})
   useEffect(() => {
     router.pathname.includes("/rfq") ? setIsRFQ(true) : setIsRFQ(false);
     router.pathname.includes("/cv") ||
@@ -62,15 +69,17 @@ export default function AppHeader({
   }, [router.pathname, currentType]);
 
   return (
-    <header className="text-xs xs:text-sm sm:text-base mt-2 sm:mt-4 mb-4">
+    <header className="text-xs xs:text-sm sm:text-base mt-8 sm:mt-8 mb-4">
       {!isRFQ && (
         <span>
-          <div className="flex justify-between border border-black relative">
-            <div className="no-underline flex w-full">
-              <h1 className="flex justify-items-center">
+          <div className="flex justify-between relative">
+            <div className="no-underline flex w-full items-end">
+              <h1 className="flex justify-items-center ">
                 <Link href="/">
                   <a
-                    className={`text-1xl font-bold border-r border-black px-2 py-2 xs:px-4 sm:px-6 hover:underline hover:bg-gray-200`}
+                    className={`rounded-tl-lg text-1xl font-bold border border-black pl-2 py-2 pr-4 sm:pl-4 sm:pr-9 hover:underline hover:bg-gray-200 text-nowrap ${
+                      router.pathname.includes("/work") && "border-r-0"
+                    }`}
                   >
                     James Carl
                   </a>
@@ -78,46 +87,76 @@ export default function AppHeader({
               </h1>
 
               <nav className="grow">
-                <ul className="flex w-full">
+                <ul className="flex w-full items-end">
                   {!navLoading &&
-                    navigation.map((item, i) => (
-                      <li
-                        key={`${item.label}-${i}`}
-                        className={`flex border-r border-black hover:bg-gray-200 ${
-                          workOpen && item.label === "Work" && "bg-gray-200"
-                        }`}
-                      >
-                        <Link
-                          href={item.page?.data?.attributes?.slug ? `/${item.page.data.attributes.slug}` : item.href}
-                        >
-                          <a
-                            target={item.target}
-                            className={`py-2 px-2 xs:px-3 sm:px-4 font-medium hover:underline hover:bg-gray-200 ${
-                              item.isExternal && `cursor-alias`
+                    navigation.map((item, i) => {
+                      console.log("teim.", item?.page?.data?.attributes?.slug);
+                      const onPath =
+                        item.page?.data?.attributes?.slug ===
+                        router.pathname.substring(1);
+
+                      return (
+                        <>
+                          <li
+                            key={`${item.label}-${i}`}
+                            className={`flex border border-black hover:bg-gray-200 ${
+                              onPath
+                                ? "bg-gray-200 relative pt-2 rounded-t-lg"
+                                : "border-l-0 "
+                            } ${
+                              i === navigation.length - 1 && "rounded-tr-lg"
+                            } ${
+                              router.pathname.includes("writing") &&
+                              item.label == "Work" &&
+                              "border-r-0"
+                            } ${
+                              router.pathname.includes("recent") &&
+                              item.label == "About" &&
+                              "border-r-0"
                             }`}
                           >
-                            {item.label}
-                          </a>
-                        </Link>
-                        {item.label === "Work" &&
-                          workOpen &&
-                          !sublinkLoading && (
-                            <div className="hidden lg:block">
-                              <SubMenu
-                                nav={sublinks}
-                                currentPath={currentPath}
-                              />
-                            </div>
-                          )}
-                      </li>
-                    ))}
+                            <Link
+                              href={
+                                item.page?.data?.attributes?.slug
+                                  ? `/${item.page.data.attributes.slug}`
+                                  : item.href
+                              }
+                            >
+                              <a
+                                target={item.target}
+                                className={`pl-2 py-2 pr-2 sm:pr-9 font-medium hover:underline ${
+                                  item.isExternal && `cursor-alias`
+                                } `}
+                              >
+                                {item.label}
+                              </a>
+                            </Link>
+                          </li>
+                          {item.label === "Work" &&
+                            router.pathname.includes("/work") && (
+                              <div className="hidden sm:flex">
+                                {workSubLinks.map((item) => {
+                                  return (
+                                    <div className="border border-black border-l-0 text-xs sm:text-sm pl-2 py-2 pr-2 sm:pr-9">
+                                      <span className="invisible">
+                                        {item.title}
+                                      </span>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            )}
+                        </>
+                      );
+                    })}
                 </ul>
               </nav>
             </div>
           </div>
-          {workOpen && !sublinkLoading && (
-            <div className="border border-black border-t-0 lg:hidden" >
-              <SubMenu nav={sublinks} currentPath={currentPath} />
+          {router.pathname.startsWith("/work") && (
+            <div className="flex">
+              <div className="w-[103px] sm:w-[209px]"></div>
+              <SubMenu nav={workSubLinks} currentPath={router.pathname} />
             </div>
           )}
         </span>
@@ -126,27 +165,6 @@ export default function AppHeader({
     </header>
   );
 }
-
-const GET_SUBLINKS = gql`
-  query GET_SUBLINKS {
-    pages(filters: { slug: { eq: "work" } }) {
-      data {
-        attributes {
-          sublink {
-            page {
-              data {
-                attributes {
-                  slug
-                  title
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
 
 const GET_NAVIGATION = gql`
   query GET_NAVIGATION {
