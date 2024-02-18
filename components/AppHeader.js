@@ -78,7 +78,7 @@ export default function AppHeader({
                 <Link href="/">
                   <a
                     className={`rounded-tl-lg text-1xl font-bold border border-black pl-2 py-2 pr-4 sm:pl-4 sm:pr-9 hover:underline hover:bg-gray-200 text-nowrap ${
-                      router.pathname.includes("/work-") && "border-r-0"
+                      router.pathname.includes("/work-date") && "border-r-0"
                     }`}
                   >
                     James Carl
@@ -90,7 +90,6 @@ export default function AppHeader({
                 <ul className="flex w-full items-end">
                   {!navLoading &&
                     navigation.map((item, i) => {
-                      console.log("teim.", item?.page?.data?.attributes?.slug);
                       const onPath =
                         item.page?.data?.attributes?.slug ===
                         router.pathname.substring(1);

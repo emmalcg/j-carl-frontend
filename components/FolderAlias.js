@@ -1,13 +1,13 @@
 export default function FolderAlias() {
   return (
-    <div className="h-full mt-[4px] mr-2 ml-[-5.5px]">
+    <div className="h-full mt-[3px] mr-2 ml-[-5.5px]">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 50 50"
         x="0px"
         y="0px"
-        width="15"
-        height="15"
+        width="20"
+        height="20"
       >
         <path
           d="m7.21,4.68v33.21c0,1.02.48,2.08,2.08,2.08h35.83c1.02,0,2.8-.31,2.8-2.22V8.91c0-.68-.34-2.18-2.18-2.18h-24.68s-2.18-2.73-2.66-3.27c-.48-.55-1.43-.61-1.43-.61h-8.18c-1.09.07-1.57.82-1.57,1.84Z"

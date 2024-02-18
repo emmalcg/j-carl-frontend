@@ -6,7 +6,7 @@ import FolderClosed from "./FolderClosed";
 import FolderOpen from "./FolderOpen";
 import FolderAlias from "./FolderAlias";
 
-const List = ({ artworks, category }) => {
+export const List = ({ artworks, category }) => {
   return (
     <ul>
       {artworks.artworks.map((artwork, i) => {
@@ -108,7 +108,7 @@ const SeriesArtworks = ({ series, category }) => {
                   return <List key={`artwork-${i}`} artworks={work} category={category} />;
                 } else {
                   return (
-                    <li>
+                    <li className="text-slate-500">
                       <Accordion.Root
                         key={`series-decade-${i}`}
                         type="single"
@@ -117,7 +117,7 @@ const SeriesArtworks = ({ series, category }) => {
                       >
                         <Accordion.Item value={series.title}>
                           <Accordion.Header>
-                            <Accordion.Trigger className="AccordionTrigger rounded-sm flex md:flex-row mt-7 open:rotate-90 text-slate-500">
+                            <Accordion.Trigger className="AccordionTrigger rounded-sm flex md:flex-row mt-7 open:rotate-90 text-inherit">
                               <FolderOpen />
                               <FolderClosed />
                               {work.decade}-
