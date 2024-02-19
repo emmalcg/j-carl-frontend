@@ -47,7 +47,7 @@ const SeriesArtworks = ({ series }) => {
               {seriesArtworks.map((work, i) => {
                   return <List key={`artwork-${i}`} artworks={[work]} />;
                 } )}
-              <li className="list-none flex flex-row md:flex-row mt-7 text-slate-500">
+              <li className="list-none flex flex-row md:flex-row mt-7 text-slate-500 ml-[26px]">
                 <FolderAlias />
                 <Link href={seriesSlug} key={series.slug}>
                   <a className="hover:underline">{series.title}</a>
