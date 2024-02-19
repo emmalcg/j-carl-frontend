@@ -29,7 +29,7 @@ const List = ({ artworks }) => {
 
 const SeriesArtworks = ({ series }) => {
   const seriesSlug = `/series/${series.slug}`;
-  const seriesArtworks = series.artworks
+  const seriesArtworks = series.artworks.filter(artwork => artwork.series.data).sort((a,b) => (b.yearStarted || 0) - (a.yearStarted || 0))
 
   return (
     <li>
