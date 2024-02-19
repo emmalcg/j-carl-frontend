@@ -1,4 +1,3 @@
-import { ApolloClient, InMemoryCache, gql, useQuery } from "@apollo/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect, Fragment } from "react";
@@ -116,7 +115,7 @@ export default function AppHeader({
                             } ${
                               router.pathname.includes("recent") &&
                               item.label == "About" &&
-                              "border-r-0"
+                              "border-r-1"
                             }`}
                           >
                             <Link href={item.slug}>
