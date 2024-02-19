@@ -4,6 +4,7 @@ import Footer from '../components/Footer'
 import HomepageSingleImage from '../components/HomepageSingleImage';
 import { useState } from 'react';
 import washing from "../public/washing.gif";
+import hacksaw from "../public/hacksaw.gif";
 import Image from 'next/image';
 import Head from 'next/head';
 
@@ -30,7 +31,9 @@ export default function Home() {
             <Image priority={true} src={washing} height={146} width={245} />
           </section>
         ) : (
-          <HomepageSingleImage />
+          <section className="h-[80vh] flex justify-center items-center">
+            <Image priority={true} src={hacksaw} height={146} width={600} />
+          </section>
         )}
       </main>
       <button
