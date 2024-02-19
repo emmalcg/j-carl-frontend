@@ -1,5 +1,5 @@
 import Image from "next/image";
-import homepagePic from "../public/jamesMarbleStudio.jpg";
+//import homepagePic from "../public/jamesMarbleStudio.jpg";
 
 export default function HomepageSingleImage() {
   return (
@@ -11,14 +11,14 @@ export default function HomepageSingleImage() {
         Conformity, April 29th - May 19th 2023 at Nicholas Metivier &#x2192;
       </a>
       <div className="relative h-[95%] mt-4">
-        <Image
+        {/*<Image
           priority={true}
           src={homepagePic}
           alt="My Image"
           layout="fill" // Will size the image to fill the parent container
           objectFit="contain" // see - https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
           objectPosition="top" // see - https://developer.mozilla.org/en-US/docs/Web/CSS/object-position
-        />
+        />*/}
       </div>
     </div>
   );
