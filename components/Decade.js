@@ -6,7 +6,7 @@ import FolderClosed from "./FolderClosed";
 import FolderOpen from "./FolderOpen";
 import FolderAlias from "./FolderAlias";
 
-export const List = ({ artworks, category }) => {
+const List = ({ artworks, category }) => {
   return (
     <ul>
       {artworks.artworks.map((artwork, i) => {
@@ -108,7 +108,7 @@ const SeriesArtworks = ({ series, category }) => {
                   return <List key={`artwork-${i}`} artworks={work} category={category} />;
                 } else {
                   return (
-                    <li className="text-slate-500">
+                    <li className="text-slate-500" key={`artwork-${i}`}>
                       <Accordion.Root
                         key={`series-decade-${i}`}
                         type="single"

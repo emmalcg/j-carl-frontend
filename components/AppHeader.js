@@ -75,7 +75,6 @@ export default function AppHeader({
     currentType === "Work" || router.pathname.includes("/work-")
   )
 
-  console.log({currentPath})
   useEffect(() => {
     router.pathname.includes("/rfq") ? setIsRFQ(true) : setIsRFQ(false);
     router.pathname.includes("/cv") ||
@@ -93,7 +92,7 @@ export default function AppHeader({
                 <Link href="/">
                   <a
                     className={`rounded-tl-lg text-1xl font-bold border border-black pl-2 py-2 pr-4 sm:pl-4 sm:pr-9 hover:underline hover:bg-gray-200 text-nowrap ${
-                      router.pathname.includes("/work-date") && "border-r-0"
+                      router.pathname.includes("/work-date") && "border-r-1"
                     }`}
                   >
                     James Carl
