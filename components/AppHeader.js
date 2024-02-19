@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, gql, useQuery } from "@apollo/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import RfqHeader from "./RfqHeader";
 
 const SubMenu = ({ nav, currentPath }) => (
@@ -20,7 +20,7 @@ const SubMenu = ({ nav, currentPath }) => (
               `bg-gray-200 border border-black border-t-0 rounded-b-lg`
             }`}
           >
-            {item.title}
+            {item.label}
           </a>
         </Link>
       </li>
@@ -29,28 +29,43 @@ const SubMenu = ({ nav, currentPath }) => (
 );
 
 const workSubLinks = [
-  { slug: "/work-date", title: "Date" },
-  { slug: "/work-title", title: "Title" }
+  { slug: "/work-date", label: "Date" },
+  { slug: "/work-title", label: "Title" }
 ];
 
 const mainNav = [
   {
-    
-  }
-]
+    slug: "/work-date",
+    label: "Work",
+    isExternal: false,
+    target: "_self",
+  },
+  {
+    slug: "/writing",
+    label: "Writing",
+    isExternal: false,
+    target: "_self",
+  },
+  {
+    slug: "https://en.wikipedia.org/wiki/James_Carl",
+    label: "About",
+    isExternal: true,
+    target: "_blank",
+  },
+  {
+    slug: "/recent",
+    label: "Recent",
+    isExternal: false,
+    target: "_self",
+  },
+];
 
 export default function AppHeader({
   currentPath = "/",
   currentType = "",
 }) {
 
-  const { data: nav, loading: navLoading, error: navError } = useQuery(GET_NAVIGATION);
-
-  const navigation = nav?.global?.data?.attributes?.navigation.links
-
   const router = useRouter();
-
-  console.log({navigation})
 
   const [isRFQ, setIsRFQ] = useState(
     router.pathname.includes("/rfq") ? true : false
@@ -88,23 +103,21 @@ export default function AppHeader({
 
               <nav className="grow">
                 <ul className="flex w-full items-end">
-                  {!navLoading &&
-                    navigation.map((item, i) => {
+                  {
+                    mainNav.map((item, i) => {
                       const onPath =
-                        item.page?.data?.attributes?.slug ===
+                        item.slug ===
                         router.pathname.substring(1);
 
                       return (
-                        <>
+                        <Fragment key={`${item.label}-${i}`}>
                           <li
                             key={`${item.label}-${i}`}
                             className={`flex border border-black hover:bg-gray-200 ${
                               onPath
                                 ? "bg-gray-200 relative pt-2 rounded-t-lg"
                                 : "border-l-0 "
-                            } ${
-                              i === navigation.length - 1 && "rounded-tr-lg"
-                            } ${
+                            } ${i === mainNav.length - 1 && "rounded-tr-lg"} ${
                               router.pathname.includes("writing") &&
                               item.label == "Work" &&
                               "border-r-0"
@@ -114,13 +127,7 @@ export default function AppHeader({
                               "border-r-0"
                             }`}
                           >
-                            <Link
-                              href={
-                                item.page?.data?.attributes?.slug
-                                  ? `/${item.page.data.attributes.slug}`
-                                  : item.href
-                              }
-                            >
+                            <Link href={item.slug}>
                               <a
                                 target={item.target}
                                 className={`pl-2 py-2 pr-2 sm:pr-9 font-medium hover:underline ${
@@ -136,18 +143,19 @@ export default function AppHeader({
                               <div className="hidden sm:flex">
                                 {workSubLinks.map((item) => {
                                   return (
-                                    <div 
-                                      key={item.title}
-                                    className="border border-black border-l-0 text-xs sm:text-sm pl-2 py-2 pr-2 sm:pr-9">
+                                    <div
+                                      key={item.label}
+                                      className="border border-black border-l-0 text-xs sm:text-sm pl-2 py-2 pr-2 sm:pr-9"
+                                    >
                                       <span className="invisible">
-                                        {item.title}
+                                        {item.label}
                                       </span>
                                     </div>
                                   );
                                 })}
                               </div>
                             )}
-                        </>
+                        </Fragment>
                       );
                     })}
                 </ul>
@@ -167,74 +175,3 @@ export default function AppHeader({
   );
 }
 
-const GET_NAVIGATION = gql`
-  query GET_NAVIGATION {
-    global {
-      data {
-        attributes {
-          navigation {
-            links {
-              label
-              href
-              target
-              isExternal
-              page {
-                data {
-                  attributes {
-                    slug
-                    title
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-export async function getStaticProps() {
-  const { API_URL } = process.env;
-  const client = new ApolloClient({
-    uri: `${API_URL}`,
-    cache: new InMemoryCache(),
-  });
-
-  const { data: globalData } = await client.query({
-    query: gql`
-      query GET_NAVIGATION {
-        global {
-          data {
-            attributes {
-              navigation {
-                links {
-                  label,
-                  href,
-                  target,
-                  isExternal,
-                  page {
-                    data {
-                      attributes {
-                        slug,
-                        title
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
-  });
-
-  const navigation = globalData.global.data.attributes;
-
-  return {
-    props: {
-      navigation: navigation,
-    },
-  };
-}
