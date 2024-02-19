@@ -47,7 +47,7 @@ const SeriesArtworks = ({ series }) => {
               {seriesArtworks.map((work, i) => {
                   return <List key={`artwork-${i}`} artworks={[work]} />;
                 } )}
-              <li className="list-none flex flex-row md:flex-row mt-7 ml-[3.7rem] text-slate-500">
+              <li className="list-none flex flex-row md:flex-row mt-7 text-slate-500">
                 <FolderAlias />
                 <Link href={seriesSlug} key={series.slug}>
                   <a className="hover:underline">{series.title}</a>
@@ -179,7 +179,7 @@ export async function getStaticProps() {
       query getArtworks {
         artworks(
           filters: { archive: { eq: true } }
-          sort: ["yearStarted:desc"]
+          sort: ["title"]
         ) {
           data {
             id
