@@ -71,15 +71,8 @@ export default function AppHeader({
     router.pathname.includes("/rfq") ? true : false
   );
 
-  const [workOpen, setWorkOpen] = useState(
-    currentType === "Work" || router.pathname.includes("/work-")
-  )
-
   useEffect(() => {
     router.pathname.includes("/rfq") ? setIsRFQ(true) : setIsRFQ(false);
-    router.pathname.includes("/cv") ||
-      (router.pathname.includes("/writing") && setWorkOpen(false));
-    currentType === "About" && setWorkOpen(false);
   }, [router.pathname, currentType]);
 
   return (
