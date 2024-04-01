@@ -1,0 +1,187 @@
+{
+    "artworks": {
+        "__typename": "ArtworkEntityResponseCollection",
+        "data": [
+            {
+                "__typename": "ArtworkEntity",
+                "id": "109",
+                "attributes": {
+                    "__typename": "Artwork",
+                    "title": "Pneu",
+                    "archive": true,
+                    "slug": "pneu",
+                    "yearStarted": 2023,
+                    "yearEnded": null,
+                    "series": {
+                        "__typename": "SerieEntityResponse",
+                        "data": null
+                    },
+                    "thumbnail": {
+                        "__typename": "UploadFileEntityResponse",
+                        "data": {
+                            "__typename": "UploadFileEntity",
+                            "attributes": {
+                                "__typename": "UploadFile",
+                                "url": "https://res.cloudinary.com/dgonyuzzz/image/upload/v1707188302/james/2023_Pneu_thumb_972ecd8ed8.jpg",
+                                "width": 1264,
+                                "height": 1080
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "__typename": "ArtworkEntity",
+                "id": "107",
+                "attributes": {
+                    "__typename": "Artwork",
+                    "title": "Reservoir (2000 Neon)",
+                    "archive": true,
+                    "slug": "reservoir-2000-neon",
+                    "yearStarted": 2023,
+                    "yearEnded": null,
+                    "series": {
+                        "__typename": "SerieEntityResponse",
+                        "data": {
+                            "__typename": "SerieEntity",
+                            "attributes": {
+                                "__typename": "Serie",
+                                "title": "Reservoir",
+                                "displayName": "Reservoir",
+                                "slug": "reservoir-series",
+                                "yearStarted": 2023,
+                                "yearEnded": null
+                            }
+                        }
+                    },
+                    "thumbnail": {
+                        "__typename": "UploadFileEntityResponse",
+                        "data": {
+                            "__typename": "UploadFileEntity",
+                            "attributes": {
+                                "__typename": "UploadFile",
+                                "url": "https://res.cloudinary.com/dgonyuzzz/image/upload/v1707188302/james/2023_Reservoir_2000_Neon_thumb_c5bccf4c7b.jpg",
+                                "width": 1080,
+                                "height": 1080
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "__typename": "ArtworkEntity",
+                "id": "105",
+                "attributes": {
+                    "__typename": "Artwork",
+                    "title": "Reservoir ('98 Venture)",
+                    "archive": true,
+                    "slug": "reservoir-98-venture",
+                    "yearStarted": 2023,
+                    "yearEnded": null,
+                    "series": {
+                        "__typename": "SerieEntityResponse",
+                        "data": {
+                            "__typename": "SerieEntity",
+                            "attributes": {
+                                "__typename": "Serie",
+                                "title": "Reservoir",
+                                "displayName": "Reservoir",
+                                "slug": "reservoir-series",
+                                "yearStarted": 2023,
+                                "yearEnded": null
+                            }
+                        }
+                    },
+                    "thumbnail": {
+                        "__typename": "UploadFileEntityResponse",
+                        "data": {
+                            "__typename": "UploadFileEntity",
+                            "attributes": {
+                                "__typename": "UploadFile",
+                                "url": "https://res.cloudinary.com/dgonyuzzz/image/upload/v1707188302/james/2023_Reservoir_98_Venture_thumb_f024cf664f.jpg",
+                                "width": 710,
+                                "height": 1080
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "__typename": "ArtworkEntity",
+                "id": "104",
+                "attributes": {
+                    "__typename": "Artwork",
+                    "title": "Reservoir ('97 DeVille)",
+                    "archive": true,
+                    "slug": "reservoir-97-deville",
+                    "yearStarted": 2023,
+                    "yearEnded": null,
+                    "series": {
+                        "__typename": "SerieEntityResponse",
+                        "data": {
+                            "__typename": "SerieEntity",
+                            "attributes": {
+                                "__typename": "Serie",
+                                "title": "Reservoir",
+                                "displayName": "Reservoir",
+                                "slug": "reservoir-series",
+                                "yearStarted": 2023,
+                                "yearEnded": null
+                            }
+                        }
+                    },
+                    "thumbnail": {
+                        "__typename": "UploadFileEntityResponse",
+                        "data": {
+                            "__typename": "UploadFileEntity",
+                            "attributes": {
+                                "__typename": "UploadFile",
+                                "url": "https://res.cloudinary.com/dgonyuzzz/image/upload/v1706058344/james/Reservoir_97_De_Ville_thumb_9a85867937.jpg",
+                                "width": 1920,
+                                "height": 1080
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "__typename": "ArtworkEntity",
+                "id": "108",
+                "attributes": {
+                    "__typename": "Artwork",
+                    "title": "Reservoir ('95 Cavalier)",
+                    "archive": true,
+                    "slug": "reservoir-95-cavelier",
+                    "yearStarted": 2023,
+                    "yearEnded": null,
+                    "series": {
+                        "__typename": "SerieEntityResponse",
+                        "data": {
+                            "__typename": "SerieEntity",
+                            "attributes": {
+                                "__typename": "Serie",
+                                "title": "Reservoir",
+                                "displayName": "Reservoir",
+                                "slug": "reservoir-series",
+                                "yearStarted": 2023,
+                                "yearEnded": null
+                            }
+                        }
+                    },
+                    "thumbnail": {
+                        "__typename": "UploadFileEntityResponse",
+                        "data": {
+                            "__typename": "UploadFileEntity",
+                            "attributes": {
+                                "__typename": "UploadFile",
+                                "url": "https://res.cloudinary.com/dgonyuzzz/image/upload/v1707188302/james/2023_Reservoir_95_Cavelier_thumb_2e2118e659.jpg",
+                                "width": 1080,
+                                "height": 1080
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

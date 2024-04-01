@@ -66,6 +66,7 @@ export default function AppHeader({
 
   const router = useRouter();
 
+  console.log({router})
   const [isRFQ, setIsRFQ] = useState(
     router.pathname.includes("/rfq") ? true : false
   );
@@ -84,7 +85,7 @@ export default function AppHeader({
                 <Link href="/">
                   <a
                     className={`rounded-tl-lg text-1xl font-bold border border-black pl-2 py-2 pr-4 sm:pl-4 sm:pr-9 hover:underline hover:bg-gray-200 text-nowrap ${
-                      router.pathname.includes("/work-date") && "border-r-1"
+                      router.pathname.includes("/work") && "border-r-0"
                     }`}
                   >
                     James Carl
@@ -96,9 +97,13 @@ export default function AppHeader({
                 <ul className="flex w-full items-end">
                   {
                     mainNav.map((item, i) => {
-                      const onPath =
+                      let onPath =
                         item.slug ===
-                        router.pathname.substring(1);
+                        router.pathname;
+
+                      if(item.slug === '/work-date' && router.pathname === '/work-title') {
+                        onPath = true
+                      }
 
                       return (
                         <Fragment key={`${item.label}-${i}`}>
@@ -115,7 +120,7 @@ export default function AppHeader({
                             } ${
                               router.pathname.includes("recent") &&
                               item.label == "About" &&
-                              "border-r-1"
+                              "border-r-0"
                             }`}
                           >
                             <Link href={item.slug}>

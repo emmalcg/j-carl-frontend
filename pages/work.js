@@ -5,32 +5,6 @@ import ArtworkThumbnail from '../components/ArtworkThumbnail'
 import Footer from '../components/Footer';
 import Head from 'next/head';
 
-const DecadeItem = ({ page, artwork }) => {
-  return (
-    <>
-      <div
-        onClick={() => {
-          localStorage.setItem("showLoading", true);
-        }}
-      >
-        <div className="w-full flex justify-between mb-3">
-          <Link href={`/${page.slug}`}>
-            <a>{page.title}</a>
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          <ArtworkThumbnail
-            artwork={artwork}
-            centered={true}
-            slug={`/${page.slug}`}
-            priority={true}
-          />
-        </div>
-      </div>
-    </>
-  );
-}
-
 export default function work({ artworks }) {
   console.log({artworks})
 
