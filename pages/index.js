@@ -22,17 +22,22 @@ export default function Home() {
     <>
       <Head>
         <title>James Carl artist</title>
-        <meta name="description" content="Archive website of James Carl, toronto based sculptor and artist." />
+        <meta
+          name="description"
+          content="Archive website of James Carl, toronto based sculptor and artist."
+        />
       </Head>
       <AppHeader />
       <main>
-        {showGif ? (
-          <section className="h-[80vh] flex justify-center items-center">
+        {!showGif ? (
+          <section className="h-[80vh] flex flex-col justify-center items-center">
             <Image priority={true} src={washing} height={146} width={245} />
+            <div className="pt-2">under construction</div>
           </section>
         ) : (
-          <section className="h-[80vh] flex justify-center items-center">
+          <section className="h-[80vh] flex flex-col justify-center items-center">
             <Image priority={true} src={hacksaw} height={146} width={600} />
+            <div className="pt-2">under construction</div>
           </section>
         )}
       </main>
