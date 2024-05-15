@@ -95,7 +95,7 @@ export async function getStaticProps() {
   const { data } = await client.query({
     query: gql`
       query getAllArticles {
-        articles(sort: "year:asc") {
+        articles(sort: "year:desc") {
           data {
             attributes {
               title

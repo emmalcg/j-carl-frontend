@@ -120,7 +120,7 @@ const SeriesArtworks = ({ series, category }) => {
                             <Accordion.Trigger className="AccordionTrigger rounded-sm flex md:flex-row mt-7 open:rotate-90 text-inherit">
                               <FolderOpen />
                               <FolderClosed />
-                              {series.title} {work.decade}+
+                              {series.title} {work.decade}
                             </Accordion.Trigger>
                           </Accordion.Header>
                           <Accordion.Content>

@@ -87,3 +87,65 @@ Mug short
 -add review to homepage
 
 -fix focus state of input, especially content font
+
+
+
+List of priorities
+- photo distortion weirdness (old image appearing stretched before new image loads)
+- font changes
+- carousel images?
+- side artwork viewer
+  - align on what should be in here 
+- Accordion history linking on decade page
+- Accordion history linking on work title page
+- alias and series folder stuff 
+- dynamic homepage where james can change content 
+- media 
+  - this is so far out of scope 
+
+
+- would it be better to use something where james can go in and re-arrange things?
+
+
+
+When clicking on content in 2020’s decade we want to see ONLY content artworks from
+2020 not entire content series (spanning multiple decades).
+We only want to see all content artworks when we click “alias” folder, (with the possibility
+of that alias folder showing up more than once in the chain of folders)
+Basically, I guess I’m still having trouble with the functionality of the top right corner
+scroll button—I think it can be eliminated for the most part. Especially if we can do a left
+right scroll through of enlarged images (see above Image Viewing)
+
+Alias folders
+For multiple decade works, I think we can just go with the “alias” folder, drop the other
+greyed out alternate decade folders
+Standardize this for all series: jalousie, thing’s end, Reservoirs, content
+In series/alias folders all artworks should be organized chronologically most to least
+recent, top to bottom
+
+In Reservoirs folder with all Reservoir works, ’96 Cadillac DeVille is missing.
+Reservoir (’96 Cadillac DeVille) is also missing from 2010 decade folder even though it
+is published in the strapi backend of site.
+Backend images of Spindle #1 and #3 not showing up on front of site. Does site need to
+be updated regularly when new info is added to backend? Can we update it?
+
+
+DOING
+- get rid of series additional decades in date page, just show alias 
+  - add date span to alias folder
+  - series title on series page with date span at top
+  - clicking on item in series opens up side panel
+- getting rid of artwork page for now
+- all information in the side panel
+- image distortion 
+- reducer size of Gifs 
+
+
+FUTURE
+- Publishing Problem 
+- carousel of ONLY IMAGES IN ARTWORKS
+- date and name of the piece in carousel 
+- dynamic homepage where james can change content
+
+DONE 
+- site under construction 

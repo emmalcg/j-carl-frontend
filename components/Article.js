@@ -11,11 +11,11 @@ export default function Article({ article, passwordEntered }) {
         target="_blank"
         className="hover:underline cursor-alias"
       >
+        {article.author && (`${article.author}, `)} 
         {article.type}: "{article.title}",{" "}
         {article.publication && (
           <span className="italic">{article.publication}, </span>
         )}
-        {article.author && (`${article.author}, `)} 
         { article.editor && (`Ed: ${article.editor}, `)}
         {article.year}
       </a>

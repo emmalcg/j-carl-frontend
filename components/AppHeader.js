@@ -76,7 +76,7 @@ export default function AppHeader({
   }, [router.pathname, currentType]);
 
   return (
-    <header className="text-xs xs:text-sm sm:text-base mt-8 sm:mt-8 mb-4">
+    <header className="text-xs xs:text-sm sm:text-base pt-8 sm:pt-8 pb-4 fixed bg-white min-w-full">
       {!isRFQ && (
         <span>
           <div className="flex justify-between relative">

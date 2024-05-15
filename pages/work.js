@@ -43,7 +43,7 @@ export default function work({ artworks }) {
         />
       </Head>
       <AppHeader currentPath="work" currentType="Work" />
-      <main>
+      <main className="mt-[101px]">
         <section>
           <div className="underline flex flex-col space-y-5">
             <ul className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-7">

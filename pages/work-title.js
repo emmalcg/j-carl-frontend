@@ -10,26 +10,16 @@ import Link from "next/link";
 import FolderAlias from "../components/FolderAlias";
 import FolderOpen from "../components/FolderOpen";
 import FolderClosed from "../components/FolderClosed";
-
-const List = ({ artworks }) => {
-  console.log({artworks})
-  return (
-    <ul>
-      {artworks.map((artwork, i) => {
-        return (
-          <ListLink
-            key={`${artwork.title}${i}`}
-            artwork={artwork}
-          />
-        );
-      })}
-    </ul>
-  );
-};
+import ArtworkSidePanel from "../components/ArtworkSidePanel";
+import ArtworkSlideOut from "../components/ArtworkSlideOut";
+import { useRouter } from "next/router";
+// import ListArtwork from "../components/ListArtwork";
 
 const SeriesArtworks = ({ series }) => {
   const seriesSlug = `/series/${series.slug}`;
-  const seriesArtworks = series.artworks.filter(artwork => artwork.series.data).sort((a,b) => (b.yearStarted || 0) - (a.yearStarted || 0))
+  const seriesArtworks = series.artworks
+    .filter((artwork) => artwork.series.data)
+    .sort((a, b) => (b.yearStarted || 0) - (a.yearStarted || 0));
 
   return (
     <li>
@@ -45,8 +35,8 @@ const SeriesArtworks = ({ series }) => {
           <Accordion.Content>
             <ul className="pl-14">
               {seriesArtworks.map((work, i) => {
-                  return <List key={`artwork-${i}`} artworks={[work]} />;
-                } )}
+                return <List key={`artwork-${i}`} artworks={[work]} />;
+              })}
               <li className="list-none flex flex-row md:flex-row mt-7 text-slate-500 ml-[26px]">
                 <FolderAlias />
                 <Link href={seriesSlug} key={series.slug}>
@@ -61,26 +51,24 @@ const SeriesArtworks = ({ series }) => {
   );
 };
 
-const SeriesList = ({ list }) => {
-  console.log({list})
+const SeriesList = ({ list, setOpenedArtwork}) => {
+  console.log({ list });
   return (
     <ul>
       {list.map((item, i) => {
-        const work = item
+        const work = item;
         if (item.__typename === "Artwork")
           return (
-            <ListLink
+            <ListArtwork
               key={`${work.title}-artwork-${i}`}
               artwork={work}
-              series={false}
+              currentRoute="work-title"
+              setOpenedArtwork={setOpenedArtwork}
             />
           );
         if (item.__typename === "Serie")
           return (
-            <SeriesArtworks
-              key={`${work.title}-series-${i}`}
-              series={work}
-            />
+            <SeriesArtworks key={`${work.title}-series-${i}`} series={work} />
           );
       })}
     </ul>
@@ -88,12 +76,86 @@ const SeriesList = ({ list }) => {
 };
 
 
+const ArtworkButton = ({ artwork, series }) => {
+  const router = useRouter();
+  const slug = artwork.slug;
+
+  return (
+    <li
+      id={slug}
+      className="list-none flex flex-col md:flex-row mt-7 ml-6 text-inherit"
+    >
+      <button className="hover:underline">
+        <span>{artwork.title}</span>, {artwork.yearStarted}
+        {artwork.yearEnded && `-${artwork.yearEnded}`}
+      </button>
+{/*      
+      <Link
+        href={`${router.pathname}?work=${slug}`}
+        shallow
+        key={`${slug}`}
+        onClick={setUrlStorage}
+      >
+        <a className="hover:underline">
+          <span>{artwork.title}</span>, {artwork.yearStarted}
+          {artwork.yearEnded && `-${artwork.yearEnded}`}
+        </a>
+      </Link>*/}
+    </li>
+  );
+}
+
+export const ListArtwork = ({ artwork }) => {
+  const router = useRouter();
+  const slug = artwork.slug;
+
+  const handleClick = () => {
+    router.push(`${router.pathname}?work=${slug}`); 
+    setOpenedArtwork(artwork); 
+  };
+
+  return (
+    <li
+      id={slug}
+      className="list-none flex flex-col md:flex-row mt-7 ml-6 text-inherit"
+    >
+      <Link
+        href={`${router.pathname}?work=${slug}`}
+        shallow
+        key={`${slug}`}
+      >
+        <a className="hover:underline">
+          <span>{artwork.title}</span>, {artwork.yearStarted}
+          {artwork.yearEnded && `-${artwork.yearEnded}`}
+        </a>
+      </Link>
+    </li>
+  );
+}
+
+
+const List = ({ artworks, setOpenedArtwork }) => {
+  console.log({artworks})
+  return (
+    <ul>
+      {artworks.map((artwork, i) => {
+        return (
+          <ListArtwork
+            key={`${artwork.title}${i}`}
+            artwork={artwork}
+            currentRoute="work-title"
+            setOpenedArtwork={setOpenedArtwork}
+          />
+        );
+      })}
+    </ul>
+  );
+};
 
 export default function workTitle({ artworks }) {
+    const router = useRouter();
 
     let artworkSeries = [];
-    
-
     artworks.data.forEach((artwork) => {
       const artworkAttributes = artwork.attributes;
       if (!artworkAttributes.series.data) {
@@ -111,6 +173,11 @@ export default function workTitle({ artworks }) {
           ].artworks.findIndex((art) => art.slug === artworkAttributes.slug);
           if (existingArtworkIndex === -1) {
             artworkSeries[existingSeriesIndex].artworks.push(artworkAttributes);
+
+            artworkSeries[existingSeriesIndex].artworks.sort((a, b) => {
+              // Assuming yearStarted is a number
+              return a.yearStarted - b.yearStarted;
+            });
           }
         } else {
           // If the series doesn't exist, create a new series object and push the artwork
@@ -125,6 +192,30 @@ export default function workTitle({ artworks }) {
 
   const [isLoading, setIsLoading] = useState(true);
   const [showLoader, setShowLoader] = useState(true);
+
+  const [openedArtwork, setOpenedArtwork] = useState({})
+
+  useEffect(() => {
+    const { work } = router.query; 
+    console.log({work})
+
+    if (work) {
+      const foundArtwork = artworks.data.find(
+        (artwork) => artwork.attributes.slug === work
+      );
+
+      if (foundArtwork) {
+        setOpenedArtwork(foundArtwork.attributes);
+      } else {
+        setOpenedArtwork(null); 
+      }
+    } else {
+      setOpenedArtwork(null);
+    }
+
+    console.log('opened', openedArtwork)
+  }, [router.query, artworks.data]); 
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -145,7 +236,7 @@ export default function workTitle({ artworks }) {
         />
       </Head>
       <AppHeader currentPath="work" currentType="Work" />
-      <main>
+      <main className="mt-[101px]">
         <section>
           {isLoading && (
             <section
@@ -157,8 +248,14 @@ export default function workTitle({ artworks }) {
             </section>
           )}
           {!isLoading && (
-
-            <SeriesList list={artworkSeries}/>
+            <div className="flex justify-between">
+              <SeriesList
+                list={artworkSeries}
+                setOpenedArtwork={setOpenedArtwork}
+              />
+              <ArtworkSidePanel artwork={openedArtwork}/>
+              {/*<ArtworkSlideOut artworkData={openedArtwork} />*/}
+            </div>
           )}
         </section>
       </main>
@@ -188,6 +285,9 @@ export async function getStaticProps() {
               archive
               slug
               yearStarted
+              dimensions
+              materials
+              description
               yearEnded
               series {
                 data {
@@ -206,6 +306,7 @@ export async function getStaticProps() {
                     url
                     width
                     height
+                    formats
                   }
                 }
               }

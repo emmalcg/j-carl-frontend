@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Head from "next/head";
 import { Decade } from "../components/Decade";
 import Loader from "../components/Loader";
+import ArtworkSidePanel from "../components/ArtworkSidePanel";
 
 export default function workDate({ categories }) {
   const categoriesData = categories.categories.data
@@ -31,7 +32,7 @@ export default function workDate({ categories }) {
         />
       </Head>
       <AppHeader currentPath="work" currentType="Work" />
-      <main>
+      <main className="mt-[101px]">
         <section>
           {isLoading && (
             <section
@@ -43,16 +44,19 @@ export default function workDate({ categories }) {
             </section>
           )}
           {!isLoading && (
-            <ul>
-              {categoriesData.map((category, i) => {
-                return (
-                  <Decade
-                    category={category}
-                    key={`${category.attributes.slug}-${i}`}
-                  />
-                );
-              })}
-            </ul>
+            <div className="flex justify-between">
+                <ul>
+                  {categoriesData.map((category, i) => {
+                    return (
+                      <Decade
+                        category={category}
+                        key={`${category.attributes.slug}-${i}`}
+                      />
+                    );
+                  })}
+                </ul>
+              <ArtworkSidePanel />
+            </div>
           )}
         </section>
       </main>

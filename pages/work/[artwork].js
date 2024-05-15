@@ -33,66 +33,70 @@ export default function ArtworkPage({ artwork }) {
         {/* Add other meta tags as needed */}
       </Head>
       <AppHeader currentType="Work" />
-      <div
-        className={`flex justify-between items-center ${
-          series ? `mb-2` : `mb-4`
-        }`}
-      >
-        <BackButton />
-        <SeriesButton currentSlug={art.slug} series={series} />
-      </div>
-      {series && (
-        <p className="text-sm ml-auto">
-          <span className="font-semibold">{series.title}</span>{" "}
-          {series.yearStarted}-{series.yearEnded}
-        </p>
-      )}
-      <main>
-        <div className="flex mb-3.5 space-x-2">
-          <h2 className="text-lg">{art.title}</h2>
-          <span>|</span>
-          <button
-            onClick={() => {
-              setShowImages(!showImages);
-            }}
-            className="underline hover:font-medium"
-          >
-            {buttonText}
-          </button>
+      <div className="mt-[101px]">
+        <div
+          className={`flex justify-between items-center ${
+            series ? `mb-2` : `mb-4`
+          }`}
+        >
+          <BackButton />
+          <SeriesButton currentSlug={art.slug} series={series} />
         </div>
-        <section>
-          {showImages ? (
-            <ul className="grid gap-y-5">
-              {images.map((image, index) => (
-                <li
-                  className="max-h-screen"
-                  key={`${image.attributes.slug}${index}`}
-                >
+        {series && (
+          <p className="text-sm ml-auto">
+            <span className="font-semibold">{series.title}</span>{" "}
+            {series.yearStarted}-{series.yearEnded}
+          </p>
+        )}
+        <main>
+          <div className="flex mb-3.5 space-x-2">
+            <h2 className="text-lg">{art.title}</h2>
+            <span>|</span>
+            <button
+              onClick={() => {
+                setShowImages(!showImages);
+              }}
+              className="underline hover:font-medium"
+            >
+              {buttonText}
+            </button>
+          </div>
+          <section>
+            {showImages ? (
+              <ul className="grid gap-y-5">
+                {images.map((image, index) => (
+                  <li
+                    className="max-h-screen"
+                    key={`${image.attributes.slug}${index}`}
+                  >
+                    <ArtworkImage
+                      image={image.attributes}
+                      size="large"
+                      index={index}
+                    />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <>
+                <div className="w-1/2">
                   <ArtworkImage
-                    image={image.attributes}
-                    size="large"
-                    index={index}
+                    image={art.thumbnail.data.attributes}
+                    index={1}
+                    size="small"
+                    responsive={false}
                   />
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <>
-              <div className="w-1/2">
-                <ArtworkImage
-                  image={art.thumbnail.data.attributes}
-                  index={1}
-                  size="small"
-                  responsive={false}
-                />
-              </div>
-              <article className="my-3.5">
-                <ArtworkInfo artwork={art} series={series} />
-              </article>
-            </>
-          )}
-        </section>
-      </main>
+                </div>
+                <article className="my-3.5">
+                  <ArtworkInfo artwork={art} series={series} />
+                </article>
+              </>
+            )}
+          </section>
+        </main>
+
+
+      </div>
       <Footer />
     </>
   );
@@ -100,6 +104,8 @@ export default function ArtworkPage({ artwork }) {
 
 export async function getStaticProps({ params }) {
   const { artwork } = params;
+
+  console.log("Artwork slug:", artwork);
 
   const { API_URL } = process.env
   const client = new ApolloClient({
@@ -185,6 +191,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
+  console.log('get static paths')
   const { API_URL } = process.env
   const client = new ApolloClient({
     uri: `${API_URL}`,
@@ -205,9 +212,9 @@ export async function getStaticPaths() {
     `
   });
 
-  
   const artworkSlugs = data.artworks.data 
   const paths = artworkSlugs.map(({attributes}) => {
+    console.log('attributes', attributes)
     return {
       params: { artwork: attributes.slug }
     };
