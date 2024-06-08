@@ -92,7 +92,7 @@ export default function AppHeader({
                   </a>
                 </Link>
               </h1>
-
+{/*
               <nav className="grow">
                 <ul className="flex w-full items-end">
                   {
@@ -155,15 +155,15 @@ export default function AppHeader({
                       );
                     })}
                 </ul>
-              </nav>
+              </nav>*/}
             </div>
           </div>
-          {router.pathname.startsWith("/work-") && (
+          {/*{router.pathname.startsWith("/work-") && (
             <div className="flex">
               <div className="w-[103px] sm:w-[209px]"></div>
               <SubMenu nav={workSubLinks} currentPath={router.pathname} />
             </div>
-          )}
+          )}*/}
         </span>
       )}
       {isRFQ && <RfqHeader />}
