@@ -6,6 +6,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ImageLoading from "./ArtworkLoadImage";
+import ArtworkImageSameSize from "./ArtworkImageSameSize";
 
 export default function ArtworkSidePanel({artwork}) {
   const router = useRouter();
@@ -34,7 +35,15 @@ export default function ArtworkSidePanel({artwork}) {
       </button>
       {artwork && (
         <>
-          <ImageLoading
+          {/*<ImageLoading
+            thumbnail
+            image={artwork.thumbnail.data.attributes}
+            index={1}
+            size="small"
+            shrinkHeight={true}
+            responsive={false}
+          />*/}
+          <ArtworkImageSameSize
             thumbnail
             image={artwork.thumbnail.data.attributes}
             index={1}
