@@ -6,8 +6,29 @@ import Head from "next/head";
 import { Decade } from "../components/Decade";
 import Loader from "../components/Loader";
 import ArtworkSidePanel from "../components/ArtworkSidePanel";
+import { useRouter } from "next/router";
+
+function findArtworkBySlug(categoriesData, workSlug) {
+  if (!categoriesData) {
+    return null; // Handle the case where categoriesData itself is undefined
+  }
+
+  for (const category of categoriesData) {
+    // Check if category.artworks exists and is an array before iterating
+    if (category.artworks && Array.isArray(category.artworks)) {
+      for (const artwork of category.artworks) {
+        if (artwork.slug === workSlug) {
+          return artwork;
+        }
+      }
+    }
+  }
+
+  return null; // Artwork not found
+}
 
 export default function workDate({ categories }) {
+  const router = useRouter();
   const categoriesData = categories.categories.data
 
   const [isLoading, setIsLoading] = useState(true);
@@ -21,6 +42,29 @@ export default function workDate({ categories }) {
       setShowLoader(false);
     }, 1700);
   }, []);
+
+  const [openedArtwork, setOpenedArtwork] = useState({});
+
+  useEffect(() => {
+    const { work } = router.query;
+    console.log({ work });
+
+    console.log({categoriesData})
+
+    if (work) {
+      const foundArtwork = findArtworkBySlug(categoriesData, work);
+
+      if (foundArtwork) {
+        setOpenedArtwork(foundArtwork.attributes);
+      } else {
+        setOpenedArtwork(null);
+      }
+    } else {
+      setOpenedArtwork(null);
+    }
+
+    //console.log("opened", openedArtwork);
+  }, [router.query, categoriesData]); 
 
   return (
     <>
@@ -50,6 +94,7 @@ export default function workDate({ categories }) {
                     return (
                       <Decade
                         category={category}
+                        setOpenedArtwork={setOpenedArtwork}
                         key={`${category.attributes.slug}-${i}`}
                       />
                     );

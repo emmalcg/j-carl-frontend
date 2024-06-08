@@ -139,6 +139,7 @@ DOING
 - all information in the side panel
 - image distortion 
 - reducer size of Gifs 
+- fix image stuff
 
 
 FUTURE

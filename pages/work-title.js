@@ -105,7 +105,7 @@ const ArtworkButton = ({ artwork, series }) => {
   );
 }
 
-export const ListArtwork = ({ artwork }) => {
+export const ListArtwork = ({ artwork, setOpenedArtwork }) => {
   const router = useRouter();
   const slug = artwork.slug;
 
@@ -113,6 +113,8 @@ export const ListArtwork = ({ artwork }) => {
     router.push(`${router.pathname}?work=${slug}`); 
     setOpenedArtwork(artwork); 
   };
+
+  console.log({artwork})
 
   return (
     <li
@@ -123,6 +125,7 @@ export const ListArtwork = ({ artwork }) => {
         href={`${router.pathname}?work=${slug}`}
         shallow
         key={`${slug}`}
+        onClick={handleClick}
       >
         <a className="hover:underline">
           <span>{artwork.title}</span>, {artwork.yearStarted}

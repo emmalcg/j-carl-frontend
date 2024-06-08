@@ -5,17 +5,18 @@ import Link from "next/link";
 import FolderClosed from "./FolderClosed";
 import FolderOpen from "./FolderOpen";
 import FolderAlias from "./FolderAlias";
+import { ListArtwork } from "../pages/work-title";
 
-const List = ({ artworks, category }) => {
+const List = ({ artworks, category, setOpenedArtwork }) => {
   return (
     <ul>
       {artworks.artworks.map((artwork, i) => {
         return (
-          <ListLink
-            key={`${artwork.title}${i}`}
+          <ListArtwork
+            key={`${artwork.title}-artwork-${i}`}
             artwork={artwork}
-            //series={artworks}
-            categorySlug={category.attributes.slug}
+            currentRoute="work-date"
+            setOpenedArtwork={setOpenedArtwork}
           />
         );
       })}
@@ -82,7 +83,7 @@ function organizeArtworksByDecades(artworks, targetDecade) {
   return organizedArtworks;
 }
 
-const SeriesArtworks = ({ series, category }) => {
+const SeriesArtworks = ({ series, category, setOpenedArtwork }) => {
   const decade = Number(category.attributes.slug);
   const seriesSlug = `/series/${series.slug}`;
   const seriesArtworks = organizeArtworksByDecades(
@@ -105,7 +106,14 @@ const SeriesArtworks = ({ series, category }) => {
             <ul className="pl-14">
               {seriesArtworks.map((work, i) => {
                 if (work.decade == decade) {
-                  return <List key={`artwork-${i}`} artworks={work} category={category} />;
+                  return (
+                    <List
+                      key={`artwork-${i}`}
+                      artworks={work}
+                      category={category}
+                      setOpenedArtwork={setOpenedArtwork}
+                    />
+                  );
                 } else {
                   return (
                     <li className="text-slate-500" key={`artwork-${i}`}>
@@ -125,10 +133,11 @@ const SeriesArtworks = ({ series, category }) => {
                           </Accordion.Header>
                           <Accordion.Content>
                             <div className="ml-14">
-                              <List
-                                key={i}
-                                artworks={work}
-                                category={category}
+                              <ListArtwork
+                                key={`${series.title}-artwork-${i}`}
+                                artwork={work}
+                                currentRoute="work-date"
+                                setOpenedArtwork={setOpenedArtwork}
                               />
                             </div>
                           </Accordion.Content>
@@ -152,18 +161,18 @@ const SeriesArtworks = ({ series, category }) => {
   );
 };
 
-const SeriesList = ({ list, category }) => {
+const SeriesList = ({ list, category, setOpenedArtwork }) => {
   return (
     <ul>
       {list.map((item, i) => {
         const work = item.attributes;
         if (item.__typename === "ArtworkEntity")
           return (
-            <ListLink
+            <ListArtwork
               key={`${work.title}-artwork-${i}`}
               artwork={work}
-              series={false}
-              categorySlug={category.attributes.slug}
+              currentRoute="work-title"
+              setOpenedArtwork={setOpenedArtwork}
             />
           );
         if (item.__typename === "SerieEntity")
@@ -172,6 +181,7 @@ const SeriesList = ({ list, category }) => {
               key={`${work.title}-series-${i}`}
               series={work}
               category={category}
+              setOpenedArtwork={setOpenedArtwork}
             />
           );
       })}
@@ -179,8 +189,8 @@ const SeriesList = ({ list, category }) => {
   );
 };
 
-export const Decade = ({ category }) => {
-  console.log("in decade", category)
+export const Decade = ({ category, setOpenedArtwork }) => {
+  console.log("in decade", category);
   const series = category.attributes.series.data;
 
   const artworks = category.attributes.artworks.data;
@@ -200,7 +210,11 @@ export const Decade = ({ category }) => {
           </Accordion.Header>
           <Accordion.Content>
             <div className="pl-14">
-              <SeriesList list={combinedWorkAndSeries} category={category} />
+              <SeriesList
+                list={combinedWorkAndSeries}
+                category={category}
+                setOpenedArtwork={setOpenedArtwork}
+              />
             </div>
           </Accordion.Content>
         </Accordion.Item>
