@@ -64,7 +64,7 @@ export default function ArtworkImageSameSize({ image, index, size }) {
         />
       )}*/}
 
-      <div className={`relative w-full h-60 `}>
+      <div className={`relative w-full h-80`}>
         <Image
           src={url}
           alt={image.caption}
