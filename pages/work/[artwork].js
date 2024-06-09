@@ -105,8 +105,6 @@ export default function ArtworkPage({ artwork }) {
 export async function getStaticProps({ params }) {
   const { artwork } = params;
 
-  console.log("Artwork slug:", artwork);
-
   const { API_URL } = process.env
   const client = new ApolloClient({
     uri: `${API_URL}`,
@@ -191,7 +189,6 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  console.log('get static paths')
   const { API_URL } = process.env
   const client = new ApolloClient({
     uri: `${API_URL}`,
@@ -214,7 +211,6 @@ export async function getStaticPaths() {
 
   const artworkSlugs = data.artworks.data 
   const paths = artworkSlugs.map(({attributes}) => {
-    console.log('attributes', attributes)
     return {
       params: { artwork: attributes.slug }
     };

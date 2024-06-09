@@ -6,7 +6,6 @@ import Footer from '../components/Footer';
 import Head from 'next/head';
 
 export default function work({ artworks }) {
-  console.log({artworks})
 
   const work = artworks.data
 
@@ -31,7 +30,6 @@ export default function work({ artworks }) {
       }
     }
   });
-  console.log({work})
   //const decades = pages.data[0].attributes.sublink
   return (
     <>

@@ -1,3 +1,4 @@
+
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import ArtworkInfo from "./ArtworkInfo";
 import ArtworkImage from "./ArtworkImage";
@@ -16,13 +17,10 @@ export default function ArtworkSidePanel({artwork}) {
     router.push(router.pathname, undefined, { shallow: true });
   };
 
-  console.log({ artwork });
-
   if (!workParam) return null;
   return (
     <div
       className="border border-black h-[calc(100vh-150px)] w-[calc(40vw-20px)] mt-7 flex flex-col fixed right-20 top-[104px] p-3"
-      //className="border border-black min-w-[35rem] max-h-[45rem] mt-7 flex flex-col fixed right-20 top-[104px] p-3"
     >
       <button
         type="button"
@@ -35,14 +33,6 @@ export default function ArtworkSidePanel({artwork}) {
       </button>
       {artwork && (
         <>
-          {/*<ImageLoading
-            thumbnail
-            image={artwork.thumbnail.data.attributes}
-            index={1}
-            size="small"
-            shrinkHeight={true}
-            responsive={false}
-          />*/}
           <ArtworkImageSameSize
             thumbnail
             image={artwork.thumbnail.data.attributes}

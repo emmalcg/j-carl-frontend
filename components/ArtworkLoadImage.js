@@ -26,7 +26,6 @@ export default function ImageLoading({ image, index, size }) {
      const timer = setTimeout(() => {
        setIsLoading(false); // Hide placeholder after the timeout
      }, 1000); // Adjust timeout (in milliseconds) as needed
-     console.log('rerun')
 
      return () => clearTimeout(timer); // Clear timeout if component unmounts early
    }, [image]);

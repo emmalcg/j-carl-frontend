@@ -66,7 +66,6 @@ export default function AppHeader({
 
   const router = useRouter();
 
-  console.log({router})
   const [isRFQ, setIsRFQ] = useState(
     router.pathname.includes("/rfq") ? true : false
   );

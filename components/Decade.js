@@ -114,37 +114,6 @@ const SeriesArtworks = ({ series, category, setOpenedArtwork }) => {
                       setOpenedArtwork={setOpenedArtwork}
                     />
                   );
-                } else {
-                  return (
-                    <li className="text-slate-500" key={`artwork-${i}`}>
-                      <Accordion.Root
-                        key={`series-decade-${i}`}
-                        type="single"
-                        collapsible
-                        className="pl-14"
-                      >
-                        <Accordion.Item value={series.title}>
-                          <Accordion.Header>
-                            <Accordion.Trigger className="AccordionTrigger rounded-sm flex md:flex-row mt-7 open:rotate-90 text-inherit">
-                              <FolderOpen />
-                              <FolderClosed />
-                              {series.title} {work.decade}
-                            </Accordion.Trigger>
-                          </Accordion.Header>
-                          <Accordion.Content>
-                            <div className="ml-14">
-                              <ListArtwork
-                                key={`${series.title}-artwork-${i}`}
-                                artwork={work}
-                                currentRoute="work-date"
-                                setOpenedArtwork={setOpenedArtwork}
-                              />
-                            </div>
-                          </Accordion.Content>
-                        </Accordion.Item>
-                      </Accordion.Root>
-                    </li>
-                  );
                 }
               })}
               <li className="list-none flex flex-row md:flex-row mt-7 ml-[3.7rem] text-slate-500">
@@ -190,7 +159,6 @@ const SeriesList = ({ list, category, setOpenedArtwork }) => {
 };
 
 export const Decade = ({ category, setOpenedArtwork }) => {
-  console.log("in decade", category);
   const series = category.attributes.series.data;
 
   const artworks = category.attributes.artworks.data;

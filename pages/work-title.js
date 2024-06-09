@@ -5,15 +5,12 @@ import AppHeader from "../components/AppHeader";
 import Footer from "../components/Footer";
 import Head from "next/head";
 import Loader from "../components/Loader";
-import ListLink from "../components/ListLink";
 import Link from "next/link";
 import FolderAlias from "../components/FolderAlias";
 import FolderOpen from "../components/FolderOpen";
 import FolderClosed from "../components/FolderClosed";
 import ArtworkSidePanel from "../components/ArtworkSidePanel";
-import ArtworkSlideOut from "../components/ArtworkSlideOut";
 import { useRouter } from "next/router";
-// import ListArtwork from "../components/ListArtwork";
 
 const SeriesArtworks = ({ series }) => {
   const seriesSlug = `/series/${series.slug}`;
@@ -51,8 +48,7 @@ const SeriesArtworks = ({ series }) => {
   );
 };
 
-const SeriesList = ({ list, setOpenedArtwork}) => {
-  console.log({ list });
+const SeriesList = ({ list }) => {
   return (
     <ul>
       {list.map((item, i) => {
@@ -63,7 +59,6 @@ const SeriesList = ({ list, setOpenedArtwork}) => {
               key={`${work.title}-artwork-${i}`}
               artwork={work}
               currentRoute="work-title"
-              setOpenedArtwork={setOpenedArtwork}
             />
           );
         if (item.__typename === "Serie")
@@ -75,46 +70,20 @@ const SeriesList = ({ list, setOpenedArtwork}) => {
   );
 };
 
-
-const ArtworkButton = ({ artwork, series }) => {
+export const ListArtwork = ({ artwork }) => {
   const router = useRouter();
   const slug = artwork.slug;
-
-  return (
-    <li
-      id={slug}
-      className="list-none flex flex-col md:flex-row mt-7 ml-6 text-inherit"
-    >
-      <button className="hover:underline">
-        <span>{artwork.title}</span>, {artwork.yearStarted}
-        {artwork.yearEnded && `-${artwork.yearEnded}`}
-      </button>
-{/*      
-      <Link
-        href={`${router.pathname}?work=${slug}`}
-        shallow
-        key={`${slug}`}
-        onClick={setUrlStorage}
-      >
-        <a className="hover:underline">
-          <span>{artwork.title}</span>, {artwork.yearStarted}
-          {artwork.yearEnded && `-${artwork.yearEnded}`}
-        </a>
-      </Link>*/}
-    </li>
-  );
-}
-
-export const ListArtwork = ({ artwork, setOpenedArtwork }) => {
-  const router = useRouter();
-  const slug = artwork.slug;
-
-  const handleClick = () => {
-    router.push(`${router.pathname}?work=${slug}`); 
-    setOpenedArtwork(artwork); 
-  };
 
   console.log({artwork})
+  const decade = artwork?.categories?.data?.[0]?.attributes?.slug
+
+  const series = artwork?.series?.data?.attributes?.slug
+
+  const openPathParameter = decade || series
+
+  const linkRoute = openPathParameter
+    ? `${router.pathname}?open=${openPathParameter}&work=${slug}`
+    : `${router.pathname}?work=${slug}`; 
 
   return (
     <li
@@ -122,23 +91,21 @@ export const ListArtwork = ({ artwork, setOpenedArtwork }) => {
       className="list-none flex flex-col md:flex-row mt-7 ml-6 text-inherit"
     >
       <Link
-        href={`${router.pathname}?work=${slug}`}
-        shallow
-        key={`${slug}`}
-        onClick={handleClick}
-      >
-        <a className="hover:underline">
-          <span>{artwork.title}</span>, {artwork.yearStarted}
-          {artwork.yearEnded && `-${artwork.yearEnded}`}
-        </a>
+      href={linkRoute}
+      shallow
+      key={`${slug}`}
+    >
+      <a className="hover:underline">
+        <span>{artwork.title}</span>, {artwork.yearStarted}
+        {artwork.yearEnded && `-${artwork.yearEnded}`}
+      </a>
       </Link>
     </li>
   );
 }
 
 
-const List = ({ artworks, setOpenedArtwork }) => {
-  console.log({artworks})
+const List = ({ artworks }) => {
   return (
     <ul>
       {artworks.map((artwork, i) => {
@@ -147,7 +114,6 @@ const List = ({ artworks, setOpenedArtwork }) => {
             key={`${artwork.title}${i}`}
             artwork={artwork}
             currentRoute="work-title"
-            setOpenedArtwork={setOpenedArtwork}
           />
         );
       })}
@@ -200,7 +166,6 @@ export default function workTitle({ artworks }) {
 
   useEffect(() => {
     const { work } = router.query; 
-    console.log({work})
 
     if (work) {
       const foundArtwork = artworks.data.find(
@@ -216,7 +181,6 @@ export default function workTitle({ artworks }) {
       setOpenedArtwork(null);
     }
 
-    console.log('opened', openedArtwork)
   }, [router.query, artworks.data]); 
 
 
@@ -257,7 +221,6 @@ export default function workTitle({ artworks }) {
                 setOpenedArtwork={setOpenedArtwork}
               />
               <ArtworkSidePanel artwork={openedArtwork}/>
-              {/*<ArtworkSlideOut artworkData={openedArtwork} />*/}
             </div>
           )}
         </section>

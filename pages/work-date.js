@@ -9,15 +9,19 @@ import ArtworkSidePanel from "../components/ArtworkSidePanel";
 import { useRouter } from "next/router";
 
 function findArtworkBySlug(categoriesData, workSlug) {
+
   if (!categoriesData) {
     return null; // Handle the case where categoriesData itself is undefined
   }
 
   for (const category of categoriesData) {
     // Check if category.artworks exists and is an array before iterating
-    if (category.artworks && Array.isArray(category.artworks)) {
-      for (const artwork of category.artworks) {
-        if (artwork.slug === workSlug) {
+    if (
+      category.attributes.artworks.data &&
+      Array.isArray(category.attributes.artworks.data)
+    ) {
+      for (const artwork of category.attributes.artworks.data) {
+        if (artwork.attributes.slug === workSlug) {
           return artwork;
         }
       }
@@ -47,9 +51,6 @@ export default function workDate({ categories }) {
 
   useEffect(() => {
     const { work } = router.query;
-    console.log({ work });
-
-    console.log({categoriesData})
 
     if (work) {
       const foundArtwork = findArtworkBySlug(categoriesData, work);
@@ -63,7 +64,6 @@ export default function workDate({ categories }) {
       setOpenedArtwork(null);
     }
 
-    //console.log("opened", openedArtwork);
   }, [router.query, categoriesData]); 
 
   return (
@@ -100,7 +100,7 @@ export default function workDate({ categories }) {
                     );
                   })}
                 </ul>
-              <ArtworkSidePanel />
+              <ArtworkSidePanel artwork={openedArtwork}/>
             </div>
           )}
         </section>

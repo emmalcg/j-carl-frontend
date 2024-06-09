@@ -38,8 +38,6 @@ export default function seriesPage({ series }) {
     }, 1700);
   }, []);
 
-  console.log({series})
-
   return (
     <>
       <Head>
@@ -212,7 +210,6 @@ export async function getStaticPaths() {
 
   const seriesSlugs = data.series.data
   const paths = seriesSlugs.map(({ attributes }) => {
-    console.log('attributes', attributes)
     return {
       params: { series: attributes.slug },
     };
