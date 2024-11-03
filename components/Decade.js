@@ -91,6 +91,7 @@ const SeriesArtworks = ({ series, category, setOpenedArtwork }) => {
     decade
   );
 
+  console.log({series})
   return (
     <li>
       <Accordion.Root type="single" collapsible>
@@ -119,7 +120,7 @@ const SeriesArtworks = ({ series, category, setOpenedArtwork }) => {
               <li className="list-none flex flex-row md:flex-row mt-7 ml-[3.7rem] text-slate-500">
                 <FolderAlias />
                 <Link href={seriesSlug} key={series.slug}>
-                  <a className="hover:underline">{series.title}</a>
+                  <a className="hover:underline">{series.title} {series.yearStarted}-{series.yearEnded}</a>
                 </Link>
               </li>
             </ul>

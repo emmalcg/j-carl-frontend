@@ -74,7 +74,6 @@ export const ListArtwork = ({ artwork }) => {
   const router = useRouter();
   const slug = artwork.slug;
 
-  console.log({artwork})
   const decade = artwork?.categories?.data?.[0]?.attributes?.slug
 
   const series = artwork?.series?.data?.attributes?.slug

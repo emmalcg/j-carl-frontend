@@ -9,15 +9,14 @@ import ArtworkSidePanel from "../components/ArtworkSidePanel";
 import { useRouter } from "next/router";
 
 function findArtworkBySlug(categoriesData, workSlug) {
-
   if (!categoriesData) {
-    return null; // Handle the case where categoriesData itself is undefined
+    return null;
   }
 
   for (const category of categoriesData) {
-    // Check if category.artworks exists and is an array before iterating
+    // Check artworks in the category itself
     if (
-      category.attributes.artworks.data &&
+      category.attributes.artworks &&
       Array.isArray(category.attributes.artworks.data)
     ) {
       for (const artwork of category.attributes.artworks.data) {
@@ -26,9 +25,22 @@ function findArtworkBySlug(categoriesData, workSlug) {
         }
       }
     }
+
+    // Recursively check artworks in series within the category
+    if (
+      category.attributes.series &&
+      Array.isArray(category.attributes.series.data)
+    ) {
+      for (const serie of category.attributes.series.data) {
+        const artwork = findArtworkBySlug([serie], workSlug); // Recursive call
+        if (artwork) {
+          return artwork;
+        }
+      }
+    }
   }
 
-  return null; // Artwork not found
+  return null;
 }
 
 export default function workDate({ categories }) {
@@ -54,6 +66,7 @@ export default function workDate({ categories }) {
 
     if (work) {
       const foundArtwork = findArtworkBySlug(categoriesData, work);
+      console.log("foundArtwork", foundArtwork)
 
       if (foundArtwork) {
         setOpenedArtwork(foundArtwork.attributes);
@@ -107,7 +120,7 @@ export default function workDate({ categories }) {
       </main>
       <Footer />
     </>
-  );
+  ); 
 }
 
 export async function getStaticProps() {
@@ -232,3 +245,5 @@ export async function getStaticProps() {
     },
   };
 }
+
+

@@ -23,20 +23,20 @@ export default function seriesPage({ series }) {
     }, 1700);
   }, []);
 
-  const [buttonText, setButtonText] = useState("titles");
+  //const [buttonText, setButtonText] = useState("titles");
 
-  useEffect(() => {
-    showImages ? setButtonText("titles") : setButtonText("images");
-  }, [showImages]);
+  //useEffect(() => {
+  //  showImages ? setButtonText("titles") : setButtonText("images");
+  //}, [showImages]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-    setTimeout(() => {
-      setShowLoader(false);
-    }, 1700);
-  }, []);
+  //useEffect(() => {
+  //  setTimeout(() => {
+  //    setIsLoading(false);
+  //  }, 2000);
+  //  setTimeout(() => {
+  //    setShowLoader(false);
+  //  }, 1700);
+  //}, []);
 
   return (
     <>
@@ -49,14 +49,14 @@ export default function seriesPage({ series }) {
       </Head>
       <AppHeader currentPath={series.attributes.slug} currentType="Work" />
       <BackButton />
-      <main className="mt-2">
+      <main className="mt-[101px]">
         <div className="flex items-center">
           <h2 className="text-lg">{series.attributes.title}</h2>
           <span className="px-2">|</span>
           <div>
             {series.attributes.yearStarted} - {series.attributes.yearEnded}
           </div>
-          <div className="ml-auto">
+          {/*<div className="ml-auto">
             <label htmlFor="sort" className="hidden">
               Show Images
             </label>
@@ -71,7 +71,7 @@ export default function seriesPage({ series }) {
               <option value="false">Titles</option>
               <option value="slug">Images</option>
             </select>
-          </div>
+          </div>*/}
           {/*<button
             onClick={() => {
               setShowImages(!showImages);
@@ -81,42 +81,42 @@ export default function seriesPage({ series }) {
             {buttonText}
           </button>*/}
         </div>
+        <section>
+          {showImages && (
+            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-7">
+              {series.attributes.artworks.data.map((item, i) => {
+                const work = item.attributes;
+                return (
+                  <ArtworkThumbnail key={`${work.title}${i}`} artwork={work} />
+                );
+              })}
+            </ul>
+          )}
+          {!showImages && isLoading && (
+            <section
+              className={`h-[80vh] flex justify-center items-center ${
+                showLoader ? "opacity-100" : "opacity-0"
+              } transition-opacity ease-out duration-500`}
+            >
+              <Loader />
+            </section>
+          )}
+          {!showImages && !isLoading && (
+            <ul>
+              {series.attributes.artworks.data.map((item, i) => {
+                const work = item.attributes;
+                return (
+                  <ListLink
+                    key={`${work.title}${i}`}
+                    artwork={work}
+                    series={false}
+                  />
+                );
+              })}
+            </ul>
+          )}
+        </section>
       </main>
-      <section>
-        {showImages && (
-          <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-7">
-            {series.attributes.artworks.data.map((item, i) => {
-              const work = item.attributes;
-              return (
-                <ArtworkThumbnail key={`${work.title}${i}`} artwork={work} />
-              );
-            })}
-          </ul>
-        )}
-        {!showImages && isLoading && (
-          <section
-            className={`h-[80vh] flex justify-center items-center ${
-              showLoader ? "opacity-100" : "opacity-0"
-            } transition-opacity ease-out duration-500`}
-          >
-            <Loader />
-          </section>
-        )}
-        {!showImages && !isLoading && (
-          <ul>
-            {series.attributes.artworks.data.map((item, i) => {
-              const work = item.attributes;
-              return (
-                <ListLink
-                  key={`${work.title}${i}`}
-                  artwork={work}
-                  series={false}
-                />
-              );
-            })}
-          </ul>
-        )}
-      </section>
       <Footer />
     </>
   );
