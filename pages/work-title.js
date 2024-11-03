@@ -18,10 +18,14 @@ const SeriesArtworks = ({ series }) => {
     .filter((artwork) => artwork.series.data)
     .sort((a, b) => (b.yearStarted || 0) - (a.yearStarted || 0));
 
+  const router = useRouter();
+
+  const openValue = router.query.open
+
   return (
-    <li>
-      <Accordion.Root type="single" collapsible>
-        <Accordion.Item value={series.title}>
+    <li id={series.slug}>
+      <Accordion.Root type="single" collapsible defaultValue={openValue}>
+        <Accordion.Item value={series.slug}>
           <Accordion.Header>
             <Accordion.Trigger className="AccordionTrigger rounded-sm flex md:flex-row mt-7 ml-6">
               <FolderOpen />
@@ -37,7 +41,9 @@ const SeriesArtworks = ({ series }) => {
               <li className="list-none flex flex-row md:flex-row mt-7 text-slate-500 ml-[26px]">
                 <FolderAlias />
                 <Link href={seriesSlug} key={series.slug}>
-                  <a className="hover:underline">{series.title} {series.yearStarted} - {series.yearEnded}</a>
+                  <a className="hover:underline">
+                    {series.title} {series.yearStarted} - {series.yearEnded}
+                  </a>
                 </Link>
               </li>
             </ul>
@@ -73,12 +79,35 @@ const SeriesList = ({ list }) => {
 export const ListArtwork = ({ artwork }) => {
   const router = useRouter();
   const slug = artwork.slug;
+  
+  useEffect(() => {
+    const { work, open } = router.query;
 
-  const decade = artwork?.categories?.data?.[0]?.attributes?.slug
+    if(open) {
+      console.log({open})
+      const targetElement = document.getElementById(open);
+      if (targetElement) {
+        const desiredScrollPosition = targetElement.offsetTop - 140;
+        window.scrollTo({
+          top: desiredScrollPosition,
+          behavior: "smooth",
+        });
+      }
+    } else if (work) {
+      const workElement = document.getElementById(work);
+      if (workElement) {
+        const desiredScrollPosition = targetElement.offsetTop - 200; 
+        window.scrollTo({
+          top: desiredScrollPosition,
+          behavior: "smooth",
+        });
+      }
+    }
+  }, [router.query]);
 
   const series = artwork?.series?.data?.attributes?.slug
 
-  const openPathParameter = decade || series
+  const openPathParameter = series
 
   const linkRoute = openPathParameter
     ? `${router.pathname}?open=${openPathParameter}&work=${slug}`
