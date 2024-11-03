@@ -37,7 +37,7 @@ const SeriesArtworks = ({ series }) => {
               <li className="list-none flex flex-row md:flex-row mt-7 text-slate-500 ml-[26px]">
                 <FolderAlias />
                 <Link href={seriesSlug} key={series.slug}>
-                  <a className="hover:underline">{series.title}</a>
+                  <a className="hover:underline">{series.title} {series.yearStarted} - {series.yearEnded}</a>
                 </Link>
               </li>
             </ul>

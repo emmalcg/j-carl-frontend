@@ -11,6 +11,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import ArtworkSidePanel from "../../components/ArtworkSidePanel";
+import FolderClosed from "../../components/FolderClosed";
+import FolderOpen from "../../components/FolderOpen";
 
 const ListArtwork = ({ artwork, series }) => {
   const router = useRouter();
@@ -107,9 +109,10 @@ export default function seriesPage({ series }) {
         />
       </Head>
       <AppHeader currentPath={series.attributes.slug} currentType="Work" />
-      <BackButton />
-      <main className="mt-[101px]">
-        <div className="flex items-center">
+      <main className="mt-[85px]">
+        <BackButton />
+        <div className="flex items-center mt-4">
+          <FolderOpen />
           <h2 className="text-lg">{series.attributes.title}</h2>
           <span className="px-2">|</span>
           <div>
@@ -128,7 +131,7 @@ export default function seriesPage({ series }) {
               className="block w-full border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             >
               <option value="false">Titles</option>
-              <option value="slug">Images</option>
+              <option value="slug"x>Images</option>
             </select>
           </div>*/}
           {/*<button
@@ -160,7 +163,7 @@ export default function seriesPage({ series }) {
               <Loader />
             </section>
           )}
-                  {/*<ListLink
+          {/*<ListLink
                     key={`${work.title}${i}`}
                     artwork={work}
                     series={false}
@@ -175,8 +178,8 @@ export default function seriesPage({ series }) {
                     className="flex justify-between"
                     key={`${work.title}${i}`}
                   >
-                    <ListArtwork artwork={work} series={series}/>
-                    <ArtworkSidePanel artwork={openedArtwork} hideClose/>
+                    <ListArtwork artwork={work} series={series} />
+                    <ArtworkSidePanel artwork={openedArtwork} hideClose />
                   </div>
                 );
               })}

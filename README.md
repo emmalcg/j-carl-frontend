@@ -150,3 +150,19 @@ FUTURE
 
 DONE 
 - site under construction 
+
+
+NOVEMBER 3RD - for current site
+- https://trepanierbaer.com/exhibition/james-carl-standrds/
+  - on recent and homepage
+- back button
+- folder open on series
+- store open in url so that the back button takes you there
+- carousel if its not hard
+- close button on series sidebar
+- rbite - example but only show if the its out of the series
+
+
+FOR NEW SITE
+- thumbnails in image sidebar [www.cam](https://camellia-sinensis.com/en/kyusu-from-gyokko-kaisou/3358)
+- 

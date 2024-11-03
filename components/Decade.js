@@ -83,6 +83,22 @@ function organizeArtworksByDecades(artworks, targetDecade) {
   return organizedArtworks;
 }
 
+function spansMultipleDecades(series, decadeStarted, decadeEnded) {
+  const startYear = Number(series.yearStarted);
+  const endYear = Number(series.yearEnded);
+
+  if ((endYear - startYear) > 9) {
+    return true;
+  }
+
+  // If the series starts before the decade starts and ends after the decade ends,
+  // or if the series starts before the decade ends and ends after the decade starts,
+  // it spans multiple decades.
+    return (startYear < decadeStarted && endYear > decadeEnded) ||
+         (startYear >= decadeStarted && endYear > decadeEnded);
+   
+}
+
 const SeriesArtworks = ({ series, category, setOpenedArtwork }) => {
   const decade = Number(category.attributes.slug);
   const seriesSlug = `/series/${series.slug}`;
@@ -91,7 +107,11 @@ const SeriesArtworks = ({ series, category, setOpenedArtwork }) => {
     decade
   );
 
-  console.log({series})
+  const decadeStarted = Number(decade) // would be 2000
+  const decadeEnded = Number(decade) + 9 // would be 2009
+
+  const doesSpan = spansMultipleDecades(series, decadeStarted, decadeEnded);
+
   return (
     <li>
       <Accordion.Root type="single" collapsible>
@@ -117,12 +137,16 @@ const SeriesArtworks = ({ series, category, setOpenedArtwork }) => {
                   );
                 }
               })}
-              <li className="list-none flex flex-row md:flex-row mt-7 ml-[3.7rem] text-slate-500">
-                <FolderAlias />
-                <Link href={seriesSlug} key={series.slug}>
-                  <a className="hover:underline">{series.title} {series.yearStarted}-{series.yearEnded}</a>
-                </Link>
-              </li>
+              {doesSpan && (
+                <li className="list-none flex flex-row md:flex-row mt-7 ml-[3.7rem] text-slate-500">
+                  <FolderAlias />
+                  <Link href={seriesSlug} key={series.slug}>
+                    <a className="hover:underline">
+                      {series.title} {series.yearStarted}-{series.yearEnded}
+                    </a>
+                  </Link>
+                </li>
+              )}
             </ul>
           </Accordion.Content>
         </Accordion.Item>
