@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import ImageLoading from "./ArtworkLoadImage";
 import ArtworkImageSameSize from "./ArtworkImageSameSize";
 
-export default function ArtworkSidePanel({artwork}) {
+export default function ArtworkSidePanel({artwork, hideClose}) {
   const router = useRouter();
   const workParam = router.query.work;
 
@@ -22,15 +22,17 @@ export default function ArtworkSidePanel({artwork}) {
     <div
       className="border border-black h-[calc(100vh-150px)] w-[calc(40vw-20px)] mt-7 flex flex-col fixed right-20 top-[104px] p-3"
     >
-      <button
-        type="button"
-        className="ml-auto rounded-md bg-white text-gray-900 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        onClick={handleClose}
-      >
-        <span className="absolute -inset-2.5" />
-        <span className="sr-only">Close panel</span>
-        <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-      </button>
+      {!hideClose && 
+        <button
+          type="button"
+          className="ml-auto rounded-md bg-white text-gray-900 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          onClick={handleClose}
+        >
+          <span className="absolute -inset-2.5" />
+          <span className="sr-only">Close panel</span>
+          <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+        </button>
+      }
       {artwork && (
         <>
           <ArtworkImageSameSize

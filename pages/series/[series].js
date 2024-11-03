@@ -8,6 +8,37 @@ import Footer from "../../components/Footer";
 import BackButton from "../../components/BackButton";
 import Loader from "../../components/Loader";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import ArtworkSidePanel from "../../components/ArtworkSidePanel";
+
+const ListArtwork = ({ artwork, series }) => {
+  const router = useRouter();
+  const slug = artwork.slug;
+
+  console.log({artwork})
+
+  const seriesSlug = router.query.series;
+  const newPathname = `/series/${seriesSlug}`;
+
+  const linkRoute = slug
+    ? `${newPathname}?work=${slug}`
+    : `${newPathname}`;
+
+  return (
+    <li
+      id={slug}
+      className="list-none flex flex-col md:flex-row mt-7 ml-6 text-inherit"
+    >
+      <Link href={linkRoute} shallow key={`${slug}`}>
+        <a className="hover:underline">
+          <span>{artwork.title}</span>, {artwork.yearStarted}
+          {artwork.yearEnded && `-${artwork.yearEnded}`}
+        </a>
+      </Link>
+    </li>
+  );
+};
 
 export default function seriesPage({ series }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,6 +53,34 @@ export default function seriesPage({ series }) {
       setShowLoader(false);
     }, 1700);
   }, []);
+
+  const router = useRouter();
+
+   const [openedArtwork, setOpenedArtwork] = useState({});
+
+   console.log({series})
+   const artworks = series.attributes.artworks.data
+   console.log({artworks})
+
+   useEffect(() => {
+     const { work } = router.query;
+
+     if (work) {
+       const foundArtwork = artworks.find(
+         (artwork) => artwork.attributes.slug === work
+       );
+
+       if (foundArtwork) {
+         setOpenedArtwork(foundArtwork.attributes);
+       } else {
+         setOpenedArtwork(null);
+       }
+     } else {
+       setOpenedArtwork(null);
+     }
+   }, [router.query, series.data]); 
+
+   console.log({openedArtwork})
 
   //const [buttonText, setButtonText] = useState("titles");
 
@@ -101,16 +160,24 @@ export default function seriesPage({ series }) {
               <Loader />
             </section>
           )}
+                  {/*<ListLink
+                    key={`${work.title}${i}`}
+                    artwork={work}
+                    series={false}
+                  />
+                  */}
           {!showImages && !isLoading && (
             <ul>
               {series.attributes.artworks.data.map((item, i) => {
                 const work = item.attributes;
                 return (
-                  <ListLink
+                  <div
+                    className="flex justify-between"
                     key={`${work.title}${i}`}
-                    artwork={work}
-                    series={false}
-                  />
+                  >
+                    <ListArtwork artwork={work} series={series}/>
+                    <ArtworkSidePanel artwork={openedArtwork} hideClose/>
+                  </div>
                 );
               })}
             </ul>
