@@ -4,12 +4,22 @@
 export default function HomepageSingleImage() {
   return (
     <div style={{ height: `calc(100vh - 200px)`, marginTop: "120px" }}>
-      <a
-        href="https://privateviews.artlogic.net/2/a6bfc670af5a781b652ec6/"
-        className="hover:underline"
-      >
-        Conformity, April 29th - May 19th 2023 at Nicholas Metivier &#x2192;
-      </a>
+      <div>
+        <a
+          href="https://trepanierbaer.com/exhibition/james-carl-standrds/"
+          className="hover:underline"
+        >
+          Standrds, October 5th - November 2nd 2024 at TrépanierBaer &#x2192;
+        </a>
+      </div>
+      <div className="mt-4">
+        <a
+          href="https://privateviews.artlogic.net/2/a6bfc670af5a781b652ec6/"
+          className="hover:underline"
+        >
+          Conformity, April 29th - May 19th 2023 at Nicholas Metivier &#x2192;
+        </a>
+      </div>
 
       <div className="relative h-[95%] mt-4">
         <a

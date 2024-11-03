@@ -7,6 +7,7 @@ import washing from "../public/washing.gif";
 import hacksaw from "../public/hacksaw.gif";
 import Image from 'next/image';
 import Head from 'next/head';
+import HomepageCurrentShow from '../components/HomepageCurrentShow';
 
  const { API_URL } = process.env;
  const client = new ApolloClient({
@@ -16,7 +17,44 @@ import Head from 'next/head';
 
 export default function Home() {
 
-  const [showGif, setShowGif] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0); 
+
+    const imageOptions = [
+      // Array of image options
+      <HomepageCurrentShow />, // Include HomepageCurrentShow component as first option
+      <section className="h-[88vh] flex flex-col justify-center items-center">
+        <div className={`relative w-full h-[80px]`}>
+          <Image
+            priority={false}
+            src={washing}
+            //height={146}
+            //width={245}
+            objectFit="contain"
+            layout="fill"
+            objectPosition="center"
+          />
+        </div>
+      </section>,
+      <section className="h-[88vh] flex flex-col justify-center items-center">
+        <div className={`relative w-full h-[80px]`}>
+          <Image
+            priority={false}
+            src={hacksaw}
+            height={80}
+            width={600}
+            objectFit="contain"
+            layout="fill"
+            objectPosition="center"
+          />
+        </div>
+      </section>,
+    ];
+
+     const handleButtonClick = () => {
+       const newIndex = (currentImageIndex + 1) % imageOptions.length; // Wrap around for cyclic rotation
+       setCurrentImageIndex(newIndex);
+       window.scrollTo({ top: 0, behavior: "smooth" });
+     };
 
   return (
     <>
@@ -28,45 +66,9 @@ export default function Home() {
         />
       </Head>
       <AppHeader />
-      <main>
-        {!showGif ? (
-          <section className="h-[80vh] flex flex-col justify-center items-center">
-          <div className={`relative w-full h-[146px]`}>
-            <Image
-              priority={false}
-              src={washing}
-              //height={146}
-              //width={245}
-              objectFit="contain"
-              layout="fill"
-              objectPosition="center"
-            />
-          </div>
-            <div className="pt-2">under construction</div>
-          </section>
-        ) : (
-          <section className="h-[80vh] flex flex-col justify-center items-center">
-            <div className={`relative w-full h-[146px]`}>
-              <Image
-                priority={false}
-                src={hacksaw}
-                height={146}
-                width={600}
-                objectFit="contain"
-                layout="fill"
-                objectPosition="center"
-              />
-
-            </div>
-            <div className="pt-2">under construction</div>
-          </section>
-        )}
-      </main>
+      <main>{imageOptions[currentImageIndex]}</main>
       <button
-        onClick={() => {
-          setShowGif(!showGif);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}
+        onClick={handleButtonClick}
         className="border border-black mx-auto px-4 py-2 hover:bg-gray-200 cursor-pointer z-10 mt-10"
       >
         <span className="sr-only">switch homepage art</span>

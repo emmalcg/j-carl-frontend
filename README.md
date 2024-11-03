@@ -155,12 +155,12 @@ DONE
 NOVEMBER 3RD - for current site
 - https://trepanierbaer.com/exhibition/james-carl-standrds/
   - on recent and homepage
-- back button
-- folder open on series
-- store open in url so that the back button takes you there
-- carousel if its not hard
-- close button on series sidebar
-- rbite - example but only show if the its out of the series
+- smaller gif
+- back button to go back to the folder open stuff
+- folder open on series [done]
+- carousel if its not hard, maybe arrow
+- close button on series sidebar [done]
+- rbite - example but only show if the its out of the series [done]
 
 
 FOR NEW SITE
