@@ -5,9 +5,51 @@ import Link from "next/link";
 import FolderClosed from "./FolderClosed";
 import FolderOpen from "./FolderOpen";
 import FolderAlias from "./FolderAlias";
-import { ListArtwork } from "../pages/work-title";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-const List = ({ artworks, category, setOpenedArtwork }) => {
+function buildLink(router, work, dec, seriesOpen) {
+  let url = `${router.pathname}`;
+
+  if (work) {
+    url += `?work=${work}`;
+  }
+
+  if (dec) {
+    url += `${url.includes("?") ? "&" : "?"}decade=${dec}`;
+  }
+
+  if (seriesOpen) {
+    url += `${url.includes("?") ? "&" : "?"}series=${seriesOpen}`;
+  }
+
+  return url;
+}
+
+const ListArtwork = ({ artwork, decade, seriesOpen }) => {
+  const router = useRouter();
+  const slug = artwork.slug;
+
+  const dec = decade?.attributes?.slug;
+
+  const linkRoute = buildLink(router, slug, dec, seriesOpen);
+
+  return (
+    <li
+      id={slug}
+      className="list-none flex flex-col md:flex-row mt-7 ml-6 text-inherit"
+    >
+      <Link href={linkRoute} shallow key={`${slug}`}>
+        <a className="hover:underline">
+          <span>{artwork.title}</span>, {artwork.yearStarted}
+          {artwork.yearEnded && `-${artwork.yearEnded}`}
+        </a>
+      </Link>
+    </li>
+  );
+};
+
+const List = ({ artworks, category, setOpenedArtwork, series }) => {
   return (
     <ul>
       {artworks.artworks.map((artwork, i) => {
@@ -17,6 +59,8 @@ const List = ({ artworks, category, setOpenedArtwork }) => {
             artwork={artwork}
             currentRoute="work-date"
             setOpenedArtwork={setOpenedArtwork}
+            seriesOpen={series}
+            decade={category}
           />
         );
       })}
@@ -112,10 +156,14 @@ const SeriesArtworks = ({ series, category, setOpenedArtwork }) => {
 
   const doesSpan = spansMultipleDecades(series, decadeStarted, decadeEnded);
 
+    const router = useRouter();
+
+    const seriesIsOpen = router.query.series;
+
   return (
-    <li>
-      <Accordion.Root type="single" collapsible>
-        <Accordion.Item value={series.title}>
+    <li id={series.slug}>
+      <Accordion.Root type="single" collapsible defaultValue={seriesIsOpen}>
+        <Accordion.Item value={series.slug}>
           <Accordion.Header>
             <Accordion.Trigger className="AccordionTrigger rounded-sm flex md:flex-row mt-7 ml-6">
               <FolderOpen />
@@ -133,6 +181,7 @@ const SeriesArtworks = ({ series, category, setOpenedArtwork }) => {
                       artworks={work}
                       category={category}
                       setOpenedArtwork={setOpenedArtwork}
+                      series={series.slug}
                     />
                   );
                 }
@@ -167,15 +216,18 @@ const SeriesList = ({ list, category, setOpenedArtwork }) => {
               artwork={work}
               currentRoute="work-title"
               setOpenedArtwork={setOpenedArtwork}
+              decade={category}
             />
           );
         if (item.__typename === "SerieEntity")
+
           return (
             <SeriesArtworks
               key={`${work.title}-series-${i}`}
               series={work}
               category={category}
               setOpenedArtwork={setOpenedArtwork}
+              seriesOpen={work.slug}
             />
           );
       })}
@@ -190,10 +242,15 @@ export const Decade = ({ category, setOpenedArtwork }) => {
 
   const combinedWorkAndSeries = [...artworks, ...series];
 
+
+  const router = useRouter();
+
+  const openValue = router.query.decade;
+
   return (
-    <li>
-      <Accordion.Root type="single" collapsible>
-        <Accordion.Item value={category.attributes.title}>
+    <li id={category.attributes.slug}>
+      <Accordion.Root type="single" collapsible defaultValue={openValue}>
+        <Accordion.Item value={category.attributes.slug}>
           <Accordion.Header>
             <Accordion.Trigger className="AccordionTrigger rounded-sm flex md:flex-row mt-12 ml-6">
               <FolderOpen />

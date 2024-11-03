@@ -61,6 +61,32 @@ export default function workDate({ categories }) {
 
   const [openedArtwork, setOpenedArtwork] = useState({});
 
+
+  useEffect(() => {
+    const { work, decade, series } = router.query;
+
+    if (series) {
+      console.log({ open });
+      const targetSeries = document.getElementById(series);
+      if (targetSeries) {
+        const desiredScrollPosition = targetSeries?.offsetTop - 140;
+        window.scrollTo({
+          top: desiredScrollPosition,
+          behavior: "smooth",
+        });
+      }
+    } else if (decade) {
+      const decadeElement = document.getElementById(decade);
+      if (decadeElement) {
+        const desiredScrollPosition = decadeElement?.offsetTop - 200;
+        window.scrollTo({
+          top: desiredScrollPosition,
+          behavior: "smooth",
+        });
+      }
+    }
+  }, []);
+
   useEffect(() => {
     const { work } = router.query;
 

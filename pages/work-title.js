@@ -87,7 +87,7 @@ export const ListArtwork = ({ artwork }) => {
       console.log({open})
       const targetElement = document.getElementById(open);
       if (targetElement) {
-        const desiredScrollPosition = targetElement.offsetTop - 140;
+        const desiredScrollPosition = targetElement?.offsetTop - 140;
         window.scrollTo({
           top: desiredScrollPosition,
           behavior: "smooth",
@@ -96,7 +96,7 @@ export const ListArtwork = ({ artwork }) => {
     } else if (work) {
       const workElement = document.getElementById(work);
       if (workElement) {
-        const desiredScrollPosition = targetElement.offsetTop - 200; 
+        const desiredScrollPosition = targetElement?.offsetTop - 200; 
         window.scrollTo({
           top: desiredScrollPosition,
           behavior: "smooth",
@@ -106,7 +106,6 @@ export const ListArtwork = ({ artwork }) => {
   }, [router.query]);
 
   const series = artwork?.series?.data?.attributes?.slug
-
   const openPathParameter = series
 
   const linkRoute = openPathParameter
@@ -119,10 +118,10 @@ export const ListArtwork = ({ artwork }) => {
       className="list-none flex flex-col md:flex-row mt-7 ml-6 text-inherit"
     >
       <Link
-      href={linkRoute}
-      shallow
-      key={`${slug}`}
-    >
+        href={linkRoute}
+        shallow
+        key={`${slug}`}
+      >
       <a className="hover:underline">
         <span>{artwork.title}</span>, {artwork.yearStarted}
         {artwork.yearEnded && `-${artwork.yearEnded}`}
