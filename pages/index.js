@@ -5,6 +5,8 @@ import HomepageSingleImage from '../components/HomepageSingleImage';
 import { useState } from 'react';
 import washing from "../public/washing.gif";
 import hacksaw from "../public/hacksaw.gif";
+import pneu from '../public/pneu.jpg'
+import trep from '../public/trep.jpg'
 import Image from 'next/image';
 import Head from 'next/head';
 
@@ -29,10 +31,18 @@ export default function Home() {
       </Head>
       <AppHeader />
       <main>
-        <section className="h-[80vh] flex flex-col justify-center items-center">
-          <Image priority={true} src={hacksaw} height={146} width={600} />
-          <div className="pt-2">under construction</div>
-        </section>
+           <section className="flex flex-col justify-center items-center mt-10">
+            <a href="https://catrionajeffries.com/exhibitions/slow-looking-february-15-april-5-2025#10">
+            <Image priority={true} src={pneu} height={450} width={600}/>
+                        <div className="pt-2 text-center">Catriona Jeffries Slow Looking</div>
+
+            </a>
+            <a href="https://trepanierbaer.com/artist/" className='mt-12'>
+            <Image priority={true} src={trep} height={420} width={600}/>
+            <div className="pt-2 text-center">Trepanier Baer Standrds</div>
+
+            </a>
+          </section>
       </main>
       <Footer />
     </>
