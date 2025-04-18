@@ -37,7 +37,7 @@ export default function Home() {
                         <div className="pt-2 text-center font-thin text-xs">Catriona Jeffries, Slow Looking</div>
 
             </a>
-            <a href="https://trepanierbaer.com/artist/" className='mt-12'>
+            <a href="https://trepanierbaer.com/exhibition/james-carl-standrds/" className='mt-12'>
             <Image priority={true} src={trep} height={420} width={600}/>
             <div className="pt-2 text-center font-thin text-xs">Trepanier Baer, Standrds</div>
 
