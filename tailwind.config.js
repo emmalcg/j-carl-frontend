@@ -11,6 +11,9 @@ module.exports = {
         'xs': '400px',
         ...defaultTheme.screens,
       },
+      fontFamily: {
+        sans: ['Roboto Mono', ...defaultTheme.fontFamily.mono],
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],

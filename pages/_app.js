@@ -3,6 +3,7 @@ import AppHeader from '../components/AppHeader'
 import { useState, useEffect } from 'react'
 import { useRouter } from "next/router";
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client'
+import Head from 'next/head'
 
 const { API_URL } = process.env;
 const client = new ApolloClient({
@@ -42,6 +43,12 @@ export default function MyApp({ Component, pageProps, categories }) {
 
   return (
     <ApolloProvider client={client}>
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
       <div className="flex flex-col">
         <div className="m-auto px-2 sm:px-4 max-w-[1222px] w-full flex flex-col">
           {!isRFQ && <Component {...pageProps} />}

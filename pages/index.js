@@ -34,12 +34,12 @@ export default function Home() {
            <section className="flex flex-col justify-center items-center mt-10">
             <a href="https://catrionajeffries.com/exhibitions/slow-looking-february-15-april-5-2025#10">
             <Image priority={true} src={pneu} height={450} width={600}/>
-                        <div className="pt-2 text-center">Catriona Jeffries Slow Looking</div>
+                        <div className="pt-2 text-center font-thin text-xs">Catriona Jeffries, Slow Looking</div>
 
             </a>
             <a href="https://trepanierbaer.com/artist/" className='mt-12'>
             <Image priority={true} src={trep} height={420} width={600}/>
-            <div className="pt-2 text-center">Trepanier Baer Standrds</div>
+            <div className="pt-2 text-center font-thin text-xs">Trepanier Baer, Standrds</div>
 
             </a>
           </section>
