@@ -12,7 +12,7 @@ module.exports = {
         ...defaultTheme.screens,
       },
       fontFamily: {
-        sans: ['Roboto Mono', ...defaultTheme.fontFamily.mono],
+        sans: ['Oxygen Mono', ...defaultTheme.fontFamily.mono],
       },
     },
   },
