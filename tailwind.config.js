@@ -12,7 +12,7 @@ module.exports = {
         ...defaultTheme.screens,
       },
       fontFamily: {
-        sans: ['Oxygen Mono', ...defaultTheme.fontFamily.mono],
+        sans: ['Zen Maru Gothic', ...defaultTheme.fontFamily.sans],
       },
     },
   },

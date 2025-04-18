@@ -84,7 +84,7 @@ export default function AppHeader({
               <h1 className="flex justify-items-center ">
                 <Link href="/">
                   <a
-                    className={`rounded-tl-lg text-xs border border-black pl-2 py-2 pr-4 sm:pl-4 sm:pr-9 hover:underline hover:bg-gray-200 text-nowrap font-thin ${
+                    className={`rounded-tl-lg text-s border border-black pl-2 py-2 pr-4 sm:pl-4 sm:pr-9 hover:underline hover:bg-gray-200 text-nowrap font-thin ${
                       router.pathname.includes("/work") && "border-r-0"
                     }`}
                   >
